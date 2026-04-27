@@ -45,6 +45,7 @@ export interface CaseData {
   id: string;
   chapter: Chapter;
   title: string;
+  image?: string;
   brief: string;
   statements: { who: string; quote: string }[];
   evidence: Evidence[];

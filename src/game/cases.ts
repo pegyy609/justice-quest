@@ -1,4 +1,10 @@
 import { CaseData } from "./types";
+import imgS1 from "@/assets/case-s1.jpg";
+import imgS2 from "@/assets/case-s2.jpg";
+import imgS3 from "@/assets/case-s3.jpg";
+import imgC1 from "@/assets/case-c1.jpg";
+import imgC2 from "@/assets/case-c2.jpg";
+import imgC3 from "@/assets/case-c3.jpg";
 
 export const CASES: CaseData[] = [
   // ============ SCHOOL CHAPTER ============
@@ -6,6 +12,7 @@ export const CASES: CaseData[] = [
     id: "s1",
     chapter: "school",
     title: "The Missing Laptop",
+    image: imgS1,
     brief:
       "A Year 10 student, Alex, is accused of stealing a classmate's laptop from the science lab during lunch break. The laptop was later found in Alex's locker.",
     statements: [
@@ -67,6 +74,7 @@ export const CASES: CaseData[] = [
     id: "s2",
     chapter: "school",
     title: "The Cheating Allegation",
+    image: imgS2,
     brief:
       "Jamie is accused of copying answers during a math exam. The teacher noticed Jamie glancing at a neighbor's paper several times.",
     statements: [
@@ -123,6 +131,7 @@ export const CASES: CaseData[] = [
     id: "s3",
     chapter: "school",
     title: "The Bullying Report",
+    image: imgS3,
     brief:
       "A junior student reports being shoved in the hallway by an older student, Ravi. There were several bystanders.",
     statements: [
@@ -182,6 +191,7 @@ export const CASES: CaseData[] = [
     id: "c1",
     chapter: "society",
     title: "The Online Fraud Case",
+    image: imgC1,
     brief:
       "A small business owner accuses Mr. Tan of operating a fake online store that took 200+ pre-orders without delivering. Mr. Tan claims he was a victim of a supplier scam.",
     statements: [
@@ -246,6 +256,7 @@ export const CASES: CaseData[] = [
     id: "c2",
     chapter: "society",
     title: "The Public Dispute",
+    image: imgC2,
     brief:
       "Two neighbors are in a bitter dispute over a noisy renovation. One claims harassment, the other claims defamation on social media.",
     statements: [
@@ -302,6 +313,7 @@ export const CASES: CaseData[] = [
     id: "c3",
     chapter: "society",
     title: "The Negligence Dilemma",
+    image: imgC3,
     brief:
       "A construction worker fell from scaffolding and was seriously injured. The site supervisor is accused of negligence, but claims the worker ignored safety protocols.",
     statements: [
