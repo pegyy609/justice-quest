@@ -1,96 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Law Guardian — Pixel Justice design system. All colors HSL. */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Justice palette */
+    --background: 226 42% 19%;        /* deep navy */
+    --foreground: 45 65% 88%;         /* parchment */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --navy-deep: 226 45% 14%;
+    --navy: 226 42% 19%;
+    --navy-light: 226 35% 28%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --gold: 43 75% 58%;               /* warm gold */
+    --gold-bright: 45 90% 65%;
+    --gold-dark: 38 70% 42%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --parchment: 45 65% 88%;
+    --parchment-dark: 40 40% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --card: 226 45% 14%;
+    --card-foreground: 45 65% 88%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 226 45% 14%;
+    --popover-foreground: 45 65% 88%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --primary: 43 75% 58%;
+    --primary-foreground: 226 45% 14%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --secondary: 226 35% 28%;
+    --secondary-foreground: 45 65% 88%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --muted: 226 35% 28%;
+    --muted-foreground: 40 30% 70%;
 
-    --radius: 0.5rem;
+    --accent: 43 75% 58%;
+    --accent-foreground: 226 45% 14%;
 
-    --sidebar-background: 0 0% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 45 65% 88%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --border: 43 75% 58%;
+    --input: 226 35% 28%;
+    --ring: 43 75% 58%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --radius: 0;
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Pixel shadows */
+    --pixel-shadow: 4px 4px 0 0 hsl(var(--navy-deep));
+    --pixel-shadow-gold: 4px 4px 0 0 hsl(var(--gold-dark));
+    --pixel-shadow-sm: 2px 2px 0 0 hsl(var(--navy-deep));
   }
 }
 
@@ -99,7 +62,152 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html, body, #root {
+    height: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'VT323', monospace;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+  }
+
+  /* Pixel-perfect rendering for images */
+  img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+}
+
+@layer components {
+  .font-pixel {
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+  .font-retro {
+    font-family: 'VT323', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* The 2:3 game frame */
+  .game-frame {
+    aspect-ratio: 2 / 3;
+    width: min(100vw, calc(100vh * 2 / 3));
+    height: min(150vw, 100vh);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--navy));
+    box-shadow:
+      0 0 0 4px hsl(var(--gold)),
+      0 0 0 8px hsl(var(--navy-deep)),
+      0 0 60px hsl(var(--gold) / 0.25);
+  }
+
+  /* Pixel button — rectangular */
+  .pixel-btn {
+    @apply font-pixel inline-flex items-center justify-center text-center select-none;
+    background: hsl(var(--gold));
+    color: hsl(var(--navy-deep));
+    border: 4px solid hsl(var(--navy-deep));
+    box-shadow: var(--pixel-shadow);
+    transition: transform 80ms steps(2), box-shadow 80ms steps(2), background 80ms;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .pixel-btn:hover {
+    background: hsl(var(--gold-bright));
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 0 hsl(var(--navy-deep));
+  }
+  .pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 hsl(var(--navy-deep));
+  }
+  .pixel-btn-secondary {
+    background: hsl(var(--navy-light));
+    color: hsl(var(--gold));
+    border-color: hsl(var(--gold));
+    box-shadow: 4px 4px 0 0 hsl(var(--gold-dark));
+  }
+  .pixel-btn-secondary:hover {
+    background: hsl(var(--navy));
+  }
+  .pixel-btn-active {
+    background: hsl(var(--gold-bright));
+    color: hsl(var(--navy-deep));
+    box-shadow: inset 2px 2px 0 hsl(var(--gold-dark)), 2px 2px 0 hsl(var(--navy-deep));
+  }
+
+  /* Circular pixel buttons (chunky stepped circles via clip-path-like radius hack) */
+  .pixel-circle {
+    @apply font-pixel inline-flex flex-col items-center justify-center text-center select-none;
+    background: hsl(var(--gold));
+    color: hsl(var(--navy-deep));
+    border: 4px solid hsl(var(--navy-deep));
+    border-radius: 50%;
+    box-shadow: var(--pixel-shadow);
+    cursor: pointer;
+    transition: transform 80ms steps(2), box-shadow 80ms steps(2);
+    padding: 0.5rem;
+  }
+  .pixel-circle:hover {
+    background: hsl(var(--gold-bright));
+    transform: translate(-1px, -1px);
+  }
+  .pixel-circle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 hsl(var(--navy-deep));
+  }
+
+  /* Card / panel with pixel border */
+  .pixel-panel {
+    background: hsl(var(--navy-deep) / 0.85);
+    border: 4px solid hsl(var(--gold));
+    box-shadow: var(--pixel-shadow), inset 0 0 0 2px hsl(var(--navy-deep));
+    color: hsl(var(--parchment));
+  }
+
+  .pixel-title {
+    @apply font-pixel text-center;
+    color: hsl(var(--gold-bright));
+    text-shadow:
+      3px 3px 0 hsl(var(--navy-deep)),
+      6px 6px 0 hsl(var(--gold-dark) / 0.6);
+  }
+
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      hsl(var(--navy-deep) / 0.18) 3px,
+      hsl(var(--navy-deep) / 0.18) 4px
+    );
+    mix-blend-mode: multiply;
+  }
+}
+
+@layer utilities {
+  .blink {
+    animation: blink 1s steps(2) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  .float-pixel {
+    animation: float-pixel 2.4s steps(4) infinite;
+  }
+  @keyframes float-pixel {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
   }
 }
