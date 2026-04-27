@@ -201,9 +201,12 @@ const EvidenceView = ({
   onNext: () => void;
 }) => {
   const pressTimers = useRef<Record<string, number>>({});
+  const longPressFired = useRef<Record<string, boolean>>({});
 
   const startPress = (id: string) => {
+    longPressFired.current[id] = false;
     pressTimers.current[id] = window.setTimeout(() => {
+      longPressFired.current[id] = true;
       setOpenId(id);
     }, 450);
   };
@@ -212,6 +215,14 @@ const EvidenceView = ({
       clearTimeout(pressTimers.current[id]);
       delete pressTimers.current[id];
     }
+  };
+  const handleClick = (id: string) => {
+    // Suppress the toggle if a long-press just opened the modal
+    if (longPressFired.current[id]) {
+      longPressFired.current[id] = false;
+      return;
+    }
+    onToggle(id);
   };
 
   if (!data) return null;
@@ -230,13 +241,15 @@ const EvidenceView = ({
           return (
             <button
               key={e.id}
-              onClick={() => onToggle(e.id)}
+              onClick={() => handleClick(e.id)}
               onMouseDown={() => startPress(e.id)}
               onMouseUp={() => endPress(e.id)}
               onMouseLeave={() => endPress(e.id)}
               onTouchStart={() => startPress(e.id)}
               onTouchEnd={() => endPress(e.id)}
-              className={`pixel-panel text-left p-2 transition-colors ${
+              onTouchMove={() => endPress(e.id)}
+              onContextMenu={(ev) => ev.preventDefault()}
+              className={`pixel-panel text-left p-2 transition-colors select-none ${
                 picked ? "!bg-gold/20 !border-gold-bright" : ""
               }`}
             >
@@ -282,19 +295,52 @@ const EvidenceView = ({
           onClick={() => setOpenId(null)}
         >
           <div
-            className="pixel-panel p-4 max-w-[90%]"
+            className="pixel-panel p-4 max-w-[92%] w-full max-h-[85%] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="font-pixel text-gold-bright text-xs mb-2">
-              {open.label}
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <div className="font-pixel text-gold-bright text-xs">
+                {open.label}
+              </div>
+              <span
+                className={`font-pixel text-[9px] px-2 py-1 border-2 ${
+                  open.reliable
+                    ? "text-gold-bright border-gold-bright bg-gold/15"
+                    : "text-parchment-dark border-parchment-dark bg-navy-light"
+                }`}
+              >
+                {open.reliable ? "✓ RELIABLE" : "✗ UNRELIABLE"}
+              </span>
             </div>
-            <p className="font-retro text-parchment text-base leading-snug">
+
+            <div className="font-pixel text-gold text-[9px] mt-2 mb-1 uppercase tracking-wider">
+              » Summary
+            </div>
+            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
+              {open.short}
+            </p>
+
+            <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
+              » Key Facts
+            </div>
+            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.detail}
             </p>
-            <div className="mt-3 flex justify-end">
+
+            <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
+              » Reliability Notes
+            </div>
+            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
+              {open.reliable
+                ? "Direct, verifiable source. Safe to weigh heavily in your judgement."
+                : "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable."}
+            </p>
+
+            <div className="mt-4 flex justify-end">
               <button
                 onClick={() => setOpenId(null)}
                 className="pixel-btn px-3 py-1.5 text-[10px]"
+              
               >
                 Close
               </button>
