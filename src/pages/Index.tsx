@@ -1,16 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Screen } from "@/game/types";
+import HomeScreen from "@/game/HomeScreen";
+import QuestScreen from "@/game/QuestScreen";
+import SettingsScreen from "@/game/SettingsScreen";
+import StoreScreen from "@/game/StoreScreen";
+import TriumphScreen from "@/game/TriumphScreen";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [screen, setScreen] = useState<Screen>("home");
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <main className="min-h-screen bg-navy-deep">
+      <h1 className="sr-only">Law Guardian — Pixel Justice Game</h1>
+      {screen === "home" && <HomeScreen onNavigate={setScreen} />}
+      {screen === "quest" && <QuestScreen onNavigate={setScreen} />}
+      {screen === "settings" && <SettingsScreen onNavigate={setScreen} />}
+      {screen === "store" && <StoreScreen onNavigate={setScreen} />}
+      {screen === "triumph" && <TriumphScreen onNavigate={setScreen} />}
+    </main>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
