@@ -201,9 +201,12 @@ const EvidenceView = ({
   onNext: () => void;
 }) => {
   const pressTimers = useRef<Record<string, number>>({});
+  const longPressFired = useRef<Record<string, boolean>>({});
 
   const startPress = (id: string) => {
+    longPressFired.current[id] = false;
     pressTimers.current[id] = window.setTimeout(() => {
+      longPressFired.current[id] = true;
       setOpenId(id);
     }, 450);
   };
@@ -212,6 +215,14 @@ const EvidenceView = ({
       clearTimeout(pressTimers.current[id]);
       delete pressTimers.current[id];
     }
+  };
+  const handleClick = (id: string) => {
+    // Suppress the toggle if a long-press just opened the modal
+    if (longPressFired.current[id]) {
+      longPressFired.current[id] = false;
+      return;
+    }
+    onToggle(id);
   };
 
   if (!data) return null;
@@ -230,13 +241,15 @@ const EvidenceView = ({
           return (
             <button
               key={e.id}
-              onClick={() => onToggle(e.id)}
+              onClick={() => handleClick(e.id)}
               onMouseDown={() => startPress(e.id)}
               onMouseUp={() => endPress(e.id)}
               onMouseLeave={() => endPress(e.id)}
               onTouchStart={() => startPress(e.id)}
               onTouchEnd={() => endPress(e.id)}
-              className={`pixel-panel text-left p-2 transition-colors ${
+              onTouchMove={() => endPress(e.id)}
+              onContextMenu={(ev) => ev.preventDefault()}
+              className={`pixel-panel text-left p-2 transition-colors select-none ${
                 picked ? "!bg-gold/20 !border-gold-bright" : ""
               }`}
             >
