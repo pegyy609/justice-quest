@@ -155,6 +155,16 @@ const BriefView = ({
   return (
     <div className="flex flex-col h-full gap-3 overflow-y-auto">
       <SectionLabel>Case Brief</SectionLabel>
+      {data.image && (
+        <div className="pixel-panel p-1 overflow-hidden">
+          <img
+            src={data.image}
+            alt={`Scene depicting: ${data.title}`}
+            loading="lazy"
+            className="w-full h-[28%] max-h-[180px] min-h-[110px] object-cover [image-rendering:pixelated]"
+          />
+        </div>
+      )}
       <div className="pixel-panel p-3">
         <p className="font-retro text-parchment text-[clamp(0.95rem,2.6vw,1.15rem)] leading-snug">
           {data.brief}
