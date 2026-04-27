@@ -17,7 +17,7 @@ const GameFrame = ({ children, background }: GameFrameProps) => {
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-navy-deep/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy-deep/55 to-navy-deep/85" />
         <div className="relative z-10 w-full h-full flex flex-col">
           {children}
         </div>
