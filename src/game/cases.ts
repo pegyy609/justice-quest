@@ -74,6 +74,7 @@ export const CASES: CaseData[] = [
     id: "s2",
     chapter: "school",
     title: "The Cheating Allegation",
+    image: imgS2,
     brief:
       "Jamie is accused of copying answers during a math exam. The teacher noticed Jamie glancing at a neighbor's paper several times.",
     statements: [
@@ -130,6 +131,7 @@ export const CASES: CaseData[] = [
     id: "s3",
     chapter: "school",
     title: "The Bullying Report",
+    image: imgS3,
     brief:
       "A junior student reports being shoved in the hallway by an older student, Ravi. There were several bystanders.",
     statements: [
@@ -189,6 +191,7 @@ export const CASES: CaseData[] = [
     id: "c1",
     chapter: "society",
     title: "The Online Fraud Case",
+    image: imgC1,
     brief:
       "A small business owner accuses Mr. Tan of operating a fake online store that took 200+ pre-orders without delivering. Mr. Tan claims he was a victim of a supplier scam.",
     statements: [
@@ -253,6 +256,7 @@ export const CASES: CaseData[] = [
     id: "c2",
     chapter: "society",
     title: "The Public Dispute",
+    image: imgC2,
     brief:
       "Two neighbors are in a bitter dispute over a noisy renovation. One claims harassment, the other claims defamation on social media.",
     statements: [
@@ -309,6 +313,7 @@ export const CASES: CaseData[] = [
     id: "c3",
     chapter: "society",
     title: "The Negligence Dilemma",
+    image: imgC3,
     brief:
       "A construction worker fell from scaffolding and was seriously injured. The site supervisor is accused of negligence, but claims the worker ignored safety protocols.",
     statements: [
