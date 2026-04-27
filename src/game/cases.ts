@@ -1,4 +1,10 @@
 import { CaseData } from "./types";
+import imgS1 from "@/assets/case-s1.jpg";
+import imgS2 from "@/assets/case-s2.jpg";
+import imgS3 from "@/assets/case-s3.jpg";
+import imgC1 from "@/assets/case-c1.jpg";
+import imgC2 from "@/assets/case-c2.jpg";
+import imgC3 from "@/assets/case-c3.jpg";
 
 export const CASES: CaseData[] = [
   // ============ SCHOOL CHAPTER ============
@@ -6,6 +12,7 @@ export const CASES: CaseData[] = [
     id: "s1",
     chapter: "school",
     title: "The Missing Laptop",
+    image: imgS1,
     brief:
       "A Year 10 student, Alex, is accused of stealing a classmate's laptop from the science lab during lunch break. The laptop was later found in Alex's locker.",
     statements: [
