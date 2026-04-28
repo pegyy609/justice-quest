@@ -471,7 +471,7 @@ const VerdictView = ({
                   className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-2 normal-case`}
                 >
                   <span className="font-pixel text-[clamp(0.6rem,1.9vw,0.8rem)]">
-                    {p.label}
+                    {t(p.label)}
                   </span>
                 </button>
               );
