@@ -34,9 +34,9 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
     return (
       <GameFrame background={courthouseBg}>
         <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 text-center">
-          <p className="pixel-title text-lg">Case not found</p>
+          <p className="pixel-title text-lg">{t("case.notFound")}</p>
           <button className="pixel-btn px-4 py-2 text-xs" onClick={() => onNavigate("quest")}>
-            Back
+            {t("case.back")}
           </button>
         </div>
       </GameFrame>
