@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useMemo, useState, ReactNode } fr
 export type Theme = "light" | "dark";
 export type Lang = "zh" | "ms" | "en";
 
+// Imported lazily-bound below to avoid circular import at module init
+import { CASE_DICT } from "./caseTranslations";
+
 interface SettingsState {
   theme: Theme;
   volume: number;
