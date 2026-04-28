@@ -509,6 +509,7 @@ const FeedbackView = ({
   onRetry: () => void;
   onDone: () => void;
 }) => {
+  const { t } = useSettings();
   if (!data) return null;
 
   // Score reliable evidence selection
