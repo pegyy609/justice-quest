@@ -181,6 +181,23 @@
       6px 6px 0 hsl(var(--gold-dark) / 0.6);
   }
 
+  /* Global brightness overlay applied via <html class="theme-light|theme-dark"> */
+  .brightness-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: background-color 200ms ease, mix-blend-mode 0ms;
+  }
+  html.theme-dark .brightness-overlay {
+    background-color: hsl(var(--navy-deep) / 0.35);
+    mix-blend-mode: multiply;
+  }
+  html.theme-light .brightness-overlay {
+    background-color: hsl(45 90% 90% / 0.18);
+    mix-blend-mode: screen;
+  }
+
   .scanlines::after {
     content: "";
     position: absolute;

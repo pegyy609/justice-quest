@@ -5,6 +5,7 @@ import courthouseBg from "@/assets/courthouse-bg.jpg";
 import schoolBg from "@/assets/school-bg.jpg";
 import societyBg from "@/assets/society-bg.jpg";
 import GameFrame from "@/components/GameFrame";
+import { useSettings } from "@/game/SettingsContext";
 
 interface Props {
   caseId: string;
@@ -151,10 +152,11 @@ const BriefView = ({
   data: ReturnType<typeof getCaseById>;
   onNext: () => void;
 }) => {
+  const { t } = useSettings();
   if (!data) return null;
   return (
     <div className="flex flex-col h-full gap-3 overflow-y-auto">
-      <SectionLabel>Case Brief</SectionLabel>
+      <SectionLabel>{t("case.brief")}</SectionLabel>
       {data.image && (
         <div className="pixel-panel p-1 overflow-hidden">
           <img
@@ -171,7 +173,7 @@ const BriefView = ({
         </p>
       </div>
 
-      <SectionLabel>Statements</SectionLabel>
+      <SectionLabel>{t("case.statements")}</SectionLabel>
       <div className="flex flex-col gap-2">
         {data.statements.map((s, i) => (
           <div key={i} className="pixel-panel p-2">
@@ -187,7 +189,7 @@ const BriefView = ({
 
       <div className="mt-auto pt-3 flex justify-end">
         <button onClick={onNext} className="pixel-btn px-5 py-2 text-xs">
-          Next ▶
+          {t("common.next")}
         </button>
       </div>
     </div>
@@ -210,6 +212,7 @@ const EvidenceView = ({
   setOpenId: (id: string | null) => void;
   onNext: () => void;
 }) => {
+  const { t } = useSettings();
   const pressTimers = useRef<Record<string, number>>({});
   const longPressFired = useRef<Record<string, boolean>>({});
 
@@ -240,9 +243,9 @@ const EvidenceView = ({
 
   return (
     <div className="flex flex-col h-full gap-2 overflow-y-auto relative">
-      <SectionLabel>Evidence Analysis</SectionLabel>
+      <SectionLabel>{t("case.evidence")}</SectionLabel>
       <p className="font-retro text-parchment-dark text-[clamp(0.85rem,2.2vw,1rem)] leading-tight">
-        Tap to mark as <span className="text-gold-bright">reliable</span>. Long-press for details.
+        {t("case.evidenceHint")}
       </p>
 
       <div className="flex flex-col gap-2 mt-1">
@@ -287,14 +290,14 @@ const EvidenceView = ({
 
       <div className="mt-auto pt-3 flex justify-between items-center gap-2">
         <span className="font-retro text-parchment-dark text-sm">
-          {selected.length} marked reliable
+          {selected.length} {t("case.markedReliable")}
         </span>
         <button
           onClick={onNext}
           disabled={selected.length === 0}
           className="pixel-btn px-5 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Next ▶
+          {t("common.next")}
         </button>
       </div>
 
@@ -319,26 +322,26 @@ const EvidenceView = ({
                     : "text-parchment-dark border-parchment-dark bg-navy-light"
                 }`}
               >
-                {open.reliable ? "✓ RELIABLE" : "✗ UNRELIABLE"}
+                {open.reliable ? t("case.reliable") : t("case.unreliable")}
               </span>
             </div>
 
             <div className="font-pixel text-gold text-[9px] mt-2 mb-1 uppercase tracking-wider">
-              » Summary
+              {t("case.summary")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.short}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
-              » Key Facts
+              {t("case.keyFacts")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.detail}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
-              » Reliability Notes
+              {t("case.notes")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.reliable
@@ -352,7 +355,7 @@ const EvidenceView = ({
                 className="pixel-btn px-3 py-1.5 text-[10px]"
               
               >
-                Close
+                {t("common.close")}
               </button>
             </div>
           </div>
@@ -374,12 +377,13 @@ const ReasoningView = ({
   setChoice: (id: string) => void;
   onNext: () => void;
 }) => {
+  const { t } = useSettings();
   if (!data) return null;
   return (
     <div className="flex flex-col h-full gap-3 overflow-y-auto">
-      <SectionLabel>Legal Reasoning</SectionLabel>
+      <SectionLabel>{t("case.reasoning")}</SectionLabel>
       <p className="font-retro text-parchment-dark text-[clamp(0.85rem,2.2vw,1rem)] leading-tight">
-        Choose the legal category that best fits the evidence.
+        {t("case.reasoningHint")}
       </p>
 
       <div className="flex flex-col gap-2 mt-1">
@@ -405,7 +409,7 @@ const ReasoningView = ({
           disabled={!choice}
           className="pixel-btn px-5 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Next ▶
+          {t("common.next")}
         </button>
       </div>
     </div>
@@ -428,10 +432,11 @@ const VerdictView = ({
   setPunishment: (id: string) => void;
   onNext: () => void;
 }) => {
+  const { t } = useSettings();
   if (!data) return null;
   return (
     <div className="flex flex-col h-full gap-3 overflow-y-auto">
-      <SectionLabel>Final Judgement</SectionLabel>
+      <SectionLabel>{t("case.verdict")}</SectionLabel>
 
       <div className="grid grid-cols-2 gap-2">
         <button
@@ -440,7 +445,7 @@ const VerdictView = ({
             verdict === "guilty" ? "pixel-btn-active" : ""
           }`}
         >
-          Guilty
+          {t("case.guilty")}
         </button>
         <button
           onClick={() => setVerdict("not_guilty")}
@@ -448,13 +453,13 @@ const VerdictView = ({
             verdict === "not_guilty" ? "pixel-btn-active" : "pixel-btn-secondary"
           }`}
         >
-          Not Guilty
+          {t("case.notGuilty")}
         </button>
       </div>
 
       {verdict === "guilty" && (
         <>
-          <SectionLabel>Punishment</SectionLabel>
+          <SectionLabel>{t("case.punishment")}</SectionLabel>
           <div className="flex flex-col gap-2">
             {data.punishments.map((p) => {
               const active = punishment === p.id;
@@ -480,7 +485,7 @@ const VerdictView = ({
           disabled={!verdict || (verdict === "guilty" && !punishment)}
           className="pixel-btn px-5 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Deliver Verdict ⚖
+          {t("case.deliver")}
         </button>
       </div>
     </div>

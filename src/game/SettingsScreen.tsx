@@ -1,19 +1,14 @@
-import { useState } from "react";
 import { Screen } from "@/game/types";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
 import GameFrame from "@/components/GameFrame";
+import { useSettings, Lang } from "@/game/SettingsContext";
 
 interface Props {
   onNavigate: (s: Screen) => void;
 }
 
-type Theme = "light" | "dark";
-type Lang = "zh" | "ms" | "en";
-
 const SettingsScreen = ({ onNavigate }: Props) => {
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [volume, setVolume] = useState(60);
-  const [lang, setLang] = useState<Lang>("en");
+  const { theme, setTheme, volume, setVolume, lang, setLang, t } = useSettings();
 
   return (
     <GameFrame background={courthouseBg}>
@@ -27,7 +22,7 @@ const SettingsScreen = ({ onNavigate }: Props) => {
           ◀
         </button>
         <h2 className="pixel-title flex-1 text-[clamp(1rem,3.6vw,1.6rem)] pr-12">
-          Settings
+          {t("settings.title")}
         </h2>
       </div>
 
@@ -35,7 +30,7 @@ const SettingsScreen = ({ onNavigate }: Props) => {
       <div className="flex-1 flex flex-col gap-[3%] px-[5%] pt-[4%] overflow-y-auto">
         {/* Brightness */}
         <Row>
-          <LabelBtn>Brightness</LabelBtn>
+          <LabelBtn>{t("settings.brightness")}</LabelBtn>
           <SquareToggle active={theme === "light"} onClick={() => setTheme("light")} aria="Light">
             ☀
           </SquareToggle>
@@ -46,21 +41,21 @@ const SettingsScreen = ({ onNavigate }: Props) => {
 
         {/* Sound */}
         <Row>
-          <LabelBtn>Sound</LabelBtn>
-          <SquareToggle onClick={() => setVolume((v) => Math.max(0, v - 10))} aria="Decrease">
+          <LabelBtn>{t("settings.sound")}</LabelBtn>
+          <SquareToggle onClick={() => setVolume((v) => v - 10)} aria="Decrease">
             −
           </SquareToggle>
           <div className="pixel-btn pixel-btn-secondary flex-1 h-12 text-xs sm:text-sm cursor-default">
             {volume}%
           </div>
-          <SquareToggle onClick={() => setVolume((v) => Math.min(100, v + 10))} aria="Increase">
+          <SquareToggle onClick={() => setVolume((v) => v + 10)} aria="Increase">
             +
           </SquareToggle>
         </Row>
 
         {/* Language */}
         <Row>
-          <LabelBtn>Language</LabelBtn>
+          <LabelBtn>{t("settings.language")}</LabelBtn>
         </Row>
         <Row>
           <LangBtn active={lang === "zh"} onClick={() => setLang("zh")}>华文</LangBtn>
@@ -74,10 +69,10 @@ const SettingsScreen = ({ onNavigate }: Props) => {
       {/* Bottom row */}
       <div className="pb-[6%] px-[5%] flex gap-3">
         <button className="pixel-btn pixel-btn-secondary flex-1 h-12 text-[clamp(0.55rem,1.8vw,0.75rem)]">
-          Terms of Policy
+          {t("settings.terms")}
         </button>
         <button className="pixel-btn flex-1 h-12 text-[clamp(0.55rem,1.8vw,0.75rem)]">
-          Feedback
+          {t("settings.feedback")}
         </button>
       </div>
     </GameFrame>
@@ -133,4 +128,6 @@ const LangBtn = ({
   </button>
 );
 
+// satisfy unused-import lint by re-exporting type usage
+export type { Lang };
 export default SettingsScreen;
