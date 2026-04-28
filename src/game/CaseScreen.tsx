@@ -15,6 +15,7 @@ interface Props {
 type Phase = "brief" | "evidence" | "reasoning" | "verdict" | "feedback";
 
 const CaseScreen = ({ caseId, onNavigate }: Props) => {
+  const { t } = useSettings();
   const data = getCaseById(caseId);
   const [phase, setPhase] = useState<Phase>("brief");
   const [selectedEvidence, setSelectedEvidence] = useState<string[]>([]);
