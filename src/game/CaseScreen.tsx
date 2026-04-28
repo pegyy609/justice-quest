@@ -314,7 +314,7 @@ const EvidenceView = ({
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div className="font-pixel text-gold-bright text-xs">
-                {open.label}
+                {t(open.label)}
               </div>
               <span
                 className={`font-pixel text-[9px] px-2 py-1 border-2 ${
@@ -331,14 +331,14 @@ const EvidenceView = ({
               {t("case.summary")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-              {open.short}
+              {t(open.short)}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
               {t("case.keyFacts")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-              {open.detail}
+              {t(open.detail)}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
@@ -346,8 +346,8 @@ const EvidenceView = ({
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.reliable
-                ? "Direct, verifiable source. Safe to weigh heavily in your judgement."
-                : "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable."}
+                ? t("case.reliable.note")
+                : t("case.unreliable.note")}
             </p>
 
             <div className="mt-4 flex justify-end">
