@@ -15,6 +15,7 @@ interface Props {
 type Phase = "brief" | "evidence" | "reasoning" | "verdict" | "feedback";
 
 const CaseScreen = ({ caseId, onNavigate }: Props) => {
+  const { t } = useSettings();
   const data = getCaseById(caseId);
   const [phase, setPhase] = useState<Phase>("brief");
   const [selectedEvidence, setSelectedEvidence] = useState<string[]>([]);
@@ -33,9 +34,9 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
     return (
       <GameFrame background={courthouseBg}>
         <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 text-center">
-          <p className="pixel-title text-lg">Case not found</p>
+          <p className="pixel-title text-lg">{t("case.notFound")}</p>
           <button className="pixel-btn px-4 py-2 text-xs" onClick={() => onNavigate("quest")}>
-            Back
+            {t("case.back")}
           </button>
         </div>
       </GameFrame>
@@ -62,7 +63,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
         </button>
         <div className="flex-1 pixel-panel px-2 py-1 text-center">
           <div className="font-pixel text-gold-bright text-[clamp(0.55rem,1.8vw,0.75rem)] truncate">
-            {data.title}
+            {t(data.title)}
           </div>
           <PhaseProgress phase={phase} />
         </div>
@@ -161,7 +162,7 @@ const BriefView = ({
         <div className="pixel-panel p-1 overflow-hidden">
           <img
             src={data.image}
-            alt={`Scene depicting: ${data.title}`}
+            alt={`Scene depicting: ${t(data.title)}`}
             loading="lazy"
             className="w-full h-[28%] max-h-[180px] min-h-[110px] object-cover [image-rendering:pixelated]"
           />
@@ -169,7 +170,7 @@ const BriefView = ({
       )}
       <div className="pixel-panel p-3">
         <p className="font-retro text-parchment text-[clamp(0.95rem,2.6vw,1.15rem)] leading-snug">
-          {data.brief}
+          {t(data.brief)}
         </p>
       </div>
 
@@ -178,10 +179,10 @@ const BriefView = ({
         {data.statements.map((s, i) => (
           <div key={i} className="pixel-panel p-2">
             <div className="font-pixel text-gold text-[10px] mb-1">
-              {s.who}
+              {t(s.who)}
             </div>
             <div className="font-retro text-parchment text-[clamp(0.9rem,2.4vw,1.1rem)] leading-snug">
-              "{s.quote}"
+              "{t(s.quote)}"
             </div>
           </div>
         ))}
@@ -276,10 +277,10 @@ const EvidenceView = ({
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="font-pixel text-gold text-[10px] truncate">
-                    {e.label}
+                    {t(e.label)}
                   </div>
                   <div className="font-retro text-parchment text-[clamp(0.85rem,2.2vw,1.05rem)] leading-tight">
-                    {e.short}
+                    {t(e.short)}
                   </div>
                 </div>
               </div>
@@ -313,7 +314,7 @@ const EvidenceView = ({
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div className="font-pixel text-gold-bright text-xs">
-                {open.label}
+                {t(open.label)}
               </div>
               <span
                 className={`font-pixel text-[9px] px-2 py-1 border-2 ${
@@ -330,14 +331,14 @@ const EvidenceView = ({
               {t("case.summary")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-              {open.short}
+              {t(open.short)}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
               {t("case.keyFacts")}
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-              {open.detail}
+              {t(open.detail)}
             </p>
 
             <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
@@ -345,8 +346,8 @@ const EvidenceView = ({
             </div>
             <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
               {open.reliable
-                ? "Direct, verifiable source. Safe to weigh heavily in your judgement."
-                : "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable."}
+                ? t("case.reliable.note")
+                : t("case.unreliable.note")}
             </p>
 
             <div className="mt-4 flex justify-end">
@@ -396,7 +397,7 @@ const ReasoningView = ({
               className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case`}
             >
               <span className="font-pixel text-[clamp(0.65rem,2vw,0.85rem)]">
-                {o.label}
+                {t(o.label)}
               </span>
             </button>
           );
@@ -470,7 +471,7 @@ const VerdictView = ({
                   className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-2 normal-case`}
                 >
                   <span className="font-pixel text-[clamp(0.6rem,1.9vw,0.8rem)]">
-                    {p.label}
+                    {t(p.label)}
                   </span>
                 </button>
               );
@@ -508,6 +509,7 @@ const FeedbackView = ({
   onRetry: () => void;
   onDone: () => void;
 }) => {
+  const { t } = useSettings();
   if (!data) return null;
 
   // Score reliable evidence selection
@@ -555,25 +557,23 @@ const FeedbackView = ({
 
   return (
     <div className="flex flex-col h-full gap-2 overflow-y-auto">
-      <SectionLabel>Court Evaluation</SectionLabel>
+      <SectionLabel>{t("case.eval")}</SectionLabel>
 
       <div className="pixel-panel p-3">
         <div className="font-pixel text-gold-bright text-xs mb-1">
-          {meetsStandard ? "⚖ Sound Judgement" : "⚠ Reconsider Reasoning"}
+          {meetsStandard ? t("case.sound") : t("case.reconsider")}
         </div>
         <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-          {meetsStandard
-            ? `Your verdict meets the standard of proof. ${data.standardOfProof}`
-            : `Your verdict does not fully meet the standard of proof. ${data.standardOfProof}`}
+          {meetsStandard ? t("case.standardMet") : t("case.standardNotMet")} {t(data.standardOfProof)}
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <ScoreCell label="Evidence" value={evidenceScore} />
-        <ScoreCell label="Legal Fit" value={legalCorrect ? 100 : 30} />
-        <ScoreCell label="Verdict" value={verdictCorrect ? 100 : 0} />
+        <ScoreCell label={t("case.score.evidence")} value={evidenceScore} />
+        <ScoreCell label={t("case.score.legal")} value={legalCorrect ? 100 : 30} />
+        <ScoreCell label={t("case.score.verdict")} value={verdictCorrect ? 100 : 0} />
         <ScoreCell
-          label="Punishment"
+          label={t("case.score.punishment")}
           value={
             result.verdict === "not_guilty"
               ? verdictCorrect
@@ -586,13 +586,13 @@ const FeedbackView = ({
         />
       </div>
 
-      <SectionLabel>Impact on Society</SectionLabel>
+      <SectionLabel>{t("case.impact")}</SectionLabel>
       <div className="pixel-panel p-3 flex flex-col gap-2">
-        <Bar label="Justice" value={justice} />
-        <Bar label="Public Trust" value={publicTrust} />
-        <Bar label="Fairness" value={fairness} />
+        <Bar label={t("case.impact.justice")} value={justice} />
+        <Bar label={t("case.impact.trust")} value={publicTrust} />
+        <Bar label={t("case.impact.fairness")} value={fairness} />
         <div className="border-t-2 border-gold/40 mt-1 pt-2 flex justify-between items-center">
-          <span className="font-pixel text-gold text-[10px]">Overall</span>
+          <span className="font-pixel text-gold text-[10px]">{t("case.impact.overall")}</span>
           <span className="font-pixel text-gold-bright text-base">{overall}</span>
         </div>
       </div>
@@ -601,22 +601,22 @@ const FeedbackView = ({
         onClick={() => setShowRealWorld(!showRealWorld)}
         className="pixel-btn pixel-btn-secondary px-3 py-1.5 text-[10px] self-start"
       >
-        {showRealWorld ? "Hide" : "Compare"} real-world ▾
+        {showRealWorld ? t("case.realWorld.hide") : t("case.realWorld.show")}
       </button>
       {showRealWorld && (
         <div className="pixel-panel p-3">
           <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-            {data.realWorldNote}
+            {t(data.realWorldNote)}
           </p>
         </div>
       )}
 
       <div className="mt-auto pt-3 grid grid-cols-2 gap-2">
         <button onClick={onRetry} className="pixel-btn pixel-btn-secondary py-2 text-[10px]">
-          ↻ Retry
+          {t("case.retry")}
         </button>
         <button onClick={onDone} className="pixel-btn py-2 text-[10px]">
-          Continue ▶
+          {t("case.continue")}
         </button>
       </div>
     </div>

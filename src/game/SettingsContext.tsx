@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useMemo, useState, ReactNode } fr
 export type Theme = "light" | "dark";
 export type Lang = "zh" | "ms" | "en";
 
+// Imported lazily-bound below to avoid circular import at module init
+import { CASE_DICT } from "./caseTranslations";
+
 interface SettingsState {
   theme: Theme;
   volume: number;
@@ -249,7 +252,8 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   }, [volume]);
 
   const t = useMemo(() => {
-    return (key: string) => DICT[lang][key] ?? DICT.en[key] ?? key;
+    return (key: string) =>
+      DICT[lang][key] ?? CASE_DICT[lang][key] ?? DICT.en[key] ?? CASE_DICT.en[key] ?? key;
   }, [lang]);
 
   const value: SettingsState = {
