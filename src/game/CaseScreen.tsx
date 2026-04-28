@@ -397,7 +397,7 @@ const ReasoningView = ({
               className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case`}
             >
               <span className="font-pixel text-[clamp(0.65rem,2vw,0.85rem)]">
-                {o.label}
+                {t(o.label)}
               </span>
             </button>
           );
