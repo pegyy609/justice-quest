@@ -252,7 +252,8 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   }, [volume]);
 
   const t = useMemo(() => {
-    return (key: string) => DICT[lang][key] ?? DICT.en[key] ?? key;
+    return (key: string) =>
+      DICT[lang][key] ?? CASE_DICT[lang][key] ?? DICT.en[key] ?? CASE_DICT.en[key] ?? key;
   }, [lang]);
 
   const value: SettingsState = {
