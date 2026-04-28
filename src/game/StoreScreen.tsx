@@ -2,6 +2,7 @@ import { Screen } from "@/game/types";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
 import GameFrame from "@/components/GameFrame";
 import { toast } from "sonner";
+import { useSettings } from "@/game/SettingsContext";
 
 interface Props {
   onNavigate: (s: Screen) => void;
@@ -17,6 +18,7 @@ const ITEMS = [
 ];
 
 const StoreScreen = ({ onNavigate }: Props) => {
+  const { t } = useSettings();
   return (
     <GameFrame background={courthouseBg}>
       <div className="pt-[4%] px-[5%] flex items-center">
@@ -28,12 +30,12 @@ const StoreScreen = ({ onNavigate }: Props) => {
           ◀
         </button>
         <h2 className="pixel-title flex-1 text-[clamp(1rem,3.6vw,1.6rem)] pr-12">
-          Store
+          {t("store.title")}
         </h2>
       </div>
 
       <div className="px-[5%] mt-3 flex items-center justify-between pixel-panel py-2 px-3">
-        <span className="font-retro text-parchment text-base">Coins</span>
+        <span className="font-retro text-parchment text-base">{t("store.coins")}</span>
         <span className="font-pixel text-gold-bright text-[clamp(0.7rem,2.4vw,1rem)]">
           ⛁ 1,250
         </span>

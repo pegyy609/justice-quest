@@ -5,6 +5,7 @@ import schoolBg from "@/assets/school-bg.jpg";
 import societyBg from "@/assets/society-bg.jpg";
 import GameFrame from "@/components/GameFrame";
 import { getCasesByChapter } from "@/game/cases";
+import { useSettings } from "@/game/SettingsContext";
 
 interface Props {
   onNavigate: (s: Screen) => void;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const QuestScreen = ({ onNavigate, onSelectCase }: Props) => {
+  const { t } = useSettings();
   const [chapter, setChapter] = useState<Chapter | null>(null);
 
   if (!chapter) {
@@ -26,29 +28,29 @@ const QuestScreen = ({ onNavigate, onSelectCase }: Props) => {
             ◀
           </button>
           <h2 className="pixel-title flex-1 text-[clamp(1rem,3.6vw,1.6rem)] pr-12">
-            Choose Your Chapter
+            {t("quest.choose")}
           </h2>
         </div>
 
         <div className="flex-1 flex flex-col justify-center gap-[5%] px-[8%]">
           <ChapterCard
-            title="School Chapter"
-            subtitle="Theft · Cheating · Bullying"
-            level="Level 1 · Foundations"
+            title={t("quest.school")}
+            subtitle={t("quest.school.sub")}
+            level={t("quest.school.lvl")}
             bg={schoolBg}
             onClick={() => setChapter("school")}
           />
           <ChapterCard
-            title="Society Chapter"
-            subtitle="Fraud · Disputes · Negligence"
-            level="Level 2 · Real World"
+            title={t("quest.society")}
+            subtitle={t("quest.society.sub")}
+            level={t("quest.society.lvl")}
             bg={societyBg}
             onClick={() => setChapter("society")}
           />
         </div>
 
         <div className="pb-[6%] text-center font-retro text-parchment-dark text-base">
-          ✦ progress from school to society ✦
+          {t("quest.progress")}
         </div>
       </GameFrame>
     );
@@ -68,7 +70,7 @@ const QuestScreen = ({ onNavigate, onSelectCase }: Props) => {
           ◀
         </button>
         <h2 className="pixel-title flex-1 text-[clamp(0.9rem,3.4vw,1.4rem)] pr-12">
-          {chapter === "school" ? "School Cases" : "Society Cases"}
+          {chapter === "school" ? t("quest.schoolCases") : t("quest.societyCases")}
         </h2>
       </div>
 
@@ -98,7 +100,7 @@ const QuestScreen = ({ onNavigate, onSelectCase }: Props) => {
       </div>
 
       <div className="pb-[5%] text-center font-retro text-parchment-dark text-base">
-        ✦ tap a case to begin judgement ✦
+        {t("quest.tap")}
       </div>
     </GameFrame>
   );

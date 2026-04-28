@@ -1,6 +1,7 @@
 import { Screen } from "@/game/types";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
 import GameFrame from "@/components/GameFrame";
+import { useSettings } from "@/game/SettingsContext";
 
 interface Props {
   onNavigate: (s: Screen) => void;
@@ -15,6 +16,7 @@ const TROPHIES = [
 ];
 
 const TriumphScreen = ({ onNavigate }: Props) => {
+  const { t } = useSettings();
   return (
     <GameFrame background={courthouseBg}>
       <div className="pt-[4%] px-[5%] flex items-center">
@@ -26,7 +28,7 @@ const TriumphScreen = ({ onNavigate }: Props) => {
           ◀
         </button>
         <h2 className="pixel-title flex-1 text-[clamp(1rem,3.6vw,1.6rem)] pr-12">
-          Triumph
+          {t("triumph.title")}
         </h2>
       </div>
 
