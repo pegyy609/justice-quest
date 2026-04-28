@@ -277,10 +277,10 @@ const EvidenceView = ({
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="font-pixel text-gold text-[10px] truncate">
-                    {e.label}
+                    {t(e.label)}
                   </div>
                   <div className="font-retro text-parchment text-[clamp(0.85rem,2.2vw,1.05rem)] leading-tight">
-                    {e.short}
+                    {t(e.short)}
                   </div>
                 </div>
               </div>
