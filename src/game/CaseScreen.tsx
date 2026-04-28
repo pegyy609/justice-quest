@@ -557,25 +557,23 @@ const FeedbackView = ({
 
   return (
     <div className="flex flex-col h-full gap-2 overflow-y-auto">
-      <SectionLabel>Court Evaluation</SectionLabel>
+      <SectionLabel>{t("case.eval")}</SectionLabel>
 
       <div className="pixel-panel p-3">
         <div className="font-pixel text-gold-bright text-xs mb-1">
-          {meetsStandard ? "⚖ Sound Judgement" : "⚠ Reconsider Reasoning"}
+          {meetsStandard ? t("case.sound") : t("case.reconsider")}
         </div>
         <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-          {meetsStandard
-            ? `Your verdict meets the standard of proof. ${data.standardOfProof}`
-            : `Your verdict does not fully meet the standard of proof. ${data.standardOfProof}`}
+          {meetsStandard ? t("case.standardMet") : t("case.standardNotMet")} {t(data.standardOfProof)}
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <ScoreCell label="Evidence" value={evidenceScore} />
-        <ScoreCell label="Legal Fit" value={legalCorrect ? 100 : 30} />
-        <ScoreCell label="Verdict" value={verdictCorrect ? 100 : 0} />
+        <ScoreCell label={t("case.score.evidence")} value={evidenceScore} />
+        <ScoreCell label={t("case.score.legal")} value={legalCorrect ? 100 : 30} />
+        <ScoreCell label={t("case.score.verdict")} value={verdictCorrect ? 100 : 0} />
         <ScoreCell
-          label="Punishment"
+          label={t("case.score.punishment")}
           value={
             result.verdict === "not_guilty"
               ? verdictCorrect
@@ -588,13 +586,13 @@ const FeedbackView = ({
         />
       </div>
 
-      <SectionLabel>Impact on Society</SectionLabel>
+      <SectionLabel>{t("case.impact")}</SectionLabel>
       <div className="pixel-panel p-3 flex flex-col gap-2">
-        <Bar label="Justice" value={justice} />
-        <Bar label="Public Trust" value={publicTrust} />
-        <Bar label="Fairness" value={fairness} />
+        <Bar label={t("case.impact.justice")} value={justice} />
+        <Bar label={t("case.impact.trust")} value={publicTrust} />
+        <Bar label={t("case.impact.fairness")} value={fairness} />
         <div className="border-t-2 border-gold/40 mt-1 pt-2 flex justify-between items-center">
-          <span className="font-pixel text-gold text-[10px]">Overall</span>
+          <span className="font-pixel text-gold text-[10px]">{t("case.impact.overall")}</span>
           <span className="font-pixel text-gold-bright text-base">{overall}</span>
         </div>
       </div>
@@ -603,22 +601,22 @@ const FeedbackView = ({
         onClick={() => setShowRealWorld(!showRealWorld)}
         className="pixel-btn pixel-btn-secondary px-3 py-1.5 text-[10px] self-start"
       >
-        {showRealWorld ? "Hide" : "Compare"} real-world ▾
+        {showRealWorld ? t("case.realWorld.hide") : t("case.realWorld.show")}
       </button>
       {showRealWorld && (
         <div className="pixel-panel p-3">
           <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-            {data.realWorldNote}
+            {t(data.realWorldNote)}
           </p>
         </div>
       )}
 
       <div className="mt-auto pt-3 grid grid-cols-2 gap-2">
         <button onClick={onRetry} className="pixel-btn pixel-btn-secondary py-2 text-[10px]">
-          ↻ Retry
+          {t("case.retry")}
         </button>
         <button onClick={onDone} className="pixel-btn py-2 text-[10px]">
-          Continue ▶
+          {t("case.continue")}
         </button>
       </div>
     </div>
