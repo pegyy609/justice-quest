@@ -162,7 +162,7 @@ const BriefView = ({
         <div className="pixel-panel p-1 overflow-hidden">
           <img
             src={data.image}
-            alt={`Scene depicting: ${data.title}`}
+            alt={`Scene depicting: ${t(data.title)}`}
             loading="lazy"
             className="w-full h-[28%] max-h-[180px] min-h-[110px] object-cover [image-rendering:pixelated]"
           />
@@ -170,7 +170,7 @@ const BriefView = ({
       )}
       <div className="pixel-panel p-3">
         <p className="font-retro text-parchment text-[clamp(0.95rem,2.6vw,1.15rem)] leading-snug">
-          {data.brief}
+          {t(data.brief)}
         </p>
       </div>
 
@@ -179,10 +179,10 @@ const BriefView = ({
         {data.statements.map((s, i) => (
           <div key={i} className="pixel-panel p-2">
             <div className="font-pixel text-gold text-[10px] mb-1">
-              {s.who}
+              {t(s.who)}
             </div>
             <div className="font-retro text-parchment text-[clamp(0.9rem,2.4vw,1.1rem)] leading-snug">
-              "{s.quote}"
+              "{t(s.quote)}"
             </div>
           </div>
         ))}
