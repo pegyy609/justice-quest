@@ -63,7 +63,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
         </button>
         <div className="flex-1 pixel-panel px-2 py-1 text-center">
           <div className="font-pixel text-gold-bright text-[clamp(0.55rem,1.8vw,0.75rem)] truncate">
-            {data.title}
+            {t(data.title)}
           </div>
           <PhaseProgress phase={phase} />
         </div>
