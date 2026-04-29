@@ -19,14 +19,23 @@ type Phase = "brief" | "evidence" | "reasoning" | "verdict" | "feedback";
 
 const CaseScreen = ({ caseId, onNavigate }: Props) => {
   const { t } = useSettings();
+  const inv = useInventory();
   const data = getCaseById(caseId);
   const [phase, setPhase] = useState<Phase>("brief");
   const [selectedEvidence, setSelectedEvidence] = useState<string[]>([]);
   const [openEvidence, setOpenEvidence] = useState<string | null>(null);
   const [legalChoice, setLegalChoice] = useState<string | null>(null);
-  const [verdict, setVerdict] = useState<"guilty" | "not_guilty" | null>(null);
+  const [verdict, setVerdict] = useState<"guilty" | "not_guilty" | "special" | null>(null);
   const [punishment, setPunishment] = useState<string | null>(null);
   const [showRealWorld, setShowRealWorld] = useState(false);
+  const [bagOpen, setBagOpen] = useState(false);
+  const [pendingItem, setPendingItem] = useState<ShopItem | null>(null);
+
+  // Reset active item effects whenever a new case is opened
+  useEffect(() => {
+    inv.resetActiveEffects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [caseId]);
 
   const bg = useMemo(() => {
     if (!data) return courthouseBg;
@@ -49,8 +58,19 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
   const result: JudgementResult = {
     selectedEvidenceIds: selectedEvidence,
     legalChoiceId: legalChoice ?? "",
-    verdict: verdict ?? "not_guilty",
+    // Treat "special" as not_guilty for scoring base; bonus applied in feedback
+    verdict: verdict === "special" ? "not_guilty" : verdict ?? "not_guilty",
     punishmentId: punishment,
+  };
+
+  const confirmUseItem = () => {
+    if (!pendingItem) return;
+    const res = inv.consume(pendingItem.id);
+    if (res.ok) {
+      toast.success(t("bag.used").replace("{name}", t(pendingItem.nameKey)));
+      setBagOpen(false);
+    }
+    setPendingItem(null);
   };
 
   return (
@@ -59,7 +79,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
       <div className="pt-[3%] px-[4%] flex items-center gap-2">
         <button
           onClick={() => onNavigate("quest")}
-          className="pixel-btn pixel-btn-secondary w-10 h-10 text-xs"
+          className="pixel-btn pixel-btn-secondary w-10 h-10 text-xs hover:scale-105 active:scale-95 transition-transform"
           aria-label="Quit case"
         >
           ◀
@@ -70,7 +90,41 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
           </div>
           <PhaseProgress phase={phase} />
         </div>
+        <button
+          onClick={() => setBagOpen(true)}
+          className="pixel-btn w-10 h-10 text-xs relative hover:scale-105 active:scale-95 transition-transform"
+          aria-label={t("bag.open")}
+        >
+          🎒
+          {Object.values(inv.bag).reduce((a, b) => a + b, 0) > 0 && (
+            <span className="absolute -top-1 -right-1 font-pixel text-[8px] bg-gold-bright text-navy-deep px-1">
+              {Object.values(inv.bag).reduce((a, b) => a + b, 0)}
+            </span>
+          )}
+        </button>
       </div>
+
+      {/* Pixel character active-effects overlay */}
+      {inv.activeEffects.length > 0 && (
+        <div className="px-[4%] pt-2 flex flex-wrap items-center gap-1">
+          <span className="font-pixel text-gold text-[8px] uppercase tracking-wider">
+            {t("bag.activeEffects")}:
+          </span>
+          {inv.activeEffects.map((e) => {
+            const item = ITEMS.find((i) => i.effect === e);
+            if (!item) return null;
+            return (
+              <span
+                key={e}
+                className="font-pixel text-[9px] text-gold-bright bg-navy-deep border-2 border-gold-bright px-1.5 py-0.5 animate-pulse"
+                title={t(item.funcKey)}
+              >
+                {item.icon} {t(`effect.${e}.label`)}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
       <div className="flex-1 flex flex-col px-[4%] py-[3%] overflow-hidden">
         {phase === "brief" && (
@@ -87,6 +141,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             }
             openId={openEvidence}
             setOpenId={setOpenEvidence}
+            revealReliability={inv.hasEffect("truth_lens")}
             onNext={() => setPhase("reasoning")}
           />
         )}
@@ -95,6 +150,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             data={data}
             choice={legalChoice}
             setChoice={setLegalChoice}
+            highlightCorrect={inv.hasEffect("scroll")}
             onNext={() => setPhase("verdict")}
           />
         )}
@@ -105,6 +161,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             setVerdict={setVerdict}
             punishment={punishment}
             setPunishment={setPunishment}
+            specialUnlocked={inv.hasEffect("verdict_key")}
             onNext={() => setPhase("feedback")}
           />
         )}
@@ -112,6 +169,10 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
           <FeedbackView
             data={data}
             result={result}
+            usedSpecial={verdict === "special"}
+            shieldActive={inv.hasEffect("shield")}
+            crownActive={inv.hasEffect("crown")}
+            gemActive={inv.hasEffect("gem")}
             showRealWorld={showRealWorld}
             setShowRealWorld={setShowRealWorld}
             onRetry={() => {
@@ -120,12 +181,59 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
               setVerdict(null);
               setPunishment(null);
               setShowRealWorld(false);
+              inv.resetActiveEffects();
               setPhase("brief");
             }}
             onDone={() => onNavigate("quest")}
           />
         )}
       </div>
+
+      {/* Bag drawer */}
+      {bagOpen && (
+        <BagDrawer
+          onClose={() => setBagOpen(false)}
+          onPick={(item) => setPendingItem(item)}
+        />
+      )}
+
+      {/* Use-item double confirmation */}
+      {pendingItem && (
+        <div
+          className="fixed inset-0 z-50 bg-navy-deep/85 flex items-center justify-center p-4"
+          onClick={() => setPendingItem(null)}
+        >
+          <div
+            className="pixel-panel p-4 max-w-sm w-full text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-3xl mb-2">{pendingItem.icon}</div>
+            <div className="font-pixel text-gold-bright text-xs mb-1">
+              {t(pendingItem.nameKey)}
+            </div>
+            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] mb-3">
+              {t(pendingItem.funcKey)}
+            </p>
+            <div className="font-pixel text-gold text-xs mb-3">
+              {t("bag.confirm")}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => setPendingItem(null)}
+                className="pixel-btn pixel-btn-secondary py-2 text-xs hover:scale-105 active:scale-95 transition-transform"
+              >
+                {t("bag.no")}
+              </button>
+              <button
+                onClick={confirmUseItem}
+                className="pixel-btn py-2 text-xs hover:scale-105 active:scale-95 transition-transform"
+              >
+                {t("bag.yes")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </GameFrame>
   );
 };
