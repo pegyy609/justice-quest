@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Screen, JudgementResult } from "@/game/types";
 import { getCaseById } from "@/game/cases";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
@@ -6,6 +6,9 @@ import schoolBg from "@/assets/school-bg.jpg";
 import societyBg from "@/assets/society-bg.jpg";
 import GameFrame from "@/components/GameFrame";
 import { useSettings } from "@/game/SettingsContext";
+import { useInventory } from "@/game/InventoryContext";
+import { ITEMS, ItemEffect, ShopItem, getItem } from "@/game/items";
+import { toast } from "sonner";
 
 interface Props {
   caseId: string;
