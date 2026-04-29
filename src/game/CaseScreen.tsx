@@ -389,8 +389,19 @@ const EvidenceView = ({
                   {picked ? "✓" : "□"}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-pixel text-gold text-[10px] truncate">
-                    {t(e.label)}
+                  <div className="font-pixel text-gold text-[10px] truncate flex items-center gap-1">
+                    <span className="truncate">{t(e.label)}</span>
+                    {revealReliability && (
+                      <span
+                        className={`font-pixel text-[8px] px-1 border ${
+                          e.reliable
+                            ? "text-gold-bright border-gold-bright"
+                            : "text-parchment-dark border-parchment-dark"
+                        }`}
+                      >
+                        {e.reliable ? t("case.reliable") : t("case.unreliable")}
+                      </span>
+                    )}
                   </div>
                   <div className="font-retro text-parchment text-[clamp(0.85rem,2.2vw,1.05rem)] leading-tight">
                     {t(e.short)}
