@@ -361,6 +361,11 @@ const EvidenceView = ({
       <p className="font-retro text-parchment-dark text-[clamp(0.85rem,2.2vw,1rem)] leading-tight">
         {t("case.evidenceHint")}
       </p>
+      {revealReliability && (
+        <p className="font-retro text-gold-bright text-[clamp(0.8rem,2.1vw,0.95rem)] leading-tight">
+          {t("case.evidenceHint.lens")}
+        </p>
+      )}
 
       <div className="flex flex-col gap-2 mt-1">
         {data.evidence.map((e) => {
@@ -440,15 +445,17 @@ const EvidenceView = ({
               <div className="font-pixel text-gold-bright text-xs">
                 {t(open.label)}
               </div>
-              <span
-                className={`font-pixel text-[9px] px-2 py-1 border-2 ${
-                  open.reliable
-                    ? "text-gold-bright border-gold-bright bg-gold/15"
-                    : "text-parchment-dark border-parchment-dark bg-navy-light"
-                }`}
-              >
-                {open.reliable ? t("case.reliable") : t("case.unreliable")}
-              </span>
+              {revealReliability && (
+                <span
+                  className={`font-pixel text-[9px] px-2 py-1 border-2 ${
+                    open.reliable
+                      ? "text-gold-bright border-gold-bright bg-gold/15"
+                      : "text-parchment-dark border-parchment-dark bg-navy-light"
+                  }`}
+                >
+                  {open.reliable ? t("case.reliable") : t("case.unreliable")}
+                </span>
+              )}
             </div>
 
             <div className="font-pixel text-gold text-[9px] mt-2 mb-1 uppercase tracking-wider">
@@ -465,14 +472,35 @@ const EvidenceView = ({
               {t(open.detail)}
             </p>
 
-            <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
-              {t("case.notes")}
-            </div>
-            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
-              {open.reliable
-                ? t("case.reliable.note")
-                : t("case.unreliable.note")}
-            </p>
+            {/* Extended detail (source / context / caveats) — always available */}
+            {(() => {
+              const moreKey = `${open.detail}.more`;
+              const moreText = t(moreKey);
+              if (moreText === moreKey) return null;
+              return (
+                <>
+                  <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
+                    » {t("case.sourceCaveats")}
+                  </div>
+                  <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
+                    {moreText}
+                  </p>
+                </>
+              );
+            })()}
+
+            {revealReliability && (
+              <>
+                <div className="font-pixel text-gold text-[9px] mt-3 mb-1 uppercase tracking-wider">
+                  {t("case.notes")}
+                </div>
+                <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] leading-snug">
+                  {open.reliable
+                    ? t("case.reliable.note")
+                    : t("case.unreliable.note")}
+                </p>
+              </>
+            )}
 
             <div className="mt-4 flex justify-end">
               <button
