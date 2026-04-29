@@ -315,6 +315,7 @@ const EvidenceView = ({
   onToggle,
   openId,
   setOpenId,
+  revealReliability,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
@@ -322,6 +323,7 @@ const EvidenceView = ({
   onToggle: (id: string) => void;
   openId: string | null;
   setOpenId: (id: string | null) => void;
+  revealReliability: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
