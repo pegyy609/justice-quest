@@ -835,6 +835,57 @@ const MS: Dict = {
     "Sumber langsung & boleh disahkan. Selamat ditimbang berat dalam penghakiman.",
   "case.unreliable.note":
     "Khabar angin, bercanggah, atau tidak disahkan. Berhati-hati — jangan tanda sebagai dipercayai.",
+  // ===== Evidence — Source & Caveats (extended detail) =====
+  "case.s1.ev.cctv.detail.more":
+    "Sumber: Kamera koridor sekolah (CCTV-04). Cap masa disahkan oleh pentadbir IT. Rantaian penjagaan: rakaman dieksport pada 13:10 dan dimeterai. Peringatan: kamera tidak meliputi pintu belakang makmal.",
+  "case.s1.ev.locker.detail.more":
+    "Sumber: Pemeriksaan loker oleh pengetua dan saksi guru. Nombor siri sepadan dengan rekod pembelian sekolah. Peringatan: kod loker diketahui oleh 3 rakan sekelas — kemungkinan diletakkan oleh orang lain.",
+  "case.s1.ev.rumor.detail.more":
+    "Sumber: Dua pelajar di kantin (tidak hadir di tempat kejadian). Hanya cakap-cakap. Peringatan: dengar khabar tidak boleh diterima sebagai bukti utama; risiko berat sebelah.",
+  "case.s1.ev.alibi.detail.more":
+    "Sumber: Kenyataan defendan sahaja. Tiada saksi atau resit kantin. Peringatan: bercanggah dengan rakaman CCTV.",
+  "case.s2.ev.answers.detail.more":
+    "Sumber: Diserahkan oleh pengawas peperiksaan. 7 daripada 10 jawapan akhir sepadan, termasuk satu kesilapan yang sama. Peringatan: pelajar boleh belajar daripada nota yang sama.",
+  "case.s2.ev.tutor.detail.more":
+    "Sumber: Tutor swasta yang bertauliah. Disahkan dengan resit pembayaran. Peringatan: tutor tidak hadir semasa peperiksaan.",
+  "case.s2.ev.gossip.detail.more":
+    "Sumber: Mesej kumpulan rakan sebaya tanpa nama. Peringatan: spekulasi sahaja, tiada bukti langsung.",
+  "case.s2.ev.history.detail.more":
+    "Sumber: Rekod akademik rasmi. Peringatan: kelakuan masa lalu tidak membuktikan perbuatan kali ini.",
+  "case.s3.ev.cctv.detail.more":
+    "Sumber: CCTV koridor (sudut terhad). Peringatan: tolakan berlaku di luar bingkai; hanya konfrontasi awal kelihatan.",
+  "case.s3.ev.bruise.detail.more":
+    "Sumber: Laporan jururawat sekolah dengan foto bertarikh. Peringatan: lebam mungkin disebabkan oleh sebab lain.",
+  "case.s3.ev.anon.detail.more":
+    "Sumber: Surat tanpa nama dimasukkan ke kotak aduan. Peringatan: tiada cara untuk mengesahkan pengarang atau motif.",
+  "case.s3.ev.history.detail.more":
+    "Sumber: Rekod disiplin rasmi. Peringatan: corak kelakuan, bukan bukti langsung untuk insiden ini.",
+  "case.c1.ev.bank.detail.more":
+    "Sumber: Penyata bank rasmi yang dikeluarkan oleh bank. Peringatan: pemilik akaun mungkin bukan penipu sebenar (akaun keldai).",
+  "case.c1.ev.site.detail.more":
+    "Sumber: Cache laman web yang diarkibkan + sijil SSL. Peringatan: laman boleh ditutup pada bila-bila masa.",
+  "case.c1.ev.history.detail.more":
+    "Sumber: Pangkalan data perlindungan pengguna. Peringatan: aduan terdahulu tidak membuktikan transaksi khusus ini.",
+  "case.c1.ev.social.detail.more":
+    "Sumber: Tangkapan skrin daripada pelapor. Peringatan: boleh diedit; minta versi asal.",
+  "case.c1.ev.supplier.detail.more":
+    "Sumber: Surat daripada pembekal yang didakwa. Peringatan: pembekal mungkin mempunyai konflik kepentingan.",
+  "case.c2.ev.decibel.detail.more":
+    "Sumber: Bacaan meter dB rasmi majlis perbandaran. Peringatan: bacaan dilakukan pada satu malam sahaja.",
+  "case.c2.ev.permit.detail.more":
+    "Sumber: Pejabat lesen majlis. Peringatan: permit mungkin dengan syarat had bunyi yang dilanggar.",
+  "case.c2.ev.post.detail.more":
+    "Sumber: Hantaran media sosial awam. Peringatan: penonton di video mungkin tidak mewakili semua malam.",
+  "case.c2.ev.screenshots.detail.more":
+    "Sumber: Tangkapan skrin daripada penduduk. Peringatan: pesanan tunggal — minta sokongan rakaman audio.",
+  "case.c3.ev.log.detail.more":
+    "Sumber: Log peralatan elektronik tapak. Peringatan: log boleh diubah jika sistem tidak terkunci.",
+  "case.c3.ev.harness.detail.more":
+    "Sumber: Pemeriksaan jurutera keselamatan bertauliah. Peringatan: bukti boleh diganggu selepas kemalangan.",
+  "case.c3.ev.training.detail.more":
+    "Sumber: Rekod latihan HR rasmi. Peringatan: kehadiran tidak menjamin pemahaman.",
+  "case.c3.ev.anon.detail.more":
+    "Sumber: Panggilan tanpa nama ke talian aduan. Peringatan: motif pemberi maklumat tidak diketahui.",
 };
 
 export const CASE_DICT: Record<Lang, Dict> = { en: EN, zh: ZH, ms: MS };
