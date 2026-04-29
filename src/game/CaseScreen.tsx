@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Screen, JudgementResult } from "@/game/types";
 import { getCaseById } from "@/game/cases";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
@@ -6,6 +6,9 @@ import schoolBg from "@/assets/school-bg.jpg";
 import societyBg from "@/assets/society-bg.jpg";
 import GameFrame from "@/components/GameFrame";
 import { useSettings } from "@/game/SettingsContext";
+import { useInventory } from "@/game/InventoryContext";
+import { ITEMS, ShopItem } from "@/game/items";
+import { toast } from "sonner";
 
 interface Props {
   caseId: string;
@@ -16,14 +19,23 @@ type Phase = "brief" | "evidence" | "reasoning" | "verdict" | "feedback";
 
 const CaseScreen = ({ caseId, onNavigate }: Props) => {
   const { t } = useSettings();
+  const inv = useInventory();
   const data = getCaseById(caseId);
   const [phase, setPhase] = useState<Phase>("brief");
   const [selectedEvidence, setSelectedEvidence] = useState<string[]>([]);
   const [openEvidence, setOpenEvidence] = useState<string | null>(null);
   const [legalChoice, setLegalChoice] = useState<string | null>(null);
-  const [verdict, setVerdict] = useState<"guilty" | "not_guilty" | null>(null);
+  const [verdict, setVerdict] = useState<"guilty" | "not_guilty" | "special" | null>(null);
   const [punishment, setPunishment] = useState<string | null>(null);
   const [showRealWorld, setShowRealWorld] = useState(false);
+  const [bagOpen, setBagOpen] = useState(false);
+  const [pendingItem, setPendingItem] = useState<ShopItem | null>(null);
+
+  // Reset active item effects whenever a new case is opened
+  useEffect(() => {
+    inv.resetActiveEffects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [caseId]);
 
   const bg = useMemo(() => {
     if (!data) return courthouseBg;
@@ -46,8 +58,19 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
   const result: JudgementResult = {
     selectedEvidenceIds: selectedEvidence,
     legalChoiceId: legalChoice ?? "",
-    verdict: verdict ?? "not_guilty",
+    // Treat "special" as not_guilty for scoring base; bonus applied in feedback
+    verdict: verdict === "special" ? "not_guilty" : verdict ?? "not_guilty",
     punishmentId: punishment,
+  };
+
+  const confirmUseItem = () => {
+    if (!pendingItem) return;
+    const res = inv.consume(pendingItem.id);
+    if (res.ok) {
+      toast.success(t("bag.used").replace("{name}", t(pendingItem.nameKey)));
+      setBagOpen(false);
+    }
+    setPendingItem(null);
   };
 
   return (
@@ -56,7 +79,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
       <div className="pt-[3%] px-[4%] flex items-center gap-2">
         <button
           onClick={() => onNavigate("quest")}
-          className="pixel-btn pixel-btn-secondary w-10 h-10 text-xs"
+          className="pixel-btn pixel-btn-secondary w-10 h-10 text-xs hover:scale-105 active:scale-95 transition-transform"
           aria-label="Quit case"
         >
           ◀
@@ -67,7 +90,41 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
           </div>
           <PhaseProgress phase={phase} />
         </div>
+        <button
+          onClick={() => setBagOpen(true)}
+          className="pixel-btn w-10 h-10 text-xs relative hover:scale-105 active:scale-95 transition-transform"
+          aria-label={t("bag.open")}
+        >
+          🎒
+          {Object.values(inv.bag).reduce((a, b) => a + b, 0) > 0 && (
+            <span className="absolute -top-1 -right-1 font-pixel text-[8px] bg-gold-bright text-navy-deep px-1">
+              {Object.values(inv.bag).reduce((a, b) => a + b, 0)}
+            </span>
+          )}
+        </button>
       </div>
+
+      {/* Pixel character active-effects overlay */}
+      {inv.activeEffects.length > 0 && (
+        <div className="px-[4%] pt-2 flex flex-wrap items-center gap-1">
+          <span className="font-pixel text-gold text-[8px] uppercase tracking-wider">
+            {t("bag.activeEffects")}:
+          </span>
+          {inv.activeEffects.map((e) => {
+            const item = ITEMS.find((i) => i.effect === e);
+            if (!item) return null;
+            return (
+              <span
+                key={e}
+                className="font-pixel text-[9px] text-gold-bright bg-navy-deep border-2 border-gold-bright px-1.5 py-0.5 animate-pulse"
+                title={t(item.funcKey)}
+              >
+                {item.icon} {t(`effect.${e}.label`)}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
       <div className="flex-1 flex flex-col px-[4%] py-[3%] overflow-hidden">
         {phase === "brief" && (
@@ -84,6 +141,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             }
             openId={openEvidence}
             setOpenId={setOpenEvidence}
+            revealReliability={inv.hasEffect("truth_lens")}
             onNext={() => setPhase("reasoning")}
           />
         )}
@@ -92,6 +150,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             data={data}
             choice={legalChoice}
             setChoice={setLegalChoice}
+            highlightCorrect={inv.hasEffect("scroll")}
             onNext={() => setPhase("verdict")}
           />
         )}
@@ -102,6 +161,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
             setVerdict={setVerdict}
             punishment={punishment}
             setPunishment={setPunishment}
+            specialUnlocked={inv.hasEffect("verdict_key")}
             onNext={() => setPhase("feedback")}
           />
         )}
@@ -109,6 +169,10 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
           <FeedbackView
             data={data}
             result={result}
+            usedSpecial={verdict === "special"}
+            shieldActive={inv.hasEffect("shield")}
+            crownActive={inv.hasEffect("crown")}
+            gemActive={inv.hasEffect("gem")}
             showRealWorld={showRealWorld}
             setShowRealWorld={setShowRealWorld}
             onRetry={() => {
@@ -117,12 +181,59 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
               setVerdict(null);
               setPunishment(null);
               setShowRealWorld(false);
+              inv.resetActiveEffects();
               setPhase("brief");
             }}
             onDone={() => onNavigate("quest")}
           />
         )}
       </div>
+
+      {/* Bag drawer */}
+      {bagOpen && (
+        <BagDrawer
+          onClose={() => setBagOpen(false)}
+          onPick={(item) => setPendingItem(item)}
+        />
+      )}
+
+      {/* Use-item double confirmation */}
+      {pendingItem && (
+        <div
+          className="fixed inset-0 z-50 bg-navy-deep/85 flex items-center justify-center p-4"
+          onClick={() => setPendingItem(null)}
+        >
+          <div
+            className="pixel-panel p-4 max-w-sm w-full text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-3xl mb-2">{pendingItem.icon}</div>
+            <div className="font-pixel text-gold-bright text-xs mb-1">
+              {t(pendingItem.nameKey)}
+            </div>
+            <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] mb-3">
+              {t(pendingItem.funcKey)}
+            </p>
+            <div className="font-pixel text-gold text-xs mb-3">
+              {t("bag.confirm")}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => setPendingItem(null)}
+                className="pixel-btn pixel-btn-secondary py-2 text-xs hover:scale-105 active:scale-95 transition-transform"
+              >
+                {t("bag.no")}
+              </button>
+              <button
+                onClick={confirmUseItem}
+                className="pixel-btn py-2 text-xs hover:scale-105 active:scale-95 transition-transform"
+              >
+                {t("bag.yes")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </GameFrame>
   );
 };
@@ -204,6 +315,7 @@ const EvidenceView = ({
   onToggle,
   openId,
   setOpenId,
+  revealReliability,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
@@ -211,6 +323,7 @@ const EvidenceView = ({
   onToggle: (id: string) => void;
   openId: string | null;
   setOpenId: (id: string | null) => void;
+  revealReliability: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
@@ -276,8 +389,19 @@ const EvidenceView = ({
                   {picked ? "✓" : "□"}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-pixel text-gold text-[10px] truncate">
-                    {t(e.label)}
+                  <div className="font-pixel text-gold text-[10px] truncate flex items-center gap-1">
+                    <span className="truncate">{t(e.label)}</span>
+                    {revealReliability && (
+                      <span
+                        className={`font-pixel text-[8px] px-1 border ${
+                          e.reliable
+                            ? "text-gold-bright border-gold-bright"
+                            : "text-parchment-dark border-parchment-dark"
+                        }`}
+                      >
+                        {e.reliable ? t("case.reliable") : t("case.unreliable")}
+                      </span>
+                    )}
                   </div>
                   <div className="font-retro text-parchment text-[clamp(0.85rem,2.2vw,1.05rem)] leading-tight">
                     {t(e.short)}
@@ -371,11 +495,13 @@ const ReasoningView = ({
   data,
   choice,
   setChoice,
+  highlightCorrect,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
   choice: string | null;
   setChoice: (id: string) => void;
+  highlightCorrect: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
@@ -390,14 +516,15 @@ const ReasoningView = ({
       <div className="flex flex-col gap-2 mt-1">
         {data.legalOptions.map((o) => {
           const active = choice === o.id;
+          const hinted = highlightCorrect && o.correct;
           return (
             <button
               key={o.id}
               onClick={() => setChoice(o.id)}
-              className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case`}
+              className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case ${hinted ? "ring-2 ring-gold-bright animate-pulse" : ""}`}
             >
               <span className="font-pixel text-[clamp(0.65rem,2vw,0.85rem)]">
-                {t(o.label)}
+                {hinted && "★ "}{t(o.label)}
               </span>
             </button>
           );
@@ -424,13 +551,15 @@ const VerdictView = ({
   setVerdict,
   punishment,
   setPunishment,
+  specialUnlocked,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
-  verdict: "guilty" | "not_guilty" | null;
-  setVerdict: (v: "guilty" | "not_guilty") => void;
+  verdict: "guilty" | "not_guilty" | "special" | null;
+  setVerdict: (v: "guilty" | "not_guilty" | "special") => void;
   punishment: string | null;
   setPunishment: (id: string) => void;
+  specialUnlocked: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
@@ -457,6 +586,17 @@ const VerdictView = ({
           {t("case.notGuilty")}
         </button>
       </div>
+
+      {specialUnlocked && (
+        <button
+          onClick={() => setVerdict("special")}
+          className={`pixel-btn py-3 text-xs col-span-2 ring-2 ring-gold-bright ${
+            verdict === "special" ? "pixel-btn-active" : "pixel-btn-secondary"
+          }`}
+        >
+          {t("bag.specialChoice")}
+        </button>
+      )}
 
       {verdict === "guilty" && (
         <>
@@ -497,6 +637,10 @@ const VerdictView = ({
 const FeedbackView = ({
   data,
   result,
+  usedSpecial,
+  shieldActive,
+  crownActive,
+  gemActive,
   showRealWorld,
   setShowRealWorld,
   onRetry,
@@ -504,6 +648,10 @@ const FeedbackView = ({
 }: {
   data: ReturnType<typeof getCaseById>;
   result: JudgementResult;
+  usedSpecial: boolean;
+  shieldActive: boolean;
+  crownActive: boolean;
+  gemActive: boolean;
   showRealWorld: boolean;
   setShowRealWorld: (v: boolean) => void;
   onRetry: () => void;
@@ -528,32 +676,37 @@ const FeedbackView = ({
 
   const legalCorrect =
     data.legalOptions.find((o) => o.id === result.legalChoiceId)?.correct ?? false;
-  const verdictCorrect = result.verdict === data.correctVerdict;
+  // Verdict Key "Special" choice always counts as correct path
+  const verdictCorrect = usedSpecial || result.verdict === data.correctVerdict;
   const punishmentCorrect =
     result.verdict === "guilty"
       ? result.punishmentId === data.recommendedPunishmentId
       : true;
 
   // Impact metrics
-  const justice = clamp(
+  let justice = clamp(
     50 +
       (verdictCorrect ? 25 : -25) +
       (legalCorrect ? 15 : -10) +
       (punishmentCorrect ? 10 : -10),
   );
-  const publicTrust = clamp(
+  let publicTrust = clamp(
     50 + Math.round(evidenceScore * 0.3) + (verdictCorrect ? 15 : -20),
   );
-  const fairness = clamp(
+  let fairness = clamp(
     50 +
       (legalCorrect ? 20 : -15) +
       (punishmentCorrect ? 20 : -15) +
       Math.round(evidenceScore * 0.1),
   );
 
-  const overall = Math.round((justice + publicTrust + fairness) / 3);
+  // Item effect bonuses applied at evaluation time
+  if (crownActive) publicTrust = clamp(publicTrust + 20);
+  if (shieldActive) fairness = clamp(Math.max(fairness, 60));
+  let overall = Math.round((justice + publicTrust + fairness) / 3);
+  if (gemActive) overall = clamp(Math.round(overall * 1.25));
 
-  const meetsStandard = verdictCorrect && legalCorrect && evidenceScore >= 50;
+  const meetsStandard = verdictCorrect && (legalCorrect || usedSpecial) && evidenceScore >= 50;
 
   return (
     <div className="flex flex-col h-full gap-2 overflow-y-auto">
@@ -652,5 +805,110 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 );
 
 const clamp = (n: number) => Math.max(0, Math.min(100, n));
+
+// ============== BAG DRAWER ==============
+const BagDrawer = ({
+  onClose,
+  onPick,
+}: {
+  onClose: () => void;
+  onPick: (item: ShopItem) => void;
+}) => {
+  const { t } = useSettings();
+  const { bag } = useInventory();
+  const ownedItems = ITEMS.filter((i) => (bag[i.id] ?? 0) > 0);
+  const [info, setInfo] = useState<ShopItem | null>(null);
+
+  return (
+    <div
+      className="fixed inset-0 z-40 bg-navy-deep/80 flex items-end sm:items-center justify-center p-3"
+      onClick={onClose}
+    >
+      <div
+        className="pixel-panel p-4 w-full max-w-md max-h-[85vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-pixel text-gold-bright text-sm">🎒 {t("bag.title")}</span>
+          <button
+            onClick={onClose}
+            className="pixel-btn pixel-btn-secondary px-2 py-1 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+          >
+            {t("common.close")}
+          </button>
+        </div>
+
+        {ownedItems.length === 0 ? (
+          <p className="font-retro text-parchment-dark text-center py-6">
+            {t("bag.empty")}
+          </p>
+        ) : (
+          <div className="grid grid-cols-3 gap-2">
+            {ownedItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setInfo(item)}
+                className="pixel-panel p-2 flex flex-col items-center gap-1 hover:bg-navy-light/50 hover:scale-[1.05] active:scale-95 transition-all relative"
+              >
+                <span className="text-2xl">{item.icon}</span>
+                <span className="font-pixel text-[8px] text-parchment text-center leading-tight">
+                  {t(item.nameKey)}
+                </span>
+                <span className="absolute top-1 right-1 font-pixel text-[8px] bg-gold-bright text-navy-deep px-1">
+                  ×{bag[item.id]}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Info preview before commit */}
+        {info && (
+          <div
+            className="fixed inset-0 z-50 bg-navy-deep/85 flex items-center justify-center p-4"
+            onClick={() => setInfo(null)}
+          >
+            <div
+              className="pixel-panel p-4 max-w-sm w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">{info.icon}</span>
+                <div>
+                  <div className="font-pixel text-gold-bright text-xs">
+                    {t("store.info.title")}
+                  </div>
+                  <div className="font-pixel text-gold text-sm mt-1">
+                    {t(info.nameKey)}
+                  </div>
+                </div>
+              </div>
+              <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] mb-3">
+                {t(info.funcKey)}
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setInfo(null)}
+                  className="pixel-btn pixel-btn-secondary py-2 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+                >
+                  {t("common.close")}
+                </button>
+                <button
+                  onClick={() => {
+                    onPick(info);
+                    setInfo(null);
+                  }}
+                  className="pixel-btn py-2 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+                >
+                  {t("bag.yes")} ▶
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default CaseScreen;
