@@ -275,6 +275,57 @@ const EN: Dict = {
     "Direct, verifiable source. Safe to weigh heavily in your judgement.",
   "case.unreliable.note":
     "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable.",
+  // ===== Evidence — Source & Caveats (extended detail) =====
+  "case.s1.ev.cctv.detail.more":
+    "Source: Hallway camera CCTV-04. Timestamps verified by the IT admin. Chain of custody: footage exported at 13:10 and sealed. Caveat: camera does not cover the lab's rear door.",
+  "case.s1.ev.locker.detail.more":
+    "Source: Locker inspection performed by the principal with a teacher witness. Serial number matches the school's purchase record. Caveat: 3 classmates knew the locker code — possible plant.",
+  "case.s1.ev.rumor.detail.more":
+    "Source: Two students in the canteen (not at the scene). Pure hearsay. Caveat: rumor cannot be admitted as primary evidence; bias risk.",
+  "case.s1.ev.alibi.detail.more":
+    "Source: Defendant's statement only. No witnesses or canteen receipt. Caveat: directly contradicted by CCTV.",
+  "case.s2.ev.answers.detail.more":
+    "Source: Submitted by the exam invigilator. 7 of 10 final answers match, including one identical mistake. Caveat: students may have studied from the same notes.",
+  "case.s2.ev.tutor.detail.more":
+    "Source: Certified private tutor. Verified with payment receipts. Caveat: tutor was not present during the exam.",
+  "case.s2.ev.gossip.detail.more":
+    "Source: Anonymous peer group chat. Caveat: speculation only, no direct evidence.",
+  "case.s2.ev.history.detail.more":
+    "Source: Official academic record. Caveat: past behaviour does not prove the current act.",
+  "case.s3.ev.cctv.detail.more":
+    "Source: Hallway CCTV (limited angle). Caveat: the shove occurred off-frame; only the initial confrontation is visible.",
+  "case.s3.ev.bruise.detail.more":
+    "Source: School nurse report with dated photos. Caveat: bruise could come from other causes.",
+  "case.s3.ev.anon.detail.more":
+    "Source: Anonymous note dropped in the complaints box. Caveat: no way to verify author or motive.",
+  "case.s3.ev.history.detail.more":
+    "Source: Official discipline record. Caveat: pattern of behaviour, not direct evidence for this incident.",
+  "case.c1.ev.bank.detail.more":
+    "Source: Official statement issued by the bank. Caveat: account holder may not be the real fraudster (mule account).",
+  "case.c1.ev.site.detail.more":
+    "Source: Archived web cache + SSL certificate. Caveat: the site can be taken down at any time.",
+  "case.c1.ev.history.detail.more":
+    "Source: Consumer-protection database. Caveat: prior complaints don't prove this specific transaction.",
+  "case.c1.ev.social.detail.more":
+    "Source: Screenshots from the reporter. Caveat: editable — request the original version.",
+  "case.c1.ev.supplier.detail.more":
+    "Source: Letter from the accused supplier. Caveat: the supplier may have a conflict of interest.",
+  "case.c2.ev.decibel.detail.more":
+    "Source: Official council dB-meter reading. Caveat: measurement was taken on a single night only.",
+  "case.c2.ev.permit.detail.more":
+    "Source: Council licensing office. Caveat: permit may carry noise-limit conditions that were breached.",
+  "case.c2.ev.post.detail.more":
+    "Source: Public social-media post. Caveat: the audience in the video may not represent every night.",
+  "case.c2.ev.screenshots.detail.more":
+    "Source: Resident screenshots. Caveat: single message — request audio recordings to corroborate.",
+  "case.c3.ev.log.detail.more":
+    "Source: On-site electronic equipment log. Caveat: logs can be altered if the system isn't locked.",
+  "case.c3.ev.harness.detail.more":
+    "Source: Certified safety engineer inspection. Caveat: evidence may be tampered with after an accident.",
+  "case.c3.ev.training.detail.more":
+    "Source: Official HR training record. Caveat: attendance does not guarantee understanding.",
+  "case.c3.ev.anon.detail.more":
+    "Source: Anonymous tip-line call. Caveat: informant's motive is unknown.",
 };
 
 // ============= 中文 =============
