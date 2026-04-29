@@ -7,7 +7,7 @@ import societyBg from "@/assets/society-bg.jpg";
 import GameFrame from "@/components/GameFrame";
 import { useSettings } from "@/game/SettingsContext";
 import { useInventory } from "@/game/InventoryContext";
-import { ITEMS, ItemEffect, ShopItem, getItem } from "@/game/items";
+import { ITEMS, ShopItem } from "@/game/items";
 import { toast } from "sonner";
 
 interface Props {
