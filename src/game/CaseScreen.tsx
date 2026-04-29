@@ -637,6 +637,10 @@ const VerdictView = ({
 const FeedbackView = ({
   data,
   result,
+  usedSpecial,
+  shieldActive,
+  crownActive,
+  gemActive,
   showRealWorld,
   setShowRealWorld,
   onRetry,
@@ -644,6 +648,10 @@ const FeedbackView = ({
 }: {
   data: ReturnType<typeof getCaseById>;
   result: JudgementResult;
+  usedSpecial: boolean;
+  shieldActive: boolean;
+  crownActive: boolean;
+  gemActive: boolean;
   showRealWorld: boolean;
   setShowRealWorld: (v: boolean) => void;
   onRetry: () => void;
@@ -668,32 +676,37 @@ const FeedbackView = ({
 
   const legalCorrect =
     data.legalOptions.find((o) => o.id === result.legalChoiceId)?.correct ?? false;
-  const verdictCorrect = result.verdict === data.correctVerdict;
+  // Verdict Key "Special" choice always counts as correct path
+  const verdictCorrect = usedSpecial || result.verdict === data.correctVerdict;
   const punishmentCorrect =
     result.verdict === "guilty"
       ? result.punishmentId === data.recommendedPunishmentId
       : true;
 
   // Impact metrics
-  const justice = clamp(
+  let justice = clamp(
     50 +
       (verdictCorrect ? 25 : -25) +
       (legalCorrect ? 15 : -10) +
       (punishmentCorrect ? 10 : -10),
   );
-  const publicTrust = clamp(
+  let publicTrust = clamp(
     50 + Math.round(evidenceScore * 0.3) + (verdictCorrect ? 15 : -20),
   );
-  const fairness = clamp(
+  let fairness = clamp(
     50 +
       (legalCorrect ? 20 : -15) +
       (punishmentCorrect ? 20 : -15) +
       Math.round(evidenceScore * 0.1),
   );
 
-  const overall = Math.round((justice + publicTrust + fairness) / 3);
+  // Item effect bonuses applied at evaluation time
+  if (crownActive) publicTrust = clamp(publicTrust + 20);
+  if (shieldActive) fairness = clamp(Math.max(fairness, 60));
+  let overall = Math.round((justice + publicTrust + fairness) / 3);
+  if (gemActive) overall = clamp(Math.round(overall * 1.25));
 
-  const meetsStandard = verdictCorrect && legalCorrect && evidenceScore >= 50;
+  const meetsStandard = verdictCorrect && (legalCorrect || usedSpecial) && evidenceScore >= 50;
 
   return (
     <div className="flex flex-col h-full gap-2 overflow-y-auto">
