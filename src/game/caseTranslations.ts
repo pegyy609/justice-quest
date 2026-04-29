@@ -275,6 +275,57 @@ const EN: Dict = {
     "Direct, verifiable source. Safe to weigh heavily in your judgement.",
   "case.unreliable.note":
     "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable.",
+  // ===== Evidence — Source & Caveats (extended detail) =====
+  "case.s1.ev.cctv.detail.more":
+    "Source: Hallway camera CCTV-04. Timestamps verified by the IT admin. Chain of custody: footage exported at 13:10 and sealed. Caveat: camera does not cover the lab's rear door.",
+  "case.s1.ev.locker.detail.more":
+    "Source: Locker inspection performed by the principal with a teacher witness. Serial number matches the school's purchase record. Caveat: 3 classmates knew the locker code — possible plant.",
+  "case.s1.ev.rumor.detail.more":
+    "Source: Two students in the canteen (not at the scene). Pure hearsay. Caveat: rumor cannot be admitted as primary evidence; bias risk.",
+  "case.s1.ev.alibi.detail.more":
+    "Source: Defendant's statement only. No witnesses or canteen receipt. Caveat: directly contradicted by CCTV.",
+  "case.s2.ev.answers.detail.more":
+    "Source: Submitted by the exam invigilator. 7 of 10 final answers match, including one identical mistake. Caveat: students may have studied from the same notes.",
+  "case.s2.ev.tutor.detail.more":
+    "Source: Certified private tutor. Verified with payment receipts. Caveat: tutor was not present during the exam.",
+  "case.s2.ev.gossip.detail.more":
+    "Source: Anonymous peer group chat. Caveat: speculation only, no direct evidence.",
+  "case.s2.ev.history.detail.more":
+    "Source: Official academic record. Caveat: past behaviour does not prove the current act.",
+  "case.s3.ev.cctv.detail.more":
+    "Source: Hallway CCTV (limited angle). Caveat: the shove occurred off-frame; only the initial confrontation is visible.",
+  "case.s3.ev.bruise.detail.more":
+    "Source: School nurse report with dated photos. Caveat: bruise could come from other causes.",
+  "case.s3.ev.anon.detail.more":
+    "Source: Anonymous note dropped in the complaints box. Caveat: no way to verify author or motive.",
+  "case.s3.ev.history.detail.more":
+    "Source: Official discipline record. Caveat: pattern of behaviour, not direct evidence for this incident.",
+  "case.c1.ev.bank.detail.more":
+    "Source: Official statement issued by the bank. Caveat: account holder may not be the real fraudster (mule account).",
+  "case.c1.ev.site.detail.more":
+    "Source: Archived web cache + SSL certificate. Caveat: the site can be taken down at any time.",
+  "case.c1.ev.history.detail.more":
+    "Source: Consumer-protection database. Caveat: prior complaints don't prove this specific transaction.",
+  "case.c1.ev.social.detail.more":
+    "Source: Screenshots from the reporter. Caveat: editable — request the original version.",
+  "case.c1.ev.supplier.detail.more":
+    "Source: Letter from the accused supplier. Caveat: the supplier may have a conflict of interest.",
+  "case.c2.ev.decibel.detail.more":
+    "Source: Official council dB-meter reading. Caveat: measurement was taken on a single night only.",
+  "case.c2.ev.permit.detail.more":
+    "Source: Council licensing office. Caveat: permit may carry noise-limit conditions that were breached.",
+  "case.c2.ev.post.detail.more":
+    "Source: Public social-media post. Caveat: the audience in the video may not represent every night.",
+  "case.c2.ev.screenshots.detail.more":
+    "Source: Resident screenshots. Caveat: single message — request audio recordings to corroborate.",
+  "case.c3.ev.log.detail.more":
+    "Source: On-site electronic equipment log. Caveat: logs can be altered if the system isn't locked.",
+  "case.c3.ev.harness.detail.more":
+    "Source: Certified safety engineer inspection. Caveat: evidence may be tampered with after an accident.",
+  "case.c3.ev.training.detail.more":
+    "Source: Official HR training record. Caveat: attendance does not guarantee understanding.",
+  "case.c3.ev.anon.detail.more":
+    "Source: Anonymous tip-line call. Caveat: informant's motive is unknown.",
 };
 
 // ============= 中文 =============
@@ -537,6 +588,57 @@ const ZH: Dict = {
   "case.back": "返回",
   "case.reliable.note": "直接、可核实的来源,可在判决中重要权衡。",
   "case.unreliable.note": "传闻、矛盾或未经证实,请谨慎对待 — 不要标记为可靠。",
+  // ===== 证据 — 来源与注意事项 =====
+  "case.s1.ev.cctv.detail.more":
+    "来源：学校走廊摄像头（CCTV-04）。时间戳由IT管理员核实。证据链：录像于13:10导出并封存。注意事项：摄像头未覆盖实验室后门。",
+  "case.s1.ev.locker.detail.more":
+    "来源：校长与教师在场进行的储物柜检查。序列号与学校采购记录一致。注意事项：3名同学知道储物柜密码，可能被人栽赃。",
+  "case.s1.ev.rumor.detail.more":
+    "来源：食堂里的两名学生（不在现场）。属传闻。注意事项：传闻不应作为主要证据；存在偏见风险。",
+  "case.s1.ev.alibi.detail.more":
+    "来源：仅被告陈述。无证人或食堂收据。注意事项：与CCTV录像相矛盾。",
+  "case.s2.ev.answers.detail.more":
+    "来源：监考教师提交。10题中有7题答案相同，包括同一处错误。注意事项：学生可能使用相同笔记。",
+  "case.s2.ev.tutor.detail.more":
+    "来源：合格的私人补习老师。已用付款收据核实。注意事项：补习老师不在考场。",
+  "case.s2.ev.gossip.detail.more":
+    "来源：匿名同学群聊。注意事项：仅为揣测，无直接证据。",
+  "case.s2.ev.history.detail.more":
+    "来源：正式学业记录。注意事项：过往行为不能证明此次行为。",
+  "case.s3.ev.cctv.detail.more":
+    "来源：走廊CCTV（视角有限）。注意事项：推搡发生在镜头之外，仅初次冲突可见。",
+  "case.s3.ev.bruise.detail.more":
+    "来源：校医报告附带带日期的照片。注意事项：瘀伤可能由其他原因造成。",
+  "case.s3.ev.anon.detail.more":
+    "来源：投入意见箱的匿名信。注意事项：无法核实作者或动机。",
+  "case.s3.ev.history.detail.more":
+    "来源：正式纪律记录。注意事项：行为模式，并非本次事件的直接证据。",
+  "case.c1.ev.bank.detail.more":
+    "来源：银行出具的正式对账单。注意事项：账户持有人可能并非真正诈骗者（傀儡账户）。",
+  "case.c1.ev.site.detail.more":
+    "来源：网站存档缓存 + SSL证书。注意事项：网站可能随时下线。",
+  "case.c1.ev.history.detail.more":
+    "来源：消费者保护数据库。注意事项：以往投诉不能证明本次具体交易。",
+  "case.c1.ev.social.detail.more":
+    "来源：举报人提供的截图。注意事项：可被编辑；请求原始版本。",
+  "case.c1.ev.supplier.detail.more":
+    "来源：被指控供应商的来信。注意事项：供应商可能存在利益冲突。",
+  "case.c2.ev.decibel.detail.more":
+    "来源：市政厅官方分贝仪读数。注意事项：仅在一个夜晚测量。",
+  "case.c2.ev.permit.detail.more":
+    "来源：市政许可办公室。注意事项：许可证可能附有被违反的噪音限制条件。",
+  "case.c2.ev.post.detail.more":
+    "来源：公开社交媒体帖子。注意事项：视频中观众未必代表所有夜晚。",
+  "case.c2.ev.screenshots.detail.more":
+    "来源：居民截图。注意事项：单一信息——请求录音佐证。",
+  "case.c3.ev.log.detail.more":
+    "来源：施工现场电子设备日志。注意事项：若系统未锁定，日志可能被修改。",
+  "case.c3.ev.harness.detail.more":
+    "来源：合格安全工程师检查。注意事项：事故后证据可能被破坏。",
+  "case.c3.ev.training.detail.more":
+    "来源：HR正式培训记录。注意事项：出勤不等于理解。",
+  "case.c3.ev.anon.detail.more":
+    "来源：匿名举报热线电话。注意事项：举报人动机不明。",
 };
 
 // ============= Bahasa Melayu =============
@@ -835,6 +937,57 @@ const MS: Dict = {
     "Sumber langsung & boleh disahkan. Selamat ditimbang berat dalam penghakiman.",
   "case.unreliable.note":
     "Khabar angin, bercanggah, atau tidak disahkan. Berhati-hati — jangan tanda sebagai dipercayai.",
+  // ===== Evidence — Source & Caveats (extended detail) =====
+  "case.s1.ev.cctv.detail.more":
+    "Sumber: Kamera koridor sekolah (CCTV-04). Cap masa disahkan oleh pentadbir IT. Rantaian penjagaan: rakaman dieksport pada 13:10 dan dimeterai. Peringatan: kamera tidak meliputi pintu belakang makmal.",
+  "case.s1.ev.locker.detail.more":
+    "Sumber: Pemeriksaan loker oleh pengetua dan saksi guru. Nombor siri sepadan dengan rekod pembelian sekolah. Peringatan: kod loker diketahui oleh 3 rakan sekelas — kemungkinan diletakkan oleh orang lain.",
+  "case.s1.ev.rumor.detail.more":
+    "Sumber: Dua pelajar di kantin (tidak hadir di tempat kejadian). Hanya cakap-cakap. Peringatan: dengar khabar tidak boleh diterima sebagai bukti utama; risiko berat sebelah.",
+  "case.s1.ev.alibi.detail.more":
+    "Sumber: Kenyataan defendan sahaja. Tiada saksi atau resit kantin. Peringatan: bercanggah dengan rakaman CCTV.",
+  "case.s2.ev.answers.detail.more":
+    "Sumber: Diserahkan oleh pengawas peperiksaan. 7 daripada 10 jawapan akhir sepadan, termasuk satu kesilapan yang sama. Peringatan: pelajar boleh belajar daripada nota yang sama.",
+  "case.s2.ev.tutor.detail.more":
+    "Sumber: Tutor swasta yang bertauliah. Disahkan dengan resit pembayaran. Peringatan: tutor tidak hadir semasa peperiksaan.",
+  "case.s2.ev.gossip.detail.more":
+    "Sumber: Mesej kumpulan rakan sebaya tanpa nama. Peringatan: spekulasi sahaja, tiada bukti langsung.",
+  "case.s2.ev.history.detail.more":
+    "Sumber: Rekod akademik rasmi. Peringatan: kelakuan masa lalu tidak membuktikan perbuatan kali ini.",
+  "case.s3.ev.cctv.detail.more":
+    "Sumber: CCTV koridor (sudut terhad). Peringatan: tolakan berlaku di luar bingkai; hanya konfrontasi awal kelihatan.",
+  "case.s3.ev.bruise.detail.more":
+    "Sumber: Laporan jururawat sekolah dengan foto bertarikh. Peringatan: lebam mungkin disebabkan oleh sebab lain.",
+  "case.s3.ev.anon.detail.more":
+    "Sumber: Surat tanpa nama dimasukkan ke kotak aduan. Peringatan: tiada cara untuk mengesahkan pengarang atau motif.",
+  "case.s3.ev.history.detail.more":
+    "Sumber: Rekod disiplin rasmi. Peringatan: corak kelakuan, bukan bukti langsung untuk insiden ini.",
+  "case.c1.ev.bank.detail.more":
+    "Sumber: Penyata bank rasmi yang dikeluarkan oleh bank. Peringatan: pemilik akaun mungkin bukan penipu sebenar (akaun keldai).",
+  "case.c1.ev.site.detail.more":
+    "Sumber: Cache laman web yang diarkibkan + sijil SSL. Peringatan: laman boleh ditutup pada bila-bila masa.",
+  "case.c1.ev.history.detail.more":
+    "Sumber: Pangkalan data perlindungan pengguna. Peringatan: aduan terdahulu tidak membuktikan transaksi khusus ini.",
+  "case.c1.ev.social.detail.more":
+    "Sumber: Tangkapan skrin daripada pelapor. Peringatan: boleh diedit; minta versi asal.",
+  "case.c1.ev.supplier.detail.more":
+    "Sumber: Surat daripada pembekal yang didakwa. Peringatan: pembekal mungkin mempunyai konflik kepentingan.",
+  "case.c2.ev.decibel.detail.more":
+    "Sumber: Bacaan meter dB rasmi majlis perbandaran. Peringatan: bacaan dilakukan pada satu malam sahaja.",
+  "case.c2.ev.permit.detail.more":
+    "Sumber: Pejabat lesen majlis. Peringatan: permit mungkin dengan syarat had bunyi yang dilanggar.",
+  "case.c2.ev.post.detail.more":
+    "Sumber: Hantaran media sosial awam. Peringatan: penonton di video mungkin tidak mewakili semua malam.",
+  "case.c2.ev.screenshots.detail.more":
+    "Sumber: Tangkapan skrin daripada penduduk. Peringatan: pesanan tunggal — minta sokongan rakaman audio.",
+  "case.c3.ev.log.detail.more":
+    "Sumber: Log peralatan elektronik tapak. Peringatan: log boleh diubah jika sistem tidak terkunci.",
+  "case.c3.ev.harness.detail.more":
+    "Sumber: Pemeriksaan jurutera keselamatan bertauliah. Peringatan: bukti boleh diganggu selepas kemalangan.",
+  "case.c3.ev.training.detail.more":
+    "Sumber: Rekod latihan HR rasmi. Peringatan: kehadiran tidak menjamin pemahaman.",
+  "case.c3.ev.anon.detail.more":
+    "Sumber: Panggilan tanpa nama ke talian aduan. Peringatan: motif pemberi maklumat tidak diketahui.",
 };
 
 export const CASE_DICT: Record<Lang, Dict> = { en: EN, zh: ZH, ms: MS };
