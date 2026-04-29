@@ -495,11 +495,13 @@ const ReasoningView = ({
   data,
   choice,
   setChoice,
+  highlightCorrect,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
   choice: string | null;
   setChoice: (id: string) => void;
+  highlightCorrect: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
@@ -514,14 +516,15 @@ const ReasoningView = ({
       <div className="flex flex-col gap-2 mt-1">
         {data.legalOptions.map((o) => {
           const active = choice === o.id;
+          const hinted = highlightCorrect && o.correct;
           return (
             <button
               key={o.id}
               onClick={() => setChoice(o.id)}
-              className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case`}
+              className={`pixel-btn ${active ? "pixel-btn-active" : "pixel-btn-secondary"} text-left p-3 normal-case ${hinted ? "ring-2 ring-gold-bright animate-pulse" : ""}`}
             >
               <span className="font-pixel text-[clamp(0.65rem,2vw,0.85rem)]">
-                {t(o.label)}
+                {hinted && "★ "}{t(o.label)}
               </span>
             </button>
           );
@@ -548,13 +551,15 @@ const VerdictView = ({
   setVerdict,
   punishment,
   setPunishment,
+  specialUnlocked,
   onNext,
 }: {
   data: ReturnType<typeof getCaseById>;
-  verdict: "guilty" | "not_guilty" | null;
-  setVerdict: (v: "guilty" | "not_guilty") => void;
+  verdict: "guilty" | "not_guilty" | "special" | null;
+  setVerdict: (v: "guilty" | "not_guilty" | "special") => void;
   punishment: string | null;
   setPunishment: (id: string) => void;
+  specialUnlocked: boolean;
   onNext: () => void;
 }) => {
   const { t } = useSettings();
@@ -581,6 +586,17 @@ const VerdictView = ({
           {t("case.notGuilty")}
         </button>
       </div>
+
+      {specialUnlocked && (
+        <button
+          onClick={() => setVerdict("special")}
+          className={`pixel-btn py-3 text-xs col-span-2 ring-2 ring-gold-bright ${
+            verdict === "special" ? "pixel-btn-active" : "pixel-btn-secondary"
+          }`}
+        >
+          {t("bag.specialChoice")}
+        </button>
+      )}
 
       {verdict === "guilty" && (
         <>
