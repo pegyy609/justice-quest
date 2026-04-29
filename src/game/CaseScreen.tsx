@@ -806,4 +806,109 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 
 const clamp = (n: number) => Math.max(0, Math.min(100, n));
 
+// ============== BAG DRAWER ==============
+const BagDrawer = ({
+  onClose,
+  onPick,
+}: {
+  onClose: () => void;
+  onPick: (item: ShopItem) => void;
+}) => {
+  const { t } = useSettings();
+  const { bag } = useInventory();
+  const ownedItems = ITEMS.filter((i) => (bag[i.id] ?? 0) > 0);
+  const [info, setInfo] = useState<ShopItem | null>(null);
+
+  return (
+    <div
+      className="fixed inset-0 z-40 bg-navy-deep/80 flex items-end sm:items-center justify-center p-3"
+      onClick={onClose}
+    >
+      <div
+        className="pixel-panel p-4 w-full max-w-md max-h-[85vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-pixel text-gold-bright text-sm">🎒 {t("bag.title")}</span>
+          <button
+            onClick={onClose}
+            className="pixel-btn pixel-btn-secondary px-2 py-1 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+          >
+            {t("common.close")}
+          </button>
+        </div>
+
+        {ownedItems.length === 0 ? (
+          <p className="font-retro text-parchment-dark text-center py-6">
+            {t("bag.empty")}
+          </p>
+        ) : (
+          <div className="grid grid-cols-3 gap-2">
+            {ownedItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setInfo(item)}
+                className="pixel-panel p-2 flex flex-col items-center gap-1 hover:bg-navy-light/50 hover:scale-[1.05] active:scale-95 transition-all relative"
+              >
+                <span className="text-2xl">{item.icon}</span>
+                <span className="font-pixel text-[8px] text-parchment text-center leading-tight">
+                  {t(item.nameKey)}
+                </span>
+                <span className="absolute top-1 right-1 font-pixel text-[8px] bg-gold-bright text-navy-deep px-1">
+                  ×{bag[item.id]}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Info preview before commit */}
+        {info && (
+          <div
+            className="fixed inset-0 z-50 bg-navy-deep/85 flex items-center justify-center p-4"
+            onClick={() => setInfo(null)}
+          >
+            <div
+              className="pixel-panel p-4 max-w-sm w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">{info.icon}</span>
+                <div>
+                  <div className="font-pixel text-gold-bright text-xs">
+                    {t("store.info.title")}
+                  </div>
+                  <div className="font-pixel text-gold text-sm mt-1">
+                    {t(info.nameKey)}
+                  </div>
+                </div>
+              </div>
+              <p className="font-retro text-parchment text-[clamp(0.9rem,2.3vw,1.05rem)] mb-3">
+                {t(info.funcKey)}
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setInfo(null)}
+                  className="pixel-btn pixel-btn-secondary py-2 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+                >
+                  {t("common.close")}
+                </button>
+                <button
+                  onClick={() => {
+                    onPick(info);
+                    setInfo(null);
+                  }}
+                  className="pixel-btn py-2 text-[10px] hover:scale-105 active:scale-95 transition-transform"
+                >
+                  {t("bag.yes")} ▶
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default CaseScreen;
