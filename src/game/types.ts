@@ -8,12 +8,23 @@ export type Screen =
 
 export type Chapter = "school" | "society";
 
+export interface EvidenceHotspot {
+  /** Center X as % of scene width (0-100) */
+  x: number;
+  /** Center Y as % of scene height (0-100) */
+  y: number;
+  /** Hit radius as % of min(scene width, height). Keep small for challenge. */
+  r: number;
+}
+
 export interface Evidence {
   id: string;
   label: string;
   short: string;
   detail: string;
   reliable: boolean;
+  /** Hidden hotspot coordinates on the scene image (click-to-discover). */
+  hotspot?: EvidenceHotspot;
 }
 
 export interface LegalOption {
