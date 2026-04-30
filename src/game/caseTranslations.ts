@@ -5,252 +5,370 @@ type Dict = Record<string, string>;
 
 // ============= ENGLISH =============
 const EN: Dict = {
-  // S1 — Missing Laptop
+  // ============================================================
+  // S1 — The Missing Laptop  (Presence ≠ Guilt)
+  // ============================================================
   "case.s1.title": "The Missing Laptop",
   "case.s1.brief":
-    "A Year 10 student, Alex, is accused of stealing a classmate's laptop from the science lab during lunch break. The laptop was later found in Alex's locker.",
-  "case.s1.stmt.0.who": "Accuser (Sam)",
-  "case.s1.stmt.0.quote": "My laptop was on the bench. Alex was the last one in the lab.",
-  "case.s1.stmt.1.who": "Defendant (Alex)",
-  "case.s1.stmt.1.quote": "Someone must have planted it. My locker code isn't secret.",
-  "case.s1.stmt.2.who": "Teacher",
-  "case.s1.stmt.2.quote": "I locked the lab at 12:45. I didn't see who entered before that.",
-  "case.s1.ev.cctv.label": "CCTV footage",
-  "case.s1.ev.cctv.short": "Hallway camera, lunch break",
-  "case.s1.ev.cctv.detail":
-    "Shows Alex entering the lab at 12:30 and leaving at 12:38 carrying a backpack. Quality is clear.",
-  "case.s1.ev.locker.label": "Locker contents",
-  "case.s1.ev.locker.short": "Laptop found in Alex's locker",
-  "case.s1.ev.locker.detail":
-    "Laptop confirmed as the missing device by serial number. Locker code was known by 3 classmates.",
-  "case.s1.ev.rumor.label": "Hallway rumor",
-  "case.s1.ev.rumor.short": "'Alex always takes things'",
-  "case.s1.ev.rumor.detail":
-    "Two students claim Alex 'always takes things' but neither saw the incident. Hearsay only.",
-  "case.s1.ev.alibi.label": "Alex's alibi",
-  "case.s1.ev.alibi.short": "Claims they were in canteen",
-  "case.s1.ev.alibi.detail":
-    "Alex says they were in the canteen at 12:30, but no witnesses confirm this. CCTV contradicts it.",
-  "case.s1.legal.theft": "Theft",
-  "case.s1.legal.theft.r": "Taking property without consent — supported by CCTV and recovered item.",
-  "case.s1.legal.misconduct": "General Misconduct",
-  "case.s1.legal.misconduct.r": "Too vague — evidence points to a specific act.",
+    "After-school in the empty classroom. A student's laptop has gone missing from a desk. A nearby classmate is suspected — but were they really involved? Search the scene before you accuse anyone.",
+  "case.s1.stmt.0.who": "Owner",
+  "case.s1.stmt.0.quote":
+    "I left my laptop on the desk. When I came back it was gone — and they were sitting right there!",
+  "case.s1.stmt.1.who": "Suspect",
+  "case.s1.stmt.1.quote":
+    "I was just reading. I didn't even touch their stuff. The window was open the whole time.",
+  "case.s1.stmt.2.who": "Cleaner",
+  "case.s1.stmt.2.quote":
+    "I came in 20 minutes ago. The window was already open — and I saw a charging cable on the floor.",
+
+  "case.s1.ev.empty_desk.label": "Empty space on desk",
+  "case.s1.ev.empty_desk.short": "Where the laptop was",
+  "case.s1.ev.empty_desk.detail":
+    "A clean rectangular outline in the desk dust shows exactly where the laptop sat. Nothing else was disturbed.",
+
+  "case.s1.ev.open_bag.label": "Open school bag",
+  "case.s1.ev.open_bag.short": "Unzipped, on the floor",
+  "case.s1.ev.open_bag.detail":
+    "A school bag lies open on the floor. Books are inside but no laptop — and the zip is undamaged.",
+
+  "case.s1.ev.cable.label": "Charging cable on floor ⭐",
+  "case.s1.ev.cable.short": "Coiled near the desk",
+  "case.s1.ev.cable.detail":
+    "A black charging cable lies coiled on the floor — still plugged into the wall. The laptop end is empty. Whoever took the laptop unplugged the device but left the cable behind, suggesting a hurried grab — not necessarily by someone who was sitting nearby.",
+
+  "case.s1.ev.student.label": "Student sitting nearby",
+  "case.s1.ev.student.short": "Reading two desks away",
+  "case.s1.ev.student.detail":
+    "A classmate sits two desks away, reading a book. Being close to a missing item is not the same as taking it.",
+
+  "case.s1.ev.window.label": "Open window",
+  "case.s1.ev.window.short": "Wide open, curtains blowing",
+  "case.s1.ev.window.detail":
+    "A large rear window is wide open. The room is on the ground floor — anyone could have entered or reached in from outside.",
+
   "case.s1.legal.insufficient": "Insufficient Evidence",
-  "case.s1.legal.insufficient.r": "Multiple reliable evidence pieces exist.",
-  "case.s1.pun.warning": "Verbal Warning",
+  "case.s1.legal.insufficient.r":
+    "No witness saw the suspect take the laptop. Open window + missing cable end = many possibilities. You cannot convict on proximity alone.",
+  "case.s1.legal.theft": "Theft (against suspect)",
+  "case.s1.legal.theft.r":
+    "There is no direct evidence linking this person to the act — only that they were nearby.",
+  "case.s1.legal.misconduct": "Minor Misconduct",
+  "case.s1.legal.misconduct.r":
+    "There is no misconduct to charge — they were simply present in a public space.",
+
+  "case.s1.pun.none":      "No Action",
+  "case.s1.pun.warning":   "Verbal Caution",
   "case.s1.pun.detention": "Detention",
-  "case.s1.pun.suspension": "3-Day Suspension",
+
   "case.s1.realWorld":
-    "School policy typically treats theft of valuable property with suspension and parental notification, sometimes police referral.",
-  "case.s1.standard": "School discipline: 'balance of probabilities' — more likely than not.",
+    "Singapore courts and school disciplinary boards both require positive evidence of an act — being near a scene is never proof of guilt.",
+  "case.s1.standard":
+    "“Beyond reasonable doubt.” Mere presence does not meet this standard.",
 
-  // S2 — Cheating
-  "case.s2.title": "The Cheating Allegation",
+  // ============================================================
+  // S2 — Exam Cheating  (Similarity ≠ Confirmed cheating)
+  // ============================================================
+  "case.s2.title": "Exam Cheating?",
   "case.s2.brief":
-    "Jamie is accused of copying answers during a math exam. The teacher noticed Jamie glancing at a neighbor's paper several times.",
-  "case.s2.stmt.0.who": "Teacher",
-  "case.s2.stmt.0.quote": "I saw Jamie look over at least four times during the test.",
-  "case.s2.stmt.1.who": "Defendant (Jamie)",
-  "case.s2.stmt.1.quote": "I was just stretching my neck. I studied hard for this.",
-  "case.s2.stmt.2.who": "Neighbor",
-  "case.s2.stmt.2.quote": "I covered my paper. I don't think they could see anything.",
-  "case.s2.ev.answers.label": "Answer comparison",
-  "case.s2.ev.answers.short": "70% identical answers",
+    "An invigilator marked two students for similar answers in the math finals. Did they cheat — or did similar workings simply emerge from similar study?",
+  "case.s2.stmt.0.who": "Invigilator",
+  "case.s2.stmt.0.quote":
+    "Their answer sheets look almost identical. I didn't see anything during the test, but the papers worry me.",
+  "case.s2.stmt.1.who": "Suspect",
+  "case.s2.stmt.1.quote":
+    "We studied together from the same notes. Of course our methods look alike — but I never copied.",
+  "case.s2.stmt.2.who": "Classmate (other party)",
+  "case.s2.stmt.2.quote":
+    "I covered my paper. If our answers match, that's just because the topic was simple.",
+
+  "case.s2.ev.answers.label": "Two near-identical answer sheets ⭐",
+  "case.s2.ev.answers.short": "High overlap, same workings",
   "case.s2.ev.answers.detail":
-    "Jamie and the neighbor share 14/20 identical answers — including the same wrong answers in the same way.",
-  "case.s2.ev.history.label": "Past performance",
-  "case.s2.ev.history.short": "Jamie usually scores low",
-  "case.s2.ev.history.detail": "Jamie averages 50% — this exam scored 90%. A sudden jump.",
-  "case.s2.ev.gossip.label": "Friend gossip",
-  "case.s2.ev.gossip.short": "'Jamie always cheats'",
-  "case.s2.ev.gossip.detail": "Unverified claim from one student. Not direct evidence.",
-  "case.s2.ev.tutor.label": "Tutor note",
-  "case.s2.ev.tutor.short": "Jamie had extra tutoring",
-  "case.s2.ev.tutor.detail":
-    "A tutor confirms Jamie studied for 20 hours. Could explain improvement — but not identical wrong answers.",
-  "case.s2.legal.cheating": "Academic Dishonesty",
-  "case.s2.legal.cheating.r": "Identical wrong answers + behavior pattern = strong indication.",
-  "case.s2.legal.misconduct": "Minor Misconduct",
-  "case.s2.legal.misconduct.r": "Understates the integrity violation.",
+    "Both papers share many identical answers and similar handwriting layout — but no identical wrong answers, and final results differ. Similarity alone does not prove copying.",
+
+  "case.s2.ev.seating.label": "Seating chart",
+  "case.s2.ev.seating.short": "Seated very close",
+  "case.s2.ev.seating.detail":
+    "The two students were seated next to each other. Standard exam-hall layout for the day, not assigned by them.",
+
+  "case.s2.ev.glance.label": "A sideways glance",
+  "case.s2.ev.glance.short": "Brief, partial sighting",
+  "case.s2.ev.glance.detail":
+    "The invigilator saw the suspect look sideways once. Not clear whether they could actually see the other paper. Partial evidence at best.",
+
+  "case.s2.ev.invigilator.label": "Invigilator log",
+  "case.s2.ev.invigilator.short": "No formal report at the time",
+  "case.s2.ev.invigilator.detail":
+    "During the exam, the invigilator did not stop, warn, or formally record any cheating. The suspicion arose only after marking.",
+
+  "case.s2.ev.rough.label": "Rough working paper",
+  "case.s2.ev.rough.short": "Same method, same notes",
+  "case.s2.ev.rough.detail":
+    "Both rough papers show the same step-by-step approach taught by their tutor. Common preparation can produce common workings.",
+
+  "case.s2.legal.misconduct": "Minor Misconduct (warning)",
+  "case.s2.legal.misconduct.r":
+    "Treat the seating + glance as a procedural concern, not as proof of cheating. Issue a caution and move on.",
   "case.s2.legal.insufficient": "Insufficient Evidence",
-  "case.s2.legal.insufficient.r": "Statistical pattern is compelling.",
-  "case.s2.pun.warning": "Warning + Re-mark",
-  "case.s2.pun.retake": "Zero + Retake Exam",
+  "case.s2.legal.insufficient.r":
+    "No direct observation, no identical wrong answers. Cannot conclude cheating beyond doubt.",
+  "case.s2.legal.cheating": "Confirmed Cheating",
+  "case.s2.legal.cheating.r":
+    "Similar answers from a shared topic and shared notes do not prove intent to copy.",
+
+  "case.s2.pun.warning":   "Warning + Re-mark",
+  "case.s2.pun.retake":    "Zero + Retake",
   "case.s2.pun.suspension": "Suspension",
+
   "case.s2.realWorld":
-    "Most schools issue a zero on the assessment and require a retake under supervision.",
-  "case.s2.standard": "Academic integrity boards use 'preponderance of evidence'.",
+    "Academic integrity boards require evidence of intent or direct observation — not just statistical resemblance.",
+  "case.s2.standard":
+    "“Preponderance of evidence,” but resemblance alone is rarely enough.",
 
-  // S3 — Bullying
-  "case.s3.title": "The Bullying Report",
+  // ============================================================
+  // S3 — The Broken Window  (Group presence, no clear actor)
+  // ============================================================
+  "case.s3.title": "The Broken Window",
   "case.s3.brief":
-    "A junior student reports being shoved in the hallway by an older student, Ravi. There were several bystanders.",
-  "case.s3.stmt.0.who": "Victim",
-  "case.s3.stmt.0.quote": "Ravi pushed me into the lockers and laughed.",
-  "case.s3.stmt.1.who": "Defendant (Ravi)",
-  "case.s3.stmt.1.quote": "I bumped into them by accident. The hallway was crowded.",
-  "case.s3.stmt.2.who": "Bystander A",
-  "case.s3.stmt.2.quote": "I saw Ravi laughing afterward.",
-  "case.s3.stmt.3.who": "Bystander B",
-  "case.s3.stmt.3.quote": "It looked like an accident to me.",
-  "case.s3.ev.bruise.label": "Medical note",
-  "case.s3.ev.bruise.short": "Minor bruising on shoulder",
-  "case.s3.ev.bruise.detail": "Nurse confirmed bruising consistent with impact against lockers.",
-  "case.s3.ev.history.label": "Behavior record",
-  "case.s3.ev.history.short": "Ravi has 2 prior warnings",
-  "case.s3.ev.history.detail":
-    "Two previous warnings for rough behavior, but no formal bullying findings.",
-  "case.s3.ev.anon.label": "Anonymous note",
-  "case.s3.ev.anon.short": "'Ravi targets juniors'",
-  "case.s3.ev.anon.detail": "Unsigned note in the suggestion box. Source unknown.",
-  "case.s3.ev.cctv.label": "Hallway CCTV",
-  "case.s3.ev.cctv.short": "Partial view",
-  "case.s3.ev.cctv.detail":
-    "Camera shows contact but angle is obstructed. Cannot confirm intent.",
-  "case.s3.legal.bullying": "Bullying / Assault",
-  "case.s3.legal.bullying.r": "Intent isn't clearly proven from the footage.",
-  "case.s3.legal.misconduct": "Misconduct",
-  "case.s3.legal.misconduct.r":
-    "Behavior was inappropriate but intent ambiguous — fits misconduct best.",
+    "A corridor window has been smashed. A soccer ball lies under it and a few students were nearby. Who is responsible — and can it be proven?",
+  "case.s3.stmt.0.who": "Discipline Master",
+  "case.s3.stmt.0.quote":
+    "I found this group standing here when the window was already broken. Someone has to pay for this.",
+  "case.s3.stmt.1.who": "Nervous Student",
+  "case.s3.stmt.1.quote":
+    "I-I just walked past. I don't even play soccer. I don't know whose ball that is!",
+  "case.s3.stmt.2.who": "Other Student",
+  "case.s3.stmt.2.quote":
+    "We heard a crash from outside, then saw the glass. None of us threw anything.",
+
+  "case.s3.ev.glass.label": "Broken glass on floor",
+  "case.s3.ev.glass.short": "Shards across the corridor",
+  "case.s3.ev.glass.detail":
+    "Glass shards spread inward — meaning the impact came from outside the window, not from the corridor.",
+
+  "case.s3.ev.ball.label": "Soccer ball nearby ⭐",
+  "case.s3.ev.ball.short": "Resting under the window",
+  "case.s3.ev.ball.detail":
+    "A soccer ball rests under the broken window. There is no name on it, no fingerprints checked, and no record of who was kicking it. The most plausible cause — but not tied to anyone here.",
+
+  "case.s3.ev.group.label": "Group of students present",
+  "case.s3.ev.group.short": "Three bystanders",
+  "case.s3.ev.group.detail":
+    "Three students stood in the corridor when staff arrived. None of them was seen kicking, throwing, or holding anything.",
+
+  "case.s3.ev.nervous.label": "One nervous student",
+  "case.s3.ev.nervous.short": "Looking down, fidgeting",
+  "case.s3.ev.nervous.detail":
+    "One student looks visibly nervous. Nervousness is normal under accusation — it is not evidence of guilt.",
+
+  "case.s3.ev.witness.label": "No direct witness",
+  "case.s3.ev.witness.short": "No one saw it happen",
+  "case.s3.ev.witness.detail":
+    "No staff member, camera, or student saw who actually kicked the ball. Without a witness, blame cannot be assigned.",
+
   "case.s3.legal.insufficient": "Insufficient Evidence",
-  "case.s3.legal.insufficient.r": "Bruising + behavior history justify some action.",
-  "case.s3.pun.warning": "Formal Warning",
-  "case.s3.pun.mediation": "Mediation + Counseling",
-  "case.s3.pun.suspension": "Suspension",
+  "case.s3.legal.insufficient.r":
+    "Glass + ball point outdoors. No witness ties any specific student to the act. Correct call: no individual can be charged.",
+  "case.s3.legal.shared": "Shared Responsibility",
+  "case.s3.legal.shared.r":
+    "Punishing everyone present is unfair without evidence that they were involved. Partial credit only.",
+  "case.s3.legal.misconduct": "Charge the nervous student",
+  "case.s3.legal.misconduct.r":
+    "Nervousness is not evidence — punishing on suspicion alone is wrong.",
+
+  "case.s3.pun.none":      "No Action",
+  "case.s3.pun.warning":   "Group Caution",
+  "case.s3.pun.mediation": "Restorative Talk",
+
   "case.s3.realWorld":
-    "Schools often use restorative practices: mediation between parties before escalation.",
-  "case.s3.standard": "Disciplinary: balance of probabilities; intent matters for severity.",
+    "Schools and courts cannot lawfully punish a group when no individual act is proven — collective punishment is widely criticised.",
+  "case.s3.standard":
+    "“Balance of probabilities” for discipline; but you still need a link to a specific act.",
 
-  // C1 — Online Fraud
-  "case.c1.title": "The Online Fraud Case",
+  // ============================================================
+  // C1 — Shoplifting  (Crime is clear, but motive matters)
+  // ============================================================
+  "case.c1.title": "Shoplifting at the Corner Store",
   "case.c1.brief":
-    "A small business owner accuses Mr. Tan of operating a fake online store that took 200+ pre-orders without delivering. Mr. Tan claims he was a victim of a supplier scam.",
-  "case.c1.stmt.0.who": "Customer Group",
-  "case.c1.stmt.0.quote": "We paid. Nothing arrived. The site is gone.",
-  "case.c1.stmt.1.who": "Defendant (Mr. Tan)",
-  "case.c1.stmt.1.quote": "My supplier ran off with my money. I'm a victim too.",
-  "case.c1.stmt.2.who": "Bank",
-  "case.c1.stmt.2.quote": "Funds were withdrawn to a personal account within 48 hours.",
-  "case.c1.ev.bank.label": "Bank records",
-  "case.c1.ev.bank.short": "Funds → personal account",
-  "case.c1.ev.bank.detail":
-    "Customer payments routed to Mr. Tan's personal account, then withdrawn as cash.",
-  "case.c1.ev.supplier.label": "Supplier contract",
-  "case.c1.ev.supplier.short": "Unverified contract",
-  "case.c1.ev.supplier.detail":
-    "Contract document supplied by Mr. Tan, but the supplier company doesn't exist in registry.",
-  "case.c1.ev.site.label": "Website forensics",
-  "case.c1.ev.site.short": "Site was disabled by owner",
-  "case.c1.ev.site.detail":
-    "Server logs show the site was intentionally taken down by Mr. Tan, not hacked.",
-  "case.c1.ev.social.label": "Social media outrage",
-  "case.c1.ev.social.short": "Hundreds of angry posts",
-  "case.c1.ev.social.detail":
-    "Many emotional posts but mostly opinions, not evidence of intent.",
-  "case.c1.ev.history.label": "Prior business",
-  "case.c1.ev.history.short": "Two similar closed shops",
-  "case.c1.ev.history.detail":
-    "Mr. Tan ran two prior online shops that closed under similar complaints.",
-  "case.c1.legal.fraud": "Fraud",
-  "case.c1.legal.fraud.r":
-    "Pattern of intent: routing to personal account + prior history + fabricated supplier.",
-  "case.c1.legal.negligence": "Negligence",
-  "case.c1.legal.negligence.r": "Underestimates the deliberate pattern of behavior.",
+    "A person was caught at a convenience store with food they did not pay for. The act is clear — but the context might change the punishment.",
+  "case.c1.stmt.0.who": "Store Clerk",
+  "case.c1.stmt.0.quote":
+    "I saw them slip the bread under their jacket. They didn't even try to pay.",
+  "case.c1.stmt.1.who": "Suspect",
+  "case.c1.stmt.1.quote":
+    "I haven't eaten in two days. I lost my job last week. I know it was wrong.",
+  "case.c1.stmt.2.who": "Officer",
+  "case.c1.stmt.2.quote":
+    "We've checked: no prior record, no weapons, low value of goods.",
+
+  "case.c1.ev.cctv.label": "CCTV footage ⭐",
+  "case.c1.ev.cctv.short": "Item taken without payment",
+  "case.c1.ev.cctv.detail":
+    "Clear, timestamped footage shows the suspect placing the item inside their jacket and walking past the cashier. No ambiguity.",
+
+  "case.c1.ev.no_pay.label": "No payment recorded ⭐",
+  "case.c1.ev.no_pay.short": "Cash register has no entry",
+  "case.c1.ev.no_pay.detail":
+    "The till and digital receipt log show no transaction during the relevant minute. The item was not bought.",
+
+  "case.c1.ev.distress.label": "Suspect looks distressed",
+  "case.c1.ev.distress.short": "Visibly shaking, hungry",
+  "case.c1.ev.distress.detail":
+    "The suspect looks pale, shaky, and distressed. Emotional state is not a defence, but it can speak to motive.",
+
+  "case.c1.ev.wallet.label": "Empty wallet",
+  "case.c1.ev.wallet.short": "No cash, no cards",
+  "case.c1.ev.wallet.detail":
+    "The suspect's wallet is empty. Combined with the distressed state, it suggests genuine financial hardship — relevant to sentencing, not to guilt.",
+
+  "case.c1.ev.staff.label": "Staff testimony",
+  "case.c1.ev.staff.short": "Clerk's direct account",
+  "case.c1.ev.staff.detail":
+    "Direct eyewitness statement from the cashier. Consistent with the CCTV.",
+
+  "case.c1.legal.theft_light": "Theft — with mitigation",
+  "case.c1.legal.theft_light.r":
+    "Crime is clearly proven. Hunger, no record, low value → light, restorative consequence.",
+  "case.c1.legal.theft_full": "Theft — full punishment",
+  "case.c1.legal.theft_full.r":
+    "The act is clear, but ignoring context produces a disproportionately harsh outcome.",
   "case.c1.legal.insufficient": "Insufficient Evidence",
-  "case.c1.legal.insufficient.r": "Bank trail + prior pattern is strong.",
-  "case.c1.pun.fine": "Fine + Restitution",
-  "case.c1.pun.fine_jail": "Restitution + Jail Term",
-  "case.c1.pun.max": "Maximum Sentence",
+  "case.c1.legal.insufficient.r":
+    "Both CCTV and the till log directly prove the act. This option ignores clear evidence.",
+
+  "case.c1.pun.warning":   "Warning + Counselling",
+  "case.c1.pun.community": "Community Service + Pay-back",
+  "case.c1.pun.jail":      "Custodial Sentence",
+
   "case.c1.realWorld":
-    "Real cases (e.g., Singapore CDSA) typically result in restitution orders plus imprisonment when intent and pattern are shown.",
-  "case.c1.standard": "Criminal: 'beyond reasonable doubt'.",
+    "Most jurisdictions allow magistrates to consider hardship in petty theft — the law punishes the act, but mercy shapes the sentence.",
+  "case.c1.standard":
+    "Criminal: 'beyond reasonable doubt' — easily met here. Sentencing weighs context.",
 
-  // C2 — Public Dispute
-  "case.c2.title": "The Public Dispute",
+  // ============================================================
+  // C2 — Traffic Accident  (Conflicting evidence — shared)
+  // ============================================================
+  "case.c2.title": "The Intersection Crash",
   "case.c2.brief":
-    "Two neighbors are in a bitter dispute over a noisy renovation. One claims harassment, the other claims defamation on social media.",
-  "case.c2.stmt.0.who": "Neighbor A",
+    "Two cars collided at an intersection. Witnesses give opposite accounts. Who is at fault — or are both?",
+  "case.c2.stmt.0.who": "Driver 1 (red car)",
   "case.c2.stmt.0.quote":
-    "They've been banging walls at midnight for weeks. I had to post about it.",
-  "case.c2.stmt.1.who": "Neighbor B",
+    "My light was green. The blue car came flying out of nowhere.",
+  "case.c2.stmt.1.who": "Driver 2 (blue car)",
   "case.c2.stmt.1.quote":
-    "Their post called me a 'criminal contractor.' My business is suffering.",
-  "case.c2.stmt.2.who": "Building Manager",
-  "case.c2.stmt.2.quote": "We received noise complaints but no permits were violated.",
-  "case.c2.ev.decibel.label": "Decibel logs",
-  "case.c2.ev.decibel.short": "Above limit at night",
-  "case.c2.ev.decibel.detail":
-    "Building sensor shows nighttime noise above legal limit on 4 nights.",
-  "case.c2.ev.post.label": "Social media post",
-  "case.c2.ev.post.short": "Public accusation",
-  "case.c2.ev.post.detail":
-    "Post calls neighbor a 'criminal contractor' — no evidence of criminal record.",
-  "case.c2.ev.screenshots.label": "Edited screenshots",
-  "case.c2.ev.screenshots.short": "Possibly altered chats",
-  "case.c2.ev.screenshots.detail":
-    "Screenshots provided by Neighbor B appear cropped; metadata is missing.",
-  "case.c2.ev.permit.label": "Renovation permit",
-  "case.c2.ev.permit.short": "Valid daytime permit",
-  "case.c2.ev.permit.detail":
-    "Valid permit but only for daytime hours. Night work was not authorized.",
-  "case.c2.legal.both": "Mutual Liability",
-  "case.c2.legal.both.r":
-    "Both parties violated norms: one breached noise rules, the other defamed without proof.",
-  "case.c2.legal.defamation": "Defamation Only",
-  "case.c2.legal.defamation.r": "Ignores the documented noise breach.",
-  "case.c2.legal.insufficient": "Insufficient Evidence",
-  "case.c2.legal.insufficient.r": "Decibel logs + post are concrete.",
-  "case.c2.pun.mediation": "Mediation + Apologies",
-  "case.c2.pun.fines": "Fines on Both Parties",
-  "case.c2.pun.court": "Civil Court Damages",
+    "I had the right of way. The red car ran the light at full speed.",
+  "case.c2.stmt.2.who": "Witness A",
+  "case.c2.stmt.2.quote":
+    "I'm sure Driver 1 ran the red light. I was right there.",
+  "case.c2.stmt.3.who": "Witness B",
+  "case.c2.stmt.3.quote":
+    "No, the blue car was speeding way over the limit. I saw it clearly.",
+
+  "case.c2.ev.cars.label": "Two damaged cars",
+  "case.c2.ev.cars.short": "Front & side damage",
+  "case.c2.ev.cars.detail":
+    "Both vehicles show significant damage consistent with high-speed impact at the centre of the intersection. Damage pattern is symmetrical.",
+
+  "case.c2.ev.light.label": "Traffic light (state unclear)",
+  "case.c2.ev.light.short": "Glitchy / ambiguous",
+  "case.c2.ev.light.detail":
+    "The signal was reportedly faulty earlier that day. No video confirms which side had green at the moment of impact.",
+
+  "case.c2.ev.witnessA.label": "Witness A statement",
+  "case.c2.ev.witnessA.short": "Blames Driver 1",
+  "case.c2.ev.witnessA.detail":
+    "Witness A is confident — but stood at an angle that did not have a clear view of the signal. Possibly biased.",
+
+  "case.c2.ev.witnessB.label": "Witness B statement",
+  "case.c2.ev.witnessB.short": "Blames Driver 2",
+  "case.c2.ev.witnessB.detail":
+    "Witness B is also confident — but his estimate of speed is informal, no radar reading. Conflicts with Witness A.",
+
+  "case.c2.ev.skid.label": "Skid marks on the road ⭐",
+  "case.c2.ev.skid.short": "Long marks from blue car",
+  "case.c2.ev.skid.detail":
+    "Long, dark skid marks trail from the blue car — physical evidence of late, hard braking, suggesting excessive speed. The red car shows shorter marks consistent with a late reaction. Both contributed.",
+
+  "case.c2.legal.shared": "Shared Responsibility",
+  "case.c2.legal.shared.r":
+    "Skid marks + symmetrical damage + conflicting witnesses → both drivers contributed. The fairest call.",
+  "case.c2.legal.insufficient": "Insufficient Clarity",
+  "case.c2.legal.insufficient.r":
+    "Acceptable: the testimonies cancel out and the light state is unknown. Refer for further investigation.",
+  "case.c2.legal.driver1": "Driver 1 fully at fault",
+  "case.c2.legal.driver1.r":
+    "Pinning it on one driver ignores the skid marks and the conflicting witnesses.",
+
+  "case.c2.pun.mediation":   "Mediation between drivers",
+  "case.c2.pun.shared_fine": "Shared fines + retraining",
+  "case.c2.pun.license":     "License suspension (one party)",
+
   "case.c2.realWorld":
-    "Most neighbor disputes are resolved through community mediation centres before reaching civil court.",
+    "Insurance claims often apportion fault by percentage when evidence is conflicting — rarely 100/0.",
   "case.c2.standard":
-    "Civil: 'balance of probabilities' — both sides assessed independently.",
+    "Civil: 'balance of probabilities,' weighing each party independently.",
 
-  // C3 — Negligence
-  "case.c3.title": "The Negligence Dilemma",
+  // ============================================================
+  // C3 — Online Scam  (Intent vs misunderstanding)
+  // ============================================================
+  "case.c3.title": "The Online Job Scam",
   "case.c3.brief":
-    "A construction worker fell from scaffolding and was seriously injured. The site supervisor is accused of negligence, but claims the worker ignored safety protocols.",
-  "case.c3.stmt.0.who": "Injured Worker",
-  "case.c3.stmt.0.quote": "The harness clip was broken. I told them last week.",
-  "case.c3.stmt.1.who": "Supervisor",
+    "A victim was promised a high-paying job and asked to transfer money for 'training fees.' The accused claims it was all a misunderstanding.",
+  "case.c3.stmt.0.who": "Victim",
+  "case.c3.stmt.0.quote":
+    "They promised me a real job. I sent the money — and then they vanished.",
+  "case.c3.stmt.1.who": "Accused",
   "case.c3.stmt.1.quote":
-    "Workers are trained to inspect their own gear. He skipped his check.",
-  "case.c3.stmt.2.who": "Co-worker",
-  "case.c3.stmt.2.quote": "Everyone knew that harness was bad. Nobody wanted to use it.",
-  "case.c3.ev.harness.label": "Inspected harness",
-  "case.c3.ev.harness.short": "Confirmed faulty clip",
-  "case.c3.ev.harness.detail":
-    "Forensic inspection confirms the clip was worn and would fail under load.",
-  "case.c3.ev.log.label": "Maintenance log",
-  "case.c3.ev.log.short": "No check in 60 days",
-  "case.c3.ev.log.detail":
-    "Required weekly inspection log shows no entries for 60 days. Supervisor's signature missing.",
-  "case.c3.ev.training.label": "Worker training record",
-  "case.c3.ev.training.short": "Worker was certified",
-  "case.c3.ev.training.detail":
-    "Worker passed safety training 4 months ago — but training doesn't replace equipment maintenance.",
-  "case.c3.ev.anon.label": "Anonymous tip",
-  "case.c3.ev.anon.short": "'Supervisor cuts corners'",
-  "case.c3.ev.anon.detail":
-    "Unsigned message to safety hotline, no specifics. Cannot be verified.",
-  "case.c3.legal.negligence": "Criminal Negligence",
-  "case.c3.legal.negligence.r":
-    "Supervisor's duty of care breached — missing inspections + known fault.",
-  "case.c3.legal.shared": "Shared Fault",
-  "case.c3.legal.shared.r": "Worker followed training; primary duty rests with supervisor.",
-  "case.c3.legal.insufficient": "Insufficient Evidence",
-  "case.c3.legal.insufficient.r": "Maintenance log + forensic inspection are strong.",
-  "case.c3.pun.warning": "Warning + Retraining",
-  "case.c3.pun.fine_ban": "Heavy Fine + License Suspension",
-  "case.c3.pun.jail": "Imprisonment",
-  "case.c3.realWorld":
-    "Workplace safety acts (e.g., WSH Act) commonly impose heavy fines and licence suspensions on negligent supervisors.",
-  "case.c3.standard":
-    "Criminal negligence: 'beyond reasonable doubt' for intent; civil claims separately.",
+    "It's a misunderstanding. They sent the money on their own. I never forced them.",
+  "case.c3.stmt.2.who": "Investigator",
+  "case.c3.stmt.2.quote":
+    "We pulled the chats and bank logs. The 'company' doesn't exist anywhere in our records.",
 
-  // Feedback / impact UI
+  "case.c3.ev.chat.label": "Chat promising a job ⭐",
+  "case.c3.ev.chat.short": "Explicit job offer",
+  "case.c3.ev.chat.detail":
+    "Saved chat logs show the accused promising a 'guaranteed' job and demanding a refundable training fee. The wording is precise and intentional — not casual conversation.",
+
+  "case.c3.ev.transfer.label": "Victim transferred money ⭐",
+  "case.c3.ev.transfer.short": "Bank transfer confirmed",
+  "case.c3.ev.transfer.detail":
+    "Bank records confirm the victim transferred a substantial amount to an account controlled by the accused. The funds were withdrawn in cash within hours.",
+
+  "case.c3.ev.contract.label": "No official contract",
+  "case.c3.ev.contract.short": "Nothing in writing",
+  "case.c3.ev.contract.detail":
+    "There is no signed employment contract, no offer letter, and no official paperwork — only an informal chat. A real employer leaves a paper trail.",
+
+  "case.c3.ev.profile.label": "Fake company profile",
+  "case.c3.ev.profile.short": "Not registered",
+  "case.c3.ev.profile.detail":
+    "The 'company' page used a stolen logo. The business is not registered in any commercial registry. Clear sign of fabrication.",
+
+  "case.c3.ev.claim.label": "Suspect claims misunderstanding",
+  "case.c3.ev.claim.short": "Self-serving statement",
+  "case.c3.ev.claim.detail":
+    "The accused now says the victim 'misunderstood' the offer. This conflicts with the explicit chat wording — likely a defence story.",
+
+  "case.c3.legal.fraud": "Fraud (Cheating)",
+  "case.c3.legal.fraud.r":
+    "False promise + induced transfer + fake company + immediate cash withdrawal = clear intent to deceive. Textbook fraud.",
+  "case.c3.legal.negligence": "Negligence Only",
+  "case.c3.legal.negligence.r":
+    "Negligence implies carelessness. The fake company and immediate withdrawal show intent — this is more than negligence.",
+  "case.c3.legal.insufficient": "Insufficient Evidence",
+  "case.c3.legal.insufficient.r":
+    "Chats + transfer + fake company + statements form a strong, complete chain.",
+
+  "case.c3.pun.fine":      "Fine + Restitution",
+  "case.c3.pun.fine_jail": "Restitution + Jail Term",
+  "case.c3.pun.max":       "Maximum Sentence",
+
+  "case.c3.realWorld":
+    "Job-scam cases are typically prosecuted as cheating under criminal law, with restitution orders and imprisonment.",
+  "case.c3.standard":
+    "Criminal: 'beyond reasonable doubt' — easily met by chats + bank records.",
+
+  // ============= Feedback / impact UI =============
   "case.eval": "Court Evaluation",
   "case.sound": "⚖ Sound Judgement",
   "case.reconsider": "⚠ Reconsider Reasoning",
@@ -274,298 +392,372 @@ const EN: Dict = {
   "case.reliable.note":
     "Direct, verifiable source. Safe to weigh heavily in your judgement.",
   "case.unreliable.note":
-    "Hearsay, contradicted, or unverified. Treat with caution — do not mark as reliable.",
-  // ===== Evidence — Source & Caveats (extended detail) =====
-  "case.s1.ev.cctv.detail.more":
-    "Source: Hallway camera CCTV-04. Timestamps verified by the IT admin. Chain of custody: footage exported at 13:10 and sealed. Caveat: camera does not cover the lab's rear door.",
-  "case.s1.ev.locker.detail.more":
-    "Source: Locker inspection performed by the principal with a teacher witness. Serial number matches the school's purchase record. Caveat: 3 classmates knew the locker code — possible plant.",
-  "case.s1.ev.rumor.detail.more":
-    "Source: Two students in the canteen (not at the scene). Pure hearsay. Caveat: rumor cannot be admitted as primary evidence; bias risk.",
-  "case.s1.ev.alibi.detail.more":
-    "Source: Defendant's statement only. No witnesses or canteen receipt. Caveat: directly contradicted by CCTV.",
+    "Hearsay, contradicted, or unverified. Treat with caution.",
+
+  // ===== Source & Caveats (long-press detail) =====
+  // S1
+  "case.s1.ev.empty_desk.detail.more":
+    "Source: First-on-scene staff observation, photographed. Caveat: dust outline only proves the laptop was there — not who took it.",
+  "case.s1.ev.open_bag.detail.more":
+    "Source: Inventory check by the head of year. Caveat: an unzipped bag is not a hiding place; the laptop was not inside.",
+  "case.s1.ev.cable.detail.more":
+    "Source: Floor sweep. The cable was photographed in place. Caveat: a hurried thief leaves cables — points away from a calm, seated suspect.",
+  "case.s1.ev.student.detail.more":
+    "Source: Eyewitness placement. Caveat: proximity is not action. No one saw them touch the laptop.",
+  "case.s1.ev.window.detail.more":
+    "Source: Caretaker confirmation that the window was open since lunchtime. Caveat: ground-floor access opens many alternative suspects.",
+
+  // S2
   "case.s2.ev.answers.detail.more":
-    "Source: Submitted by the exam invigilator. 7 of 10 final answers match, including one identical mistake. Caveat: students may have studied from the same notes.",
-  "case.s2.ev.tutor.detail.more":
-    "Source: Certified private tutor. Verified with payment receipts. Caveat: tutor was not present during the exam.",
-  "case.s2.ev.gossip.detail.more":
-    "Source: Anonymous peer group chat. Caveat: speculation only, no direct evidence.",
-  "case.s2.ev.history.detail.more":
-    "Source: Official academic record. Caveat: past behaviour does not prove the current act.",
-  "case.s3.ev.cctv.detail.more":
-    "Source: Hallway CCTV (limited angle). Caveat: the shove occurred off-frame; only the initial confrontation is visible.",
-  "case.s3.ev.bruise.detail.more":
-    "Source: School nurse report with dated photos. Caveat: bruise could come from other causes.",
-  "case.s3.ev.anon.detail.more":
-    "Source: Anonymous note dropped in the complaints box. Caveat: no way to verify author or motive.",
-  "case.s3.ev.history.detail.more":
-    "Source: Official discipline record. Caveat: pattern of behaviour, not direct evidence for this incident.",
-  "case.c1.ev.bank.detail.more":
-    "Source: Official statement issued by the bank. Caveat: account holder may not be the real fraudster (mule account).",
-  "case.c1.ev.site.detail.more":
-    "Source: Archived web cache + SSL certificate. Caveat: the site can be taken down at any time.",
-  "case.c1.ev.history.detail.more":
-    "Source: Consumer-protection database. Caveat: prior complaints don't prove this specific transaction.",
-  "case.c1.ev.social.detail.more":
-    "Source: Screenshots from the reporter. Caveat: editable — request the original version.",
-  "case.c1.ev.supplier.detail.more":
-    "Source: Letter from the accused supplier. Caveat: the supplier may have a conflict of interest.",
-  "case.c2.ev.decibel.detail.more":
-    "Source: Official council dB-meter reading. Caveat: measurement was taken on a single night only.",
-  "case.c2.ev.permit.detail.more":
-    "Source: Council licensing office. Caveat: permit may carry noise-limit conditions that were breached.",
-  "case.c2.ev.post.detail.more":
-    "Source: Public social-media post. Caveat: the audience in the video may not represent every night.",
-  "case.c2.ev.screenshots.detail.more":
-    "Source: Resident screenshots. Caveat: single message — request audio recordings to corroborate.",
-  "case.c3.ev.log.detail.more":
-    "Source: On-site electronic equipment log. Caveat: logs can be altered if the system isn't locked.",
-  "case.c3.ev.harness.detail.more":
-    "Source: Certified safety engineer inspection. Caveat: evidence may be tampered with after an accident.",
-  "case.c3.ev.training.detail.more":
-    "Source: Official HR training record. Caveat: attendance does not guarantee understanding.",
-  "case.c3.ev.anon.detail.more":
-    "Source: Anonymous tip-line call. Caveat: informant's motive is unknown.",
+    "Source: Both papers compared by two markers. Caveat: similar correct answers ≠ copying. No identical wrong answers.",
+  "case.s2.ev.seating.detail.more":
+    "Source: Official seating chart. Caveat: standard layout — not chosen by the students.",
+  "case.s2.ev.glance.detail.more":
+    "Source: Invigilator memory only. Caveat: angle and distance make 'seeing the paper' unlikely.",
+  "case.s2.ev.invigilator.detail.more":
+    "Source: Official exam log. Caveat: no live warning was issued — accusation arose only after marking.",
+  "case.s2.ev.rough.detail.more":
+    "Source: Tutor's lesson notes. Caveat: shared preparation easily produces shared workings.",
+
+  // S3
+  "case.s3.ev.glass.detail.more":
+    "Source: Photograph of debris pattern. Caveat: shards spread inward → impact came from outside.",
+  "case.s3.ev.ball.detail.more":
+    "Source: Item logged by the discipline office. Caveat: unmarked, no owner identified, no fingerprints taken.",
+  "case.s3.ev.group.detail.more":
+    "Source: Staff observation on arrival. Caveat: bystanders, not actors. No one was seen kicking.",
+  "case.s3.ev.nervous.detail.more":
+    "Source: Subjective impression. Caveat: nervousness under accusation is normal — not evidence.",
+  "case.s3.ev.witness.detail.more":
+    "Source: Canvass of corridor and CCTV. Caveat: no witness, no camera angle covered the act.",
+
+  // C1
+  "case.c1.ev.cctv.detail.more":
+    "Source: Store CCTV with timestamp. Caveat: footage is clear and continuous — chain of custody preserved.",
+  "case.c1.ev.no_pay.detail.more":
+    "Source: Point-of-sale transaction log. Caveat: matches CCTV minute-by-minute.",
+  "case.c1.ev.distress.detail.more":
+    "Source: Officer's body-cam observation. Caveat: state of mind speaks to motive, not to whether the act happened.",
+  "case.c1.ev.wallet.detail.more":
+    "Source: Inventory at booking. Caveat: empty wallet is mitigating context, not a defence.",
+  "case.c1.ev.staff.detail.more":
+    "Source: Sworn statement from the cashier. Caveat: consistent with CCTV — strong corroboration.",
+
+  // C2
+  "case.c2.ev.cars.detail.more":
+    "Source: Crash-scene photographs by the responding officer. Caveat: symmetrical damage suggests both vehicles were moving at speed.",
+  "case.c2.ev.light.detail.more":
+    "Source: Council maintenance log shows a fault report earlier that day. Caveat: no video proves which colour was shown at impact.",
+  "case.c2.ev.witnessA.detail.more":
+    "Source: Roadside statement. Caveat: angle did not afford a clear view of the signal.",
+  "case.c2.ev.witnessB.detail.more":
+    "Source: Roadside statement. Caveat: speed estimate is informal; no radar reading.",
+  "case.c2.ev.skid.detail.more":
+    "Source: Forensic measurement of skid length. Caveat: physical evidence — much stronger than memory.",
+
+  // C3
+  "case.c3.ev.chat.detail.more":
+    "Source: Phone export with hashes preserved. Caveat: wording is precise — not casual misunderstanding.",
+  "case.c3.ev.transfer.detail.more":
+    "Source: Official bank statement. Caveat: rapid cash withdrawal is a classic indicator of intent.",
+  "case.c3.ev.contract.detail.more":
+    "Source: Search of victim's records and email. Caveat: a real employer would always provide written terms.",
+  "case.c3.ev.profile.detail.more":
+    "Source: Commercial registry check + reverse image search. Caveat: stolen logo proves fabrication.",
+  "case.c3.ev.claim.detail.more":
+    "Source: Accused's statement to investigators. Caveat: contradicted by the explicit chat wording.",
 };
 
 // ============= 中文 =============
 const ZH: Dict = {
+  // S1
   "case.s1.title": "失踪的笔记本电脑",
   "case.s1.brief":
-    "十年级学生Alex被指控在午休期间从科学实验室偷走同学的笔记本电脑。该笔记本电脑后来在Alex的储物柜中被发现。",
-  "case.s1.stmt.0.who": "原告(Sam)",
-  "case.s1.stmt.0.quote": "我的笔记本电脑就放在桌上。Alex是最后一个在实验室的人。",
-  "case.s1.stmt.1.who": "被告(Alex)",
-  "case.s1.stmt.1.quote": "一定是有人栽赃。我的储物柜密码不是秘密。",
-  "case.s1.stmt.2.who": "老师",
-  "case.s1.stmt.2.quote": "我在12:45锁了实验室的门,在那之前我没看到谁进去。",
-  "case.s1.ev.cctv.label": "监控录像",
-  "case.s1.ev.cctv.short": "走廊摄像头,午休时段",
-  "case.s1.ev.cctv.detail":
-    "显示Alex在12:30进入实验室,12:38背着背包离开。画质清晰。",
-  "case.s1.ev.locker.label": "储物柜内容",
-  "case.s1.ev.locker.short": "在Alex储物柜中找到笔记本电脑",
-  "case.s1.ev.locker.detail":
-    "笔记本电脑通过序列号确认为失物。储物柜密码有3位同学知道。",
-  "case.s1.ev.rumor.label": "走廊传言",
-  "case.s1.ev.rumor.short": "“Alex总是拿别人东西”",
-  "case.s1.ev.rumor.detail":
-    "两位同学声称Alex“总是拿东西”,但都没目击事件。仅为传闻。",
-  "case.s1.ev.alibi.label": "Alex的不在场证明",
-  "case.s1.ev.alibi.short": "声称当时在食堂",
-  "case.s1.ev.alibi.detail":
-    "Alex说12:30在食堂,但无人证实,且监控录像与之矛盾。",
-  "case.s1.legal.theft": "盗窃",
-  "case.s1.legal.theft.r": "未经同意拿走他人财物 — 监控和找回的物品支持这一指控。",
-  "case.s1.legal.misconduct": "一般违规",
-  "case.s1.legal.misconduct.r": "过于笼统 — 证据指向具体行为。",
-  "case.s1.legal.insufficient": "证据不足",
-  "case.s1.legal.insufficient.r": "存在多项可靠证据。",
-  "case.s1.pun.warning": "口头警告",
-  "case.s1.pun.detention": "留堂",
-  "case.s1.pun.suspension": "停学3天",
-  "case.s1.realWorld":
-    "校规通常对盗窃贵重物品施以停学和通知家长,有时移交警方。",
-  "case.s1.standard": "学校纪律:“可能性权衡” — 比不存在更可能存在。",
+    "放学后空无一人的教室，一台学生的笔记本电脑从桌上不翼而飞。附近的同学被怀疑了——但他们真的有份吗？在指控任何人之前，先仔细搜查现场。",
+  "case.s1.stmt.0.who": "失主",
+  "case.s1.stmt.0.quote": "我把笔记本放在桌上。回来时它就不见了——而他们就坐在那里！",
+  "case.s1.stmt.1.who": "嫌疑人",
+  "case.s1.stmt.1.quote": "我只是在看书，根本没碰他们的东西。窗户一直开着。",
+  "case.s1.stmt.2.who": "清洁工",
+  "case.s1.stmt.2.quote": "我20分钟前进来。窗户当时已经开着——而且我看到地上有条充电线。",
 
-  "case.s2.title": "作弊指控",
+  "case.s1.ev.empty_desk.label": "桌面上的空位",
+  "case.s1.ev.empty_desk.short": "笔记本原本所在的位置",
+  "case.s1.ev.empty_desk.detail":
+    "桌面灰尘上留下一块干净的长方形痕迹，正是笔记本所在的位置。其他物品都未被动过。",
+  "case.s1.ev.open_bag.label": "敞开的书包",
+  "case.s1.ev.open_bag.short": "未拉拉链，掉在地上",
+  "case.s1.ev.open_bag.detail":
+    "一只书包敞着口躺在地上，里面有书但没有笔记本，拉链完好无损。",
+  "case.s1.ev.cable.label": "地上的充电线 ⭐",
+  "case.s1.ev.cable.short": "盘绕在桌旁",
+  "case.s1.ev.cable.detail":
+    "一条黑色充电线盘在地上，仍插在墙上。笔记本端却空着。拿走笔记本的人匆忙拔走设备，却把线留下——更像是匆忙抢走，未必是坐在附近的人。",
+  "case.s1.ev.student.label": "附近坐着的学生",
+  "case.s1.ev.student.short": "在两张桌子外看书",
+  "case.s1.ev.student.detail":
+    "一位同学坐在两张桌子外看书。靠近失物现场，并不等于拿了它。",
+  "case.s1.ev.window.label": "敞开的窗户",
+  "case.s1.ev.window.short": "大开，窗帘飘动",
+  "case.s1.ev.window.detail":
+    "后方一扇大窗大开。教室在一楼，任何人都可能从外面进来或伸手拿东西。",
+
+  "case.s1.legal.insufficient": "证据不足",
+  "case.s1.legal.insufficient.r":
+    "无人目睹嫌疑人拿走笔记本。开窗+缺失的设备端=多种可能。仅凭距离不能定罪。",
+  "case.s1.legal.theft": "盗窃（指控嫌疑人）",
+  "case.s1.legal.theft.r": "没有直接证据将此人与行为相连——只是他在附近。",
+  "case.s1.legal.misconduct": "轻微违规",
+  "case.s1.legal.misconduct.r": "没有违规可指控——他只是出现在公共空间。",
+
+  "case.s1.pun.none": "不予处理",
+  "case.s1.pun.warning": "口头告诫",
+  "case.s1.pun.detention": "留堂",
+  "case.s1.realWorld":
+    "新加坡法院和学校纪律委员会都要求确凿的行为证据——靠近现场绝不能作为有罪证明。",
+  "case.s1.standard": "“排除合理怀疑”。仅在场不符合此标准。",
+
+  // S2
+  "case.s2.title": "考试作弊？",
   "case.s2.brief":
-    "Jamie被指控在数学考试中抄袭答案。老师注意到Jamie多次瞄向邻座的试卷。",
-  "case.s2.stmt.0.who": "老师",
-  "case.s2.stmt.0.quote": "我看到Jamie在考试中至少看了四次邻座。",
-  "case.s2.stmt.1.who": "被告(Jamie)",
-  "case.s2.stmt.1.quote": "我只是伸了下脖子。我为这次考试努力学习了。",
-  "case.s2.stmt.2.who": "邻座",
-  "case.s2.stmt.2.quote": "我遮住了试卷。我觉得他们什么也看不到。",
-  "case.s2.ev.answers.label": "答案对比",
-  "case.s2.ev.answers.short": "70%答案相同",
+    "监考员标记了两位答案相似的同学。是作弊？还是相同的复习方式产生了相似的答题过程？",
+  "case.s2.stmt.0.who": "监考员",
+  "case.s2.stmt.0.quote": "他们的答卷几乎一模一样。考试时我没看到什么，但答卷让我担忧。",
+  "case.s2.stmt.1.who": "嫌疑人",
+  "case.s2.stmt.1.quote": "我们一起用同一份笔记复习，方法当然像，但我从没抄过。",
+  "case.s2.stmt.2.who": "同学（另一方）",
+  "case.s2.stmt.2.quote": "我遮住了卷子。如果答案相同，那只是因为题目简单。",
+
+  "case.s2.ev.answers.label": "两份近乎一致的答卷 ⭐",
+  "case.s2.ev.answers.short": "高度重叠，做法相同",
   "case.s2.ev.answers.detail":
-    "Jamie与邻座有14/20道相同答案 — 包括以相同方式答错的题目。",
-  "case.s2.ev.history.label": "过去成绩",
-  "case.s2.ev.history.short": "Jamie通常分数较低",
-  "case.s2.ev.history.detail": "Jamie平均分50%,这次考了90%。突飞猛进。",
-  "case.s2.ev.gossip.label": "朋友闲谈",
-  "case.s2.ev.gossip.short": "“Jamie总是作弊”",
-  "case.s2.ev.gossip.detail": "一位同学的未经证实的说法,非直接证据。",
-  "case.s2.ev.tutor.label": "家教记录",
-  "case.s2.ev.tutor.short": "Jamie参加了额外辅导",
-  "case.s2.ev.tutor.detail":
-    "家教确认Jamie学习了20小时。可解释进步,但无法解释相同的错题。",
-  "case.s2.legal.cheating": "学术不端",
-  "case.s2.legal.cheating.r": "相同错题+行为模式 = 强烈指示。",
-  "case.s2.legal.misconduct": "轻微违规",
-  "case.s2.legal.misconduct.r": "低估了诚信违规的严重性。",
+    "两份答卷有许多相同答案、布局相似——但没有相同的错题，最终成绩也不同。仅相似不能证明抄袭。",
+  "case.s2.ev.seating.label": "座位表",
+  "case.s2.ev.seating.short": "相邻而坐",
+  "case.s2.ev.seating.detail":
+    "两位同学相邻而坐。当天考场标准编排，并非他们自选。",
+  "case.s2.ev.glance.label": "侧目一眼",
+  "case.s2.ev.glance.short": "短暂、片面的目击",
+  "case.s2.ev.glance.detail":
+    "监考员看到嫌疑人侧目一次。是否真能看到对方答卷不明，最多是部分证据。",
+  "case.s2.ev.invigilator.label": "监考记录",
+  "case.s2.ev.invigilator.short": "考试时没正式上报",
+  "case.s2.ev.invigilator.detail":
+    "考试期间监考员未制止、未警告、也未正式记录任何作弊。怀疑只在阅卷后才出现。",
+  "case.s2.ev.rough.label": "草稿纸",
+  "case.s2.ev.rough.short": "方法相同、笔记相同",
+  "case.s2.ev.rough.detail":
+    "两人草稿都展示了补习老师教的相同步骤。共同准备容易产生共同做法。",
+
+  "case.s2.legal.misconduct": "轻微违规（警告）",
+  "case.s2.legal.misconduct.r":
+    "把座位+侧目视为程序问题而非作弊证明。给予警告即可。",
   "case.s2.legal.insufficient": "证据不足",
-  "case.s2.legal.insufficient.r": "统计模式具有说服力。",
+  "case.s2.legal.insufficient.r":
+    "无直接观察、无相同错题。无法排除合理怀疑认定作弊。",
+  "case.s2.legal.cheating": "确认作弊",
+  "case.s2.legal.cheating.r":
+    "源于共同题材与共同笔记的相似答案，不能证明抄袭意图。",
+
   "case.s2.pun.warning": "警告并复评",
   "case.s2.pun.retake": "零分并重考",
   "case.s2.pun.suspension": "停学",
-  "case.s2.realWorld": "多数学校给予零分并要求在监督下重考。",
-  "case.s2.standard": "学术诚信委员会采用“证据优势”标准。",
+  "case.s2.realWorld":
+    "学术诚信委员会要求意图证据或直接观察——不能仅凭相似性。",
+  "case.s2.standard": "“证据优势”，但仅相似性通常不足。",
 
-  "case.s3.title": "校园欺凌报告",
+  // S3
+  "case.s3.title": "破碎的窗户",
   "case.s3.brief":
-    "一位低年级学生举报在走廊被高年级学生Ravi推搡,现场有数名旁观者。",
-  "case.s3.stmt.0.who": "受害者",
-  "case.s3.stmt.0.quote": "Ravi把我推向储物柜然后大笑。",
-  "case.s3.stmt.1.who": "被告(Ravi)",
-  "case.s3.stmt.1.quote": "我是不小心撞到的,走廊很拥挤。",
-  "case.s3.stmt.2.who": "旁观者A",
-  "case.s3.stmt.2.quote": "我看到Ravi事后在笑。",
-  "case.s3.stmt.3.who": "旁观者B",
-  "case.s3.stmt.3.quote": "在我看来像是意外。",
-  "case.s3.ev.bruise.label": "医疗记录",
-  "case.s3.ev.bruise.short": "肩部轻微淤青",
-  "case.s3.ev.bruise.detail": "护士确认淤青与撞击储物柜一致。",
-  "case.s3.ev.history.label": "行为记录",
-  "case.s3.ev.history.short": "Ravi有2次先前警告",
-  "case.s3.ev.history.detail":
-    "因粗鲁行为有两次警告,但无正式欺凌定性。",
-  "case.s3.ev.anon.label": "匿名信",
-  "case.s3.ev.anon.short": "“Ravi针对低年级”",
-  "case.s3.ev.anon.detail": "意见箱中的匿名信,来源未知。",
-  "case.s3.ev.cctv.label": "走廊监控",
-  "case.s3.ev.cctv.short": "视野受限",
-  "case.s3.ev.cctv.detail": "录像显示有接触但角度受阻,无法确认意图。",
-  "case.s3.legal.bullying": "欺凌/伤害",
-  "case.s3.legal.bullying.r": "录像未能清楚证明意图。",
-  "case.s3.legal.misconduct": "违规",
-  "case.s3.legal.misconduct.r":
-    "行为不当但意图模糊 — 最适合按违规处理。",
+    "走廊一扇窗被打碎，下面有一颗足球，附近站着几位学生。谁该负责，又能否被证明？",
+  "case.s3.stmt.0.who": "训导主任",
+  "case.s3.stmt.0.quote": "我到时这群学生就在这里，窗已破。总得有人赔。",
+  "case.s3.stmt.1.who": "紧张的学生",
+  "case.s3.stmt.1.quote": "我——我只是路过。我都不踢球。我也不知道那球是谁的！",
+  "case.s3.stmt.2.who": "其他学生",
+  "case.s3.stmt.2.quote": "我们听到外面砰一声，才看到玻璃。我们没人扔东西。",
+
+  "case.s3.ev.glass.label": "地上的碎玻璃",
+  "case.s3.ev.glass.short": "散落在走廊",
+  "case.s3.ev.glass.detail": "碎片向内飞散——表示冲击来自窗外，而非走廊内。",
+  "case.s3.ev.ball.label": "附近的足球 ⭐",
+  "case.s3.ev.ball.short": "停在窗下",
+  "case.s3.ev.ball.detail":
+    "一颗足球停在破窗下。没有名字、未取指纹、没有踢球者记录。最可能的成因——但并不指向在场任何人。",
+  "case.s3.ev.group.label": "在场的学生群",
+  "case.s3.ev.group.short": "三位旁观者",
+  "case.s3.ev.group.detail":
+    "训导员到达时三位学生站在走廊。没人被看到踢、扔或拿任何东西。",
+  "case.s3.ev.nervous.label": "一位紧张的学生",
+  "case.s3.ev.nervous.short": "低头、不安",
+  "case.s3.ev.nervous.detail":
+    "一位学生明显紧张。被指控时紧张是常见反应，并非有罪证据。",
+  "case.s3.ev.witness.label": "无直接目击者",
+  "case.s3.ev.witness.short": "无人目睹",
+  "case.s3.ev.witness.detail":
+    "没有教职员、镜头或学生看到是谁踢的球。无目击者，便无法归责。",
+
   "case.s3.legal.insufficient": "证据不足",
-  "case.s3.legal.insufficient.r": "淤青+行为记录足以采取一定行动。",
-  "case.s3.pun.warning": "正式警告",
-  "case.s3.pun.mediation": "调解+辅导",
-  "case.s3.pun.suspension": "停学",
+  "case.s3.legal.insufficient.r":
+    "玻璃+球指向室外。无目击者将任何具体学生与行为联系起来。正确判断：不能起诉任何个人。",
+  "case.s3.legal.shared": "共同责任",
+  "case.s3.legal.shared.r":
+    "在没有证据证明参与的情况下处罚所有人不公。仅可获部分分。",
+  "case.s3.legal.misconduct": "处罚紧张的学生",
+  "case.s3.legal.misconduct.r": "紧张不是证据——仅凭怀疑处罚是错的。",
+
+  "case.s3.pun.none": "不予处理",
+  "case.s3.pun.warning": "集体告诫",
+  "case.s3.pun.mediation": "修复式谈话",
   "case.s3.realWorld":
-    "学校常采用恢复性做法:在升级前进行双方调解。",
-  "case.s3.standard": "纪律:可能性权衡;意图影响严重程度。",
+    "无法证明个人行为时，学校与法院不能合法惩罚整个群体——集体处罚普遍受批评。",
+  "case.s3.standard": "纪律采用“可能性权衡”，但仍需将责任与具体行为连接。",
 
-  "case.c1.title": "网络诈骗案",
+  // C1
+  "case.c1.title": "便利店行窃",
   "case.c1.brief":
-    "一位小企业主指控陈先生经营假冒网店,收取了200多笔预订款却未发货。陈先生声称自己也是供应商诈骗的受害者。",
-  "case.c1.stmt.0.who": "顾客群体",
-  "case.c1.stmt.0.quote": "我们付了钱,什么也没收到,网站也消失了。",
-  "case.c1.stmt.1.who": "被告(陈先生)",
-  "case.c1.stmt.1.quote": "我的供应商卷款而逃,我也是受害者。",
-  "case.c1.stmt.2.who": "银行",
-  "case.c1.stmt.2.quote": "资金在48小时内被提取至个人账户。",
-  "case.c1.ev.bank.label": "银行记录",
-  "case.c1.ev.bank.short": "资金 → 个人账户",
-  "case.c1.ev.bank.detail":
-    "顾客付款汇入陈先生的个人账户后被提取为现金。",
-  "case.c1.ev.supplier.label": "供应商合同",
-  "case.c1.ev.supplier.short": "未经核实的合同",
-  "case.c1.ev.supplier.detail":
-    "陈先生提供合同文件,但供应商公司在工商登记中不存在。",
-  "case.c1.ev.site.label": "网站取证",
-  "case.c1.ev.site.short": "网站由所有者关闭",
-  "case.c1.ev.site.detail":
-    "服务器日志显示网站是被陈先生主动关闭,而非黑客入侵。",
-  "case.c1.ev.social.label": "社交媒体声讨",
-  "case.c1.ev.social.short": "数百条愤怒帖子",
-  "case.c1.ev.social.detail":
-    "情绪化帖子众多,但多为意见,而非意图证据。",
-  "case.c1.ev.history.label": "过往经营",
-  "case.c1.ev.history.short": "两家类似已关闭店铺",
-  "case.c1.ev.history.detail":
-    "陈先生此前经营过两家网店,均因类似投诉关闭。",
-  "case.c1.legal.fraud": "欺诈",
-  "case.c1.legal.fraud.r":
-    "意图模式明显:转入个人账户+前科+伪造供应商。",
-  "case.c1.legal.negligence": "过失",
-  "case.c1.legal.negligence.r": "低估了行为的故意性模式。",
+    "一名男子被发现在便利店拿走未付钱的食物。行为很清楚——但情境可能改变处罚。",
+  "case.c1.stmt.0.who": "店员",
+  "case.c1.stmt.0.quote": "我看到他把面包塞进外套，连付钱都没尝试。",
+  "case.c1.stmt.1.who": "嫌疑人",
+  "case.c1.stmt.1.quote": "我两天没吃饭了。上周失业。我知道这样不对。",
+  "case.c1.stmt.2.who": "警员",
+  "case.c1.stmt.2.quote": "我们查过：无前科、无武器、物品价值低。",
+
+  "case.c1.ev.cctv.label": "监控录像 ⭐",
+  "case.c1.ev.cctv.short": "未付款拿走商品",
+  "case.c1.ev.cctv.detail":
+    "带时间戳的清晰录像显示嫌疑人将商品藏入外套并走过收银台。无任何模糊。",
+  "case.c1.ev.no_pay.label": "无付款记录 ⭐",
+  "case.c1.ev.no_pay.short": "收银机无该笔记录",
+  "case.c1.ev.no_pay.detail":
+    "收银机与电子收据日志在相关时间内无任何交易。商品未被购买。",
+  "case.c1.ev.distress.label": "嫌疑人显得困窘",
+  "case.c1.ev.distress.short": "明显发抖、饥饿",
+  "case.c1.ev.distress.detail":
+    "嫌疑人脸色苍白、发抖、显得焦虑。情绪状态不能成为辩护，但与动机相关。",
+  "case.c1.ev.wallet.label": "空钱包",
+  "case.c1.ev.wallet.short": "无现金、无银行卡",
+  "case.c1.ev.wallet.detail":
+    "嫌疑人钱包是空的。结合困窘状态，提示真实的经济困难——与量刑相关，与定罪无关。",
+  "case.c1.ev.staff.label": "员工证词",
+  "case.c1.ev.staff.short": "店员的直接陈述",
+  "case.c1.ev.staff.detail": "店员的直接目击陈述。与监控一致。",
+
+  "case.c1.legal.theft_light": "盗窃——附减刑情节",
+  "case.c1.legal.theft_light.r":
+    "罪行明确成立。饥饿、无前科、价值低 → 轻量、修复性处理。",
+  "case.c1.legal.theft_full": "盗窃——按最重处罚",
+  "case.c1.legal.theft_full.r":
+    "行为虽明确，但忽视情境会带来不成比例的严厉结果。",
   "case.c1.legal.insufficient": "证据不足",
-  "case.c1.legal.insufficient.r": "银行记录+历史模式很强。",
-  "case.c1.pun.fine": "罚款+赔偿",
-  "case.c1.pun.fine_jail": "赔偿+监禁",
-  "case.c1.pun.max": "最高刑罚",
+  "case.c1.legal.insufficient.r": "监控与收银日志直接证明行为。此选项无视确凿证据。",
+
+  "case.c1.pun.warning": "警告+辅导",
+  "case.c1.pun.community": "社区服务+赔偿",
+  "case.c1.pun.jail": "监禁",
   "case.c1.realWorld":
-    "实际案件(如新加坡CDSA)在意图与模式明显时通常判处赔偿与监禁。",
-  "case.c1.standard": "刑事:“排除合理怀疑”。",
+    "多数司法管辖区允许法官在轻微盗窃中考虑困境——法律惩罚行为，宽恕影响量刑。",
+  "case.c1.standard": "刑事：“排除合理怀疑”——此处轻易达到。量刑权衡情境。",
 
-  "case.c2.title": "公共纠纷",
-  "case.c2.brief":
-    "两位邻居因装修噪音激烈争执。一方声称受到骚扰,另一方声称在社交媒体上被诽谤。",
-  "case.c2.stmt.0.who": "邻居A",
-  "case.c2.stmt.0.quote":
-    "他们连续几周深夜砸墙。我不得不发帖反映。",
-  "case.c2.stmt.1.who": "邻居B",
-  "case.c2.stmt.1.quote":
-    "他们的帖子称我为“黑心承包商”,我的生意受到了影响。",
-  "case.c2.stmt.2.who": "物业经理",
-  "case.c2.stmt.2.quote": "我们收到噪音投诉,但没有违反许可。",
-  "case.c2.ev.decibel.label": "分贝记录",
-  "case.c2.ev.decibel.short": "夜间超标",
-  "case.c2.ev.decibel.detail": "楼宇传感器显示有4个夜晚噪音超过法定上限。",
-  "case.c2.ev.post.label": "社交媒体帖子",
-  "case.c2.ev.post.short": "公开指控",
-  "case.c2.ev.post.detail":
-    "帖子称邻居为“黑心承包商”,但无犯罪记录证据。",
-  "case.c2.ev.screenshots.label": "编辑过的截图",
-  "case.c2.ev.screenshots.short": "可能被改动的聊天",
-  "case.c2.ev.screenshots.detail":
-    "邻居B提供的截图似乎被裁剪,缺少元数据。",
-  "case.c2.ev.permit.label": "装修许可证",
-  "case.c2.ev.permit.short": "有效的日间许可",
-  "case.c2.ev.permit.detail":
-    "许可证有效但仅限白天,夜间施工未获授权。",
-  "case.c2.legal.both": "双方责任",
-  "case.c2.legal.both.r":
-    "双方均有违规:一方违反噪音规定,另一方无证据诽谤。",
-  "case.c2.legal.defamation": "仅诽谤",
-  "case.c2.legal.defamation.r": "忽视了已记录的噪音违规。",
-  "case.c2.legal.insufficient": "证据不足",
-  "case.c2.legal.insufficient.r": "分贝记录+帖子均为具体证据。",
-  "case.c2.pun.mediation": "调解+道歉",
-  "case.c2.pun.fines": "双方罚款",
-  "case.c2.pun.court": "民事法庭赔偿",
+  // C2
+  "case.c2.title": "十字路口的车祸",
+  "case.c2.brief": "两辆车在十字路口相撞。证人陈述相反。谁的责任——还是双方都有？",
+  "case.c2.stmt.0.who": "司机1（红车）",
+  "case.c2.stmt.0.quote": "我的灯是绿的，蓝车不知从哪冲出来。",
+  "case.c2.stmt.1.who": "司机2（蓝车）",
+  "case.c2.stmt.1.quote": "我有路权，红车闯红灯还全速驶来。",
+  "case.c2.stmt.2.who": "证人A",
+  "case.c2.stmt.2.quote": "我确定司机1闯了红灯。我就在那里。",
+  "case.c2.stmt.3.who": "证人B",
+  "case.c2.stmt.3.quote": "不，蓝车严重超速。我看得很清楚。",
+
+  "case.c2.ev.cars.label": "两辆受损车辆",
+  "case.c2.ev.cars.short": "前部和侧部损坏",
+  "case.c2.ev.cars.detail":
+    "两车均显示与高速碰撞一致的严重损坏，发生在十字路口中央。损坏程度对称。",
+  "case.c2.ev.light.label": "信号灯（状态不明）",
+  "case.c2.ev.light.short": "故障/模糊",
+  "case.c2.ev.light.detail":
+    "据报当日早些时候信号灯已故障。无视频确认撞击瞬间哪边为绿灯。",
+  "case.c2.ev.witnessA.label": "证人A陈述",
+  "case.c2.ev.witnessA.short": "指责司机1",
+  "case.c2.ev.witnessA.detail": "证人A很确定——但所站位置无法清楚看到信号灯。可能存在偏见。",
+  "case.c2.ev.witnessB.label": "证人B陈述",
+  "case.c2.ev.witnessB.short": "指责司机2",
+  "case.c2.ev.witnessB.detail":
+    "证人B同样确定——但他对车速的估计是非正式的，无雷达读数。与证人A矛盾。",
+  "case.c2.ev.skid.label": "路面刹车痕 ⭐",
+  "case.c2.ev.skid.short": "蓝车留下长长痕迹",
+  "case.c2.ev.skid.detail":
+    "长长的黑色刹车痕从蓝车后方延伸——表明晚刹、急刹，提示超速。红车痕迹较短，与反应迟滞一致。双方都有责任。",
+
+  "case.c2.legal.shared": "共同责任",
+  "case.c2.legal.shared.r":
+    "刹车痕+对称损坏+矛盾证词 → 双方都有过错。最公平的结论。",
+  "case.c2.legal.insufficient": "情况不明",
+  "case.c2.legal.insufficient.r":
+    "可接受：证词相互抵消，信号灯状态未知。可建议进一步调查。",
+  "case.c2.legal.driver1": "司机1全责",
+  "case.c2.legal.driver1.r": "归咎一方忽视了刹车痕和矛盾证词。",
+
+  "case.c2.pun.mediation": "司机间调解",
+  "case.c2.pun.shared_fine": "共同罚款+再培训",
+  "case.c2.pun.license": "吊销一方驾照",
   "case.c2.realWorld":
-    "大多数邻里纠纷在进入民事法庭前会通过社区调解中心解决。",
-  "case.c2.standard": "民事:“可能性权衡” — 双方独立评估。",
+    "证据相互冲突时保险理赔常按比例划分责任——很少100/0。",
+  "case.c2.standard": "民事：“可能性权衡”，对各方分别评估。",
 
-  "case.c3.title": "过失困境",
+  // C3
+  "case.c3.title": "网络求职诈骗",
   "case.c3.brief":
-    "一名建筑工人从脚手架上摔落严重受伤。工地主管被指控过失,但声称工人忽视了安全规程。",
-  "case.c3.stmt.0.who": "受伤工人",
-  "case.c3.stmt.0.quote": "安全带卡扣坏了,我上周就告诉过他们。",
-  "case.c3.stmt.1.who": "主管",
-  "case.c3.stmt.1.quote":
-    "工人受过培训自行检查装备,他没做检查。",
-  "case.c3.stmt.2.who": "同事",
-  "case.c3.stmt.2.quote":
-    "大家都知道那条安全带不行,没人愿意用。",
-  "case.c3.ev.harness.label": "已检测的安全带",
-  "case.c3.ev.harness.short": "确认卡扣有缺陷",
-  "case.c3.ev.harness.detail":
-    "司法鉴定确认卡扣磨损,负重时会失效。",
-  "case.c3.ev.log.label": "维护日志",
-  "case.c3.ev.log.short": "60天无检查",
-  "case.c3.ev.log.detail":
-    "应每周检查的日志60天无记录,缺失主管签名。",
-  "case.c3.ev.training.label": "工人培训记录",
-  "case.c3.ev.training.short": "工人已认证",
-  "case.c3.ev.training.detail":
-    "工人4个月前通过安全培训 — 但培训不能取代设备维护。",
-  "case.c3.ev.anon.label": "匿名举报",
-  "case.c3.ev.anon.short": "“主管偷工减料”",
-  "case.c3.ev.anon.detail":
-    "向安全热线发送的匿名信息,无具体内容,无法核实。",
-  "case.c3.legal.negligence": "刑事过失",
-  "case.c3.legal.negligence.r":
-    "主管违反了注意义务 — 缺失检查+已知缺陷。",
-  "case.c3.legal.shared": "共同过失",
-  "case.c3.legal.shared.r": "工人遵循培训;主要责任在于主管。",
-  "case.c3.legal.insufficient": "证据不足",
-  "case.c3.legal.insufficient.r": "维护日志+司法鉴定均很有力。",
-  "case.c3.pun.warning": "警告+再培训",
-  "case.c3.pun.fine_ban": "高额罚款+吊销执照",
-  "case.c3.pun.jail": "监禁",
-  "case.c3.realWorld":
-    "职场安全法(如WSH法)通常对失职主管处以高额罚款和吊销执照。",
-  "case.c3.standard":
-    "刑事过失:意图须“排除合理怀疑”;民事索赔另行处理。",
+    "一名受害者被许诺高薪职位，并被要求转账缴“培训费”。被告声称只是误会。",
+  "case.c3.stmt.0.who": "受害者",
+  "case.c3.stmt.0.quote": "他们承诺给我一份真工作。我转了钱——然后他们消失了。",
+  "case.c3.stmt.1.who": "被告",
+  "case.c3.stmt.1.quote": "这是误会。他们自己转的钱。我从没强迫。",
+  "case.c3.stmt.2.who": "调查员",
+  "case.c3.stmt.2.quote": "我们调取了聊天和银行记录。这家“公司”在记录中根本不存在。",
 
+  "case.c3.ev.chat.label": "承诺工作的聊天 ⭐",
+  "case.c3.ev.chat.short": "明确的工作机会",
+  "case.c3.ev.chat.detail":
+    "保存的聊天记录显示被告承诺“包括”职位并要求“可退还”培训费。措辞精准、有意——而非随意闲聊。",
+  "case.c3.ev.transfer.label": "受害者已转账 ⭐",
+  "case.c3.ev.transfer.short": "确认银行转账",
+  "case.c3.ev.transfer.detail":
+    "银行记录确认受害者向被告控制的账户转入大额资金，资金在数小时内被取现。",
+  "case.c3.ev.contract.label": "无正式合同",
+  "case.c3.ev.contract.short": "无书面文件",
+  "case.c3.ev.contract.detail":
+    "没有签署的雇佣合同、没有录用通知、也没有任何官方文件——只有一段非正式聊天。真正的雇主会留下书面材料。",
+  "case.c3.ev.profile.label": "假冒公司资料",
+  "case.c3.ev.profile.short": "未注册",
+  "case.c3.ev.profile.detail":
+    "“公司”页面盗用了Logo。该商号在任何工商登记都不存在。明显伪造。",
+  "case.c3.ev.claim.label": "嫌疑人声称是误会",
+  "case.c3.ev.claim.short": "自利陈述",
+  "case.c3.ev.claim.detail":
+    "被告现在说受害者“误解”了offer。这与聊天明确措辞相矛盾——很可能是辩护说辞。",
+
+  "case.c3.legal.fraud": "欺诈（行骗）",
+  "case.c3.legal.fraud.r":
+    "虚假承诺+诱导转账+伪公司+立即取现 = 明确欺诈意图。教科书式的欺诈。",
+  "case.c3.legal.negligence": "仅过失",
+  "case.c3.legal.negligence.r":
+    "过失意指疏忽。伪公司与立即取现显示意图——超出过失范围。",
+  "case.c3.legal.insufficient": "证据不足",
+  "case.c3.legal.insufficient.r":
+    "聊天+转账+伪公司+陈述构成完整、强力的证据链。",
+
+  "case.c3.pun.fine": "罚款+赔偿",
+  "case.c3.pun.fine_jail": "赔偿+监禁",
+  "case.c3.pun.max": "最高刑罚",
+  "case.c3.realWorld":
+    "求职诈骗通常按刑事“行骗”起诉，附以赔偿与监禁。",
+  "case.c3.standard": "刑事：“排除合理怀疑”——聊天+银行记录易于达到。",
+
+  // ============= UI 反馈 =============
   "case.eval": "法庭评估",
   "case.sound": "⚖ 判决合理",
   "case.reconsider": "⚠ 请重新考虑推理",
@@ -586,332 +778,399 @@ const ZH: Dict = {
   "case.continue": "继续 ▶",
   "case.notFound": "未找到案件",
   "case.back": "返回",
-  "case.reliable.note": "直接、可核实的来源,可在判决中重要权衡。",
-  "case.unreliable.note": "传闻、矛盾或未经证实,请谨慎对待 — 不要标记为可靠。",
-  // ===== 证据 — 来源与注意事项 =====
-  "case.s1.ev.cctv.detail.more":
-    "来源：学校走廊摄像头（CCTV-04）。时间戳由IT管理员核实。证据链：录像于13:10导出并封存。注意事项：摄像头未覆盖实验室后门。",
-  "case.s1.ev.locker.detail.more":
-    "来源：校长与教师在场进行的储物柜检查。序列号与学校采购记录一致。注意事项：3名同学知道储物柜密码，可能被人栽赃。",
-  "case.s1.ev.rumor.detail.more":
-    "来源：食堂里的两名学生（不在现场）。属传闻。注意事项：传闻不应作为主要证据；存在偏见风险。",
-  "case.s1.ev.alibi.detail.more":
-    "来源：仅被告陈述。无证人或食堂收据。注意事项：与CCTV录像相矛盾。",
+  "case.reliable.note": "直接、可核实的来源，可在判决中重要权衡。",
+  "case.unreliable.note": "传闻、矛盾或未经证实，请谨慎对待。",
+
+  // ===== 来源与注意事项 =====
+  "case.s1.ev.empty_desk.detail.more":
+    "来源：第一到场教职员观察并拍照。注意：灰尘痕迹只能证明笔记本曾在那里——不能证明谁拿的。",
+  "case.s1.ev.open_bag.detail.more":
+    "来源：年级主任清点。注意：未拉拉链的书包不是藏匿处；笔记本不在里面。",
+  "case.s1.ev.cable.detail.more":
+    "来源：地面巡查。线被现场拍照。注意：匆忙的窃贼会留下电缆——指向并非冷静坐着的嫌疑人。",
+  "case.s1.ev.student.detail.more":
+    "来源：目击位置。注意：靠近不等于行为。无人见其触碰笔记本。",
+  "case.s1.ev.window.detail.more":
+    "来源：管理员确认窗户自午餐起就开着。注意：一楼可触及，扩大了可能的嫌疑范围。",
+
   "case.s2.ev.answers.detail.more":
-    "来源：监考教师提交。10题中有7题答案相同，包括同一处错误。注意事项：学生可能使用相同笔记。",
-  "case.s2.ev.tutor.detail.more":
-    "来源：合格的私人补习老师。已用付款收据核实。注意事项：补习老师不在考场。",
-  "case.s2.ev.gossip.detail.more":
-    "来源：匿名同学群聊。注意事项：仅为揣测，无直接证据。",
-  "case.s2.ev.history.detail.more":
-    "来源：正式学业记录。注意事项：过往行为不能证明此次行为。",
-  "case.s3.ev.cctv.detail.more":
-    "来源：走廊CCTV（视角有限）。注意事项：推搡发生在镜头之外，仅初次冲突可见。",
-  "case.s3.ev.bruise.detail.more":
-    "来源：校医报告附带带日期的照片。注意事项：瘀伤可能由其他原因造成。",
-  "case.s3.ev.anon.detail.more":
-    "来源：投入意见箱的匿名信。注意事项：无法核实作者或动机。",
-  "case.s3.ev.history.detail.more":
-    "来源：正式纪律记录。注意事项：行为模式，并非本次事件的直接证据。",
-  "case.c1.ev.bank.detail.more":
-    "来源：银行出具的正式对账单。注意事项：账户持有人可能并非真正诈骗者（傀儡账户）。",
-  "case.c1.ev.site.detail.more":
-    "来源：网站存档缓存 + SSL证书。注意事项：网站可能随时下线。",
-  "case.c1.ev.history.detail.more":
-    "来源：消费者保护数据库。注意事项：以往投诉不能证明本次具体交易。",
-  "case.c1.ev.social.detail.more":
-    "来源：举报人提供的截图。注意事项：可被编辑；请求原始版本。",
-  "case.c1.ev.supplier.detail.more":
-    "来源：被指控供应商的来信。注意事项：供应商可能存在利益冲突。",
-  "case.c2.ev.decibel.detail.more":
-    "来源：市政厅官方分贝仪读数。注意事项：仅在一个夜晚测量。",
-  "case.c2.ev.permit.detail.more":
-    "来源：市政许可办公室。注意事项：许可证可能附有被违反的噪音限制条件。",
-  "case.c2.ev.post.detail.more":
-    "来源：公开社交媒体帖子。注意事项：视频中观众未必代表所有夜晚。",
-  "case.c2.ev.screenshots.detail.more":
-    "来源：居民截图。注意事项：单一信息——请求录音佐证。",
-  "case.c3.ev.log.detail.more":
-    "来源：施工现场电子设备日志。注意事项：若系统未锁定，日志可能被修改。",
-  "case.c3.ev.harness.detail.more":
-    "来源：合格安全工程师检查。注意事项：事故后证据可能被破坏。",
-  "case.c3.ev.training.detail.more":
-    "来源：HR正式培训记录。注意事项：出勤不等于理解。",
-  "case.c3.ev.anon.detail.more":
-    "来源：匿名举报热线电话。注意事项：举报人动机不明。",
+    "来源：两位阅卷人对比。注意：相同正确答案≠抄袭。无相同错题。",
+  "case.s2.ev.seating.detail.more":
+    "来源：官方座位表。注意：标准编排——并非学生自选。",
+  "case.s2.ev.glance.detail.more":
+    "来源：仅监考员记忆。注意：角度与距离使“能看清答卷”可能性低。",
+  "case.s2.ev.invigilator.detail.more":
+    "来源：官方考试日志。注意：当场未发警告——指控仅在阅卷后出现。",
+  "case.s2.ev.rough.detail.more":
+    "来源：补习老师讲义。注意：共同准备容易产生共同做法。",
+
+  "case.s3.ev.glass.detail.more":
+    "来源：碎片散布照片。注意：碎片向内飞散→冲击来自外面。",
+  "case.s3.ev.ball.detail.more":
+    "来源：训导处登记物品。注意：无标记、无人认领、未取指纹。",
+  "case.s3.ev.group.detail.more":
+    "来源：到达时教职员观察。注意：旁观者，不是行为人。无人被看到踢球。",
+  "case.s3.ev.nervous.detail.more":
+    "来源：主观印象。注意：被指控时紧张属正常——非证据。",
+  "case.s3.ev.witness.detail.more":
+    "来源：走廊与监控排查。注意：无目击者、无监控覆盖该行为。",
+
+  "case.c1.ev.cctv.detail.more":
+    "来源：店内带时间戳的监控。注意：画面清晰连续——证据链完整。",
+  "case.c1.ev.no_pay.detail.more":
+    "来源：销售点交易日志。注意：与监控逐分匹配。",
+  "case.c1.ev.distress.detail.more":
+    "来源：警员执法记录仪。注意：心理状态与动机相关，与是否发生无关。",
+  "case.c1.ev.wallet.detail.more":
+    "来源：拘留时财物清点。注意：空钱包是减刑情境，不是辩护。",
+  "case.c1.ev.staff.detail.more":
+    "来源：店员宣誓陈述。注意：与监控一致——强力佐证。",
+
+  "case.c2.ev.cars.detail.more":
+    "来源：到场警员现场照片。注意：对称损坏暗示双方均高速行驶。",
+  "case.c2.ev.light.detail.more":
+    "来源：市政维修日志显示当日早些时候有故障报告。注意：无视频证明撞击时是何颜色。",
+  "case.c2.ev.witnessA.detail.more":
+    "来源：路边陈述。注意：所在位置无法清楚看到信号。",
+  "case.c2.ev.witnessB.detail.more":
+    "来源：路边陈述。注意：车速估计为非正式；无雷达读数。",
+  "case.c2.ev.skid.detail.more":
+    "来源：刹车痕长度的法医测量。注意：物理证据——比记忆有力得多。",
+
+  "case.c3.ev.chat.detail.more":
+    "来源：手机导出并保留哈希。注意：措辞精准——不是随意误会。",
+  "case.c3.ev.transfer.detail.more":
+    "来源：官方银行对账单。注意：迅速取现是意图的典型指标。",
+  "case.c3.ev.contract.detail.more":
+    "来源：搜查受害者记录与邮件。注意：真正雇主总会提供书面条款。",
+  "case.c3.ev.profile.detail.more":
+    "来源：工商登记+反向图片搜索。注意：盗用Logo证明伪造。",
+  "case.c3.ev.claim.detail.more":
+    "来源：被告对调查员的陈述。注意：与聊天明确措辞相矛盾。",
 };
 
 // ============= Bahasa Melayu =============
 const MS: Dict = {
+  // S1
   "case.s1.title": "Komputer Riba Yang Hilang",
   "case.s1.brief":
-    "Seorang pelajar Tingkatan 4, Alex, dituduh mencuri komputer riba rakan sekelas dari makmal sains semasa rehat. Komputer riba itu kemudiannya dijumpai dalam loker Alex.",
-  "case.s1.stmt.0.who": "Pendakwa (Sam)",
+    "Selepas waktu sekolah dalam kelas yang kosong. Komputer riba seorang pelajar hilang dari mejanya. Seorang rakan sekelas berdekatan disyaki — tetapi adakah mereka benar-benar terlibat? Cari di tempat kejadian sebelum menuduh sesiapa.",
+  "case.s1.stmt.0.who": "Pemilik",
   "case.s1.stmt.0.quote":
-    "Komputer riba saya di atas meja. Alex orang terakhir di makmal.",
-  "case.s1.stmt.1.who": "Defendan (Alex)",
+    "Saya tinggalkan komputer riba di atas meja. Bila saya kembali, ia hilang — dan mereka duduk tepat di sana!",
+  "case.s1.stmt.1.who": "Suspek",
   "case.s1.stmt.1.quote":
-    "Mesti ada orang letak. Kod loker saya bukan rahsia.",
-  "case.s1.stmt.2.who": "Guru",
+    "Saya cuma membaca. Saya tak sentuh barang mereka. Tingkap terbuka sepanjang masa.",
+  "case.s1.stmt.2.who": "Pencuci",
   "case.s1.stmt.2.quote":
-    "Saya kunci makmal pukul 12:45. Saya tidak nampak siapa masuk sebelum itu.",
-  "case.s1.ev.cctv.label": "Rakaman CCTV",
-  "case.s1.ev.cctv.short": "Kamera koridor, waktu rehat",
-  "case.s1.ev.cctv.detail":
-    "Menunjukkan Alex masuk makmal pukul 12:30 dan keluar 12:38 membawa beg. Kualiti jelas.",
-  "case.s1.ev.locker.label": "Kandungan loker",
-  "case.s1.ev.locker.short": "Komputer riba dalam loker Alex",
-  "case.s1.ev.locker.detail":
-    "Komputer riba disahkan melalui nombor siri. Kod loker diketahui 3 rakan sekelas.",
-  "case.s1.ev.rumor.label": "Khabar angin koridor",
-  "case.s1.ev.rumor.short": "'Alex selalu ambil barang'",
-  "case.s1.ev.rumor.detail":
-    "Dua pelajar mendakwa Alex 'selalu ambil barang' tetapi tidak menyaksikan. Hanya khabar angin.",
-  "case.s1.ev.alibi.label": "Alibi Alex",
-  "case.s1.ev.alibi.short": "Mendakwa berada di kantin",
-  "case.s1.ev.alibi.detail":
-    "Alex kata berada di kantin pukul 12:30, tetapi tiada saksi. CCTV bercanggah.",
-  "case.s1.legal.theft": "Kecurian",
-  "case.s1.legal.theft.r":
-    "Mengambil harta tanpa izin — disokong CCTV dan barang yang ditemui.",
-  "case.s1.legal.misconduct": "Salah Laku Umum",
-  "case.s1.legal.misconduct.r":
-    "Terlalu kabur — bukti menunjukkan perbuatan khusus.",
+    "Saya masuk 20 minit lalu. Tingkap dah terbuka — dan saya nampak kabel pengecas di lantai.",
+
+  "case.s1.ev.empty_desk.label": "Ruang kosong di atas meja",
+  "case.s1.ev.empty_desk.short": "Tempat komputer riba dahulu",
+  "case.s1.ev.empty_desk.detail":
+    "Garisan segi empat tepat yang bersih pada habuk meja menunjukkan tepat di mana komputer riba berada. Tiada benda lain diganggu.",
+  "case.s1.ev.open_bag.label": "Beg sekolah terbuka",
+  "case.s1.ev.open_bag.short": "Tidak berzip, di lantai",
+  "case.s1.ev.open_bag.detail":
+    "Beg sekolah terbuka di lantai. Buku ada di dalam tetapi tiada komputer riba — zip tidak rosak.",
+  "case.s1.ev.cable.label": "Kabel pengecas di lantai ⭐",
+  "case.s1.ev.cable.short": "Bergulung dekat meja",
+  "case.s1.ev.cable.detail":
+    "Kabel pengecas hitam bergulung di lantai — masih dipalam ke dinding. Hujung komputer ribanya kosong. Pencuri yang tergesa-gesa meninggalkan kabel — petanda bukan seseorang yang duduk dengan tenang berdekatan.",
+  "case.s1.ev.student.label": "Pelajar duduk berdekatan",
+  "case.s1.ev.student.short": "Membaca dua meja jauh",
+  "case.s1.ev.student.detail":
+    "Seorang rakan duduk dua meja jauh, membaca buku. Berdekatan dengan barang yang hilang bukan bermakna mengambilnya.",
+  "case.s1.ev.window.label": "Tingkap terbuka",
+  "case.s1.ev.window.short": "Terbuka luas, langsir berkibar",
+  "case.s1.ev.window.detail":
+    "Tingkap belakang yang besar terbuka luas. Bilik di tingkat bawah — sesiapa boleh masuk atau menjangkau dari luar.",
+
   "case.s1.legal.insufficient": "Bukti Tidak Mencukupi",
   "case.s1.legal.insufficient.r":
-    "Terdapat beberapa keping bukti yang boleh dipercayai.",
+    "Tiada saksi nampak suspek mengambil komputer riba. Tingkap terbuka + hujung kabel kosong = banyak kemungkinan. Tidak boleh menyabit hanya berdasarkan kedekatan.",
+  "case.s1.legal.theft": "Kecurian (terhadap suspek)",
+  "case.s1.legal.theft.r":
+    "Tiada bukti langsung yang menghubungkan orang ini dengan perbuatan — hanya berdekatan.",
+  "case.s1.legal.misconduct": "Salah Laku Kecil",
+  "case.s1.legal.misconduct.r":
+    "Tiada salah laku untuk dituduh — mereka hanya hadir di ruang awam.",
+
+  "case.s1.pun.none": "Tiada Tindakan",
   "case.s1.pun.warning": "Amaran Lisan",
   "case.s1.pun.detention": "Tahanan",
-  "case.s1.pun.suspension": "Gantung 3 Hari",
   "case.s1.realWorld":
-    "Polisi sekolah biasanya mengenakan gantung dan memberitahu ibu bapa, kadang dirujuk kepada polis.",
+    "Mahkamah dan lembaga disiplin memerlukan bukti positif perbuatan — kedekatan tempat kejadian bukan bukti kesalahan.",
   "case.s1.standard":
-    "Disiplin sekolah: 'imbangan kebarangkalian' — lebih berkemungkinan berlaku.",
+    "“Tanpa keraguan munasabah.” Kehadiran semata tidak memenuhi piawaian ini.",
 
-  "case.s2.title": "Tuduhan Meniru",
+  // S2
+  "case.s2.title": "Tuduhan Meniru?",
   "case.s2.brief":
-    "Jamie dituduh meniru jawapan semasa peperiksaan matematik. Guru perasan Jamie melihat ke arah jiran beberapa kali.",
-  "case.s2.stmt.0.who": "Guru",
+    "Pengawas peperiksaan menanda dua pelajar atas jawapan yang serupa. Adakah mereka meniru — atau ulangkaji yang sama menghasilkan jawapan serupa?",
+  "case.s2.stmt.0.who": "Pengawas",
   "case.s2.stmt.0.quote":
-    "Saya nampak Jamie melihat sekurang-kurangnya empat kali.",
-  "case.s2.stmt.1.who": "Defendan (Jamie)",
+    "Kertas mereka hampir sama. Saya tidak nampak apa-apa semasa peperiksaan, tetapi kertas itu membimbangkan.",
+  "case.s2.stmt.1.who": "Suspek",
   "case.s2.stmt.1.quote":
-    "Saya cuma regangkan leher. Saya belajar bersungguh-sungguh.",
-  "case.s2.stmt.2.who": "Jiran",
+    "Kami belajar bersama dari nota yang sama. Sudah tentu kaedah kami serupa — tetapi saya tidak meniru.",
+  "case.s2.stmt.2.who": "Rakan (pihak lain)",
   "case.s2.stmt.2.quote":
-    "Saya tutup kertas saya. Rasanya mereka tak nampak apa-apa.",
-  "case.s2.ev.answers.label": "Perbandingan jawapan",
-  "case.s2.ev.answers.short": "70% jawapan serupa",
+    "Saya tutup kertas saya. Jika jawapan kami sama, itu kerana topiknya mudah.",
+
+  "case.s2.ev.answers.label": "Dua kertas hampir serupa ⭐",
+  "case.s2.ev.answers.short": "Pertindihan tinggi, kaedah sama",
   "case.s2.ev.answers.detail":
-    "Jamie dan jiran kongsi 14/20 jawapan serupa — termasuk jawapan salah yang sama.",
-  "case.s2.ev.history.label": "Prestasi lalu",
-  "case.s2.ev.history.short": "Jamie biasanya rendah",
-  "case.s2.ev.history.detail":
-    "Purata Jamie 50% — peperiksaan ini 90%. Lonjakan mendadak.",
-  "case.s2.ev.gossip.label": "Gosip rakan",
-  "case.s2.ev.gossip.short": "'Jamie sentiasa meniru'",
-  "case.s2.ev.gossip.detail":
-    "Dakwaan tidak disahkan dari seorang pelajar. Bukan bukti langsung.",
-  "case.s2.ev.tutor.label": "Nota tutor",
-  "case.s2.ev.tutor.short": "Jamie ada tuisyen tambahan",
-  "case.s2.ev.tutor.detail":
-    "Tutor sahkan Jamie belajar 20 jam. Boleh menerangkan peningkatan — tetapi bukan jawapan salah serupa.",
-  "case.s2.legal.cheating": "Ketidakjujuran Akademik",
-  "case.s2.legal.cheating.r":
-    "Jawapan salah yang sama + corak tingkah laku = petunjuk kuat.",
-  "case.s2.legal.misconduct": "Salah Laku Kecil",
+    "Kedua kertas berkongsi banyak jawapan yang sama dan susun atur tulisan yang serupa — tetapi tiada jawapan salah yang sama, dan keputusan akhir berbeza. Persamaan sahaja tidak membuktikan meniru.",
+  "case.s2.ev.seating.label": "Carta tempat duduk",
+  "case.s2.ev.seating.short": "Duduk berdekatan",
+  "case.s2.ev.seating.detail":
+    "Kedua pelajar duduk berdekatan. Susunan biasa dewan peperiksaan — bukan pilihan mereka.",
+  "case.s2.ev.glance.label": "Pandangan sisi",
+  "case.s2.ev.glance.short": "Singkat, tidak menyeluruh",
+  "case.s2.ev.glance.detail":
+    "Pengawas nampak suspek melihat sisi sekali. Tidak jelas sama ada mereka boleh nampak kertas itu. Bukti separa sahaja.",
+  "case.s2.ev.invigilator.label": "Log pengawas",
+  "case.s2.ev.invigilator.short": "Tiada laporan rasmi semasa itu",
+  "case.s2.ev.invigilator.detail":
+    "Semasa peperiksaan, pengawas tidak menghentikan, memberi amaran, atau mencatat sebarang penipuan. Syak hanya muncul selepas penandaan.",
+  "case.s2.ev.rough.label": "Kertas kerja kasar",
+  "case.s2.ev.rough.short": "Kaedah sama, nota sama",
+  "case.s2.ev.rough.detail":
+    "Kedua kertas kasar menunjukkan langkah-langkah sama yang diajar tutor mereka. Persiapan bersama menghasilkan kerja serupa.",
+
+  "case.s2.legal.misconduct": "Salah Laku Kecil (amaran)",
   "case.s2.legal.misconduct.r":
-    "Memandang ringan pelanggaran integriti.",
+    "Anggap tempat duduk + pandangan sebagai hal prosedur, bukan bukti meniru. Beri amaran sahaja.",
   "case.s2.legal.insufficient": "Bukti Tidak Mencukupi",
-  "case.s2.legal.insufficient.r": "Corak statistik amat menyakinkan.",
+  "case.s2.legal.insufficient.r":
+    "Tiada pemerhatian langsung, tiada jawapan salah yang sama. Tidak boleh disabitkan meniru.",
+  "case.s2.legal.cheating": "Meniru Disahkan",
+  "case.s2.legal.cheating.r":
+    "Jawapan serupa dari topik dan nota kongsi tidak membuktikan niat meniru.",
+
   "case.s2.pun.warning": "Amaran + Tanda Semula",
-  "case.s2.pun.retake": "Sifar + Ulang Peperiksaan",
+  "case.s2.pun.retake": "Sifar + Ulang",
   "case.s2.pun.suspension": "Gantung",
   "case.s2.realWorld":
-    "Kebanyakan sekolah memberi sifar dan memerlukan ulangan dengan pengawasan.",
-  "case.s2.standard":
-    "Lembaga integriti akademik menggunakan 'keutamaan bukti'.",
+    "Lembaga integriti akademik memerlukan bukti niat atau pemerhatian langsung — bukan persamaan statistik sahaja.",
+  "case.s2.standard": "“Keutamaan bukti,” tetapi persamaan jarang mencukupi.",
 
-  "case.s3.title": "Laporan Buli",
+  // S3
+  "case.s3.title": "Tingkap Pecah",
   "case.s3.brief":
-    "Pelajar junior melaporkan ditolak di koridor oleh pelajar senior, Ravi. Terdapat beberapa saksi.",
-  "case.s3.stmt.0.who": "Mangsa",
-  "case.s3.stmt.0.quote": "Ravi tolak saya ke loker dan ketawa.",
-  "case.s3.stmt.1.who": "Defendan (Ravi)",
+    "Tingkap koridor pecah. Bola sepak terletak di bawahnya dan beberapa pelajar berdekatan. Siapa bertanggungjawab — dan bolehkah ia dibuktikan?",
+  "case.s3.stmt.0.who": "Guru Disiplin",
+  "case.s3.stmt.0.quote":
+    "Saya jumpa kumpulan ini berdiri di sini bila tingkap sudah pecah. Seseorang mesti bayar.",
+  "case.s3.stmt.1.who": "Pelajar Gementar",
   "case.s3.stmt.1.quote":
-    "Saya terlanggar tanpa sengaja. Koridor sesak.",
-  "case.s3.stmt.2.who": "Saksi A",
-  "case.s3.stmt.2.quote": "Saya nampak Ravi ketawa selepas itu.",
-  "case.s3.stmt.3.who": "Saksi B",
-  "case.s3.stmt.3.quote": "Bagi saya nampak macam tak sengaja.",
-  "case.s3.ev.bruise.label": "Nota perubatan",
-  "case.s3.ev.bruise.short": "Lebam ringan di bahu",
-  "case.s3.ev.bruise.detail":
-    "Jururawat sahkan lebam selari dengan hentakan ke loker.",
-  "case.s3.ev.history.label": "Rekod tingkah laku",
-  "case.s3.ev.history.short": "Ravi ada 2 amaran terdahulu",
-  "case.s3.ev.history.detail":
-    "Dua amaran sebelum ini untuk perangai kasar, tiada penemuan buli rasmi.",
-  "case.s3.ev.anon.label": "Nota tanpa nama",
-  "case.s3.ev.anon.short": "'Ravi sasarkan junior'",
-  "case.s3.ev.anon.detail":
-    "Nota tanpa tandatangan dalam peti cadangan. Sumber tidak diketahui.",
-  "case.s3.ev.cctv.label": "CCTV koridor",
-  "case.s3.ev.cctv.short": "Pandangan separa",
-  "case.s3.ev.cctv.detail":
-    "Kamera tunjuk sentuhan tetapi sudut terhalang. Niat tidak boleh disahkan.",
-  "case.s3.legal.bullying": "Buli / Serangan",
-  "case.s3.legal.bullying.r":
-    "Niat tidak terbukti dengan jelas dari rakaman.",
-  "case.s3.legal.misconduct": "Salah Laku",
-  "case.s3.legal.misconduct.r":
-    "Tingkah laku tidak wajar tetapi niat kabur — paling sesuai sebagai salah laku.",
+    "Sa-saya cuma lalu sahaja. Saya tak main bola. Saya tak tahu bola siapa itu!",
+  "case.s3.stmt.2.who": "Pelajar Lain",
+  "case.s3.stmt.2.quote":
+    "Kami dengar bunyi pecah dari luar, kemudian nampak kaca. Tiada antara kami yang membaling apa-apa.",
+
+  "case.s3.ev.glass.label": "Pecahan kaca di lantai",
+  "case.s3.ev.glass.short": "Serpihan merentasi koridor",
+  "case.s3.ev.glass.detail":
+    "Serpihan kaca tersebar ke dalam — bermakna hentaman datang dari luar tingkap, bukan dari koridor.",
+  "case.s3.ev.ball.label": "Bola sepak berdekatan ⭐",
+  "case.s3.ev.ball.short": "Terletak di bawah tingkap",
+  "case.s3.ev.ball.detail":
+    "Bola sepak terletak di bawah tingkap pecah. Tiada nama, tiada cap jari diperiksa, tiada rekod siapa menendangnya. Punca paling munasabah — tetapi tidak terikat kepada sesiapa di sini.",
+  "case.s3.ev.group.label": "Kumpulan pelajar hadir",
+  "case.s3.ev.group.short": "Tiga orang penonton",
+  "case.s3.ev.group.detail":
+    "Tiga pelajar berdiri di koridor bila kakitangan tiba. Tiada antara mereka dilihat menendang, membaling atau memegang apa-apa.",
+  "case.s3.ev.nervous.label": "Seorang pelajar gementar",
+  "case.s3.ev.nervous.short": "Menunduk, gelisah",
+  "case.s3.ev.nervous.detail":
+    "Seorang pelajar kelihatan amat gementar. Gementar di bawah tuduhan adalah normal — bukan bukti kesalahan.",
+  "case.s3.ev.witness.label": "Tiada saksi langsung",
+  "case.s3.ev.witness.short": "Tiada siapa nampak ia berlaku",
+  "case.s3.ev.witness.detail":
+    "Tiada kakitangan, kamera atau pelajar nampak siapa sebenarnya menendang bola. Tanpa saksi, kesalahan tidak boleh diberikan.",
+
   "case.s3.legal.insufficient": "Bukti Tidak Mencukupi",
   "case.s3.legal.insufficient.r":
-    "Lebam + sejarah tingkah laku mewajarkan tindakan.",
-  "case.s3.pun.warning": "Amaran Rasmi",
-  "case.s3.pun.mediation": "Pengantaraan + Kaunseling",
-  "case.s3.pun.suspension": "Gantung",
+    "Kaca + bola menunjuk ke luar. Tiada saksi mengaitkan pelajar tertentu dengan perbuatan. Keputusan tepat: tiada individu boleh dituduh.",
+  "case.s3.legal.shared": "Tanggungjawab Bersama",
+  "case.s3.legal.shared.r":
+    "Menghukum semua yang hadir tanpa bukti penglibatan adalah tidak adil. Kredit separa sahaja.",
+  "case.s3.legal.misconduct": "Hukum pelajar gementar",
+  "case.s3.legal.misconduct.r":
+    "Gementar bukan bukti — menghukum atas syak sahaja adalah salah.",
+
+  "case.s3.pun.none": "Tiada Tindakan",
+  "case.s3.pun.warning": "Amaran Berkumpulan",
+  "case.s3.pun.mediation": "Perbualan Restoratif",
   "case.s3.realWorld":
-    "Sekolah selalunya guna amalan restoratif: pengantaraan sebelum diperingkatkan.",
+    "Sekolah dan mahkamah tidak boleh menghukum kumpulan tanpa bukti perbuatan individu — hukuman kolektif dikritik.",
   "case.s3.standard":
-    "Disiplin: imbangan kebarangkalian; niat penting untuk keterukan.",
+    "“Imbangan kebarangkalian” untuk disiplin; tetapi tetap perlukan kaitan kepada perbuatan tertentu.",
 
-  "case.c1.title": "Kes Penipuan Dalam Talian",
+  // C1
+  "case.c1.title": "Mencuri di Kedai Runcit",
   "case.c1.brief":
-    "Seorang peniaga kecil menuduh En. Tan mengendalikan kedai dalam talian palsu yang menerima 200+ tempahan tanpa penghantaran. En. Tan dakwa dia juga mangsa penipuan pembekal.",
-  "case.c1.stmt.0.who": "Kumpulan Pelanggan",
+    "Seseorang ditangkap di kedai runcit dengan makanan yang tidak dibayar. Perbuatannya jelas — tetapi konteks mungkin mengubah hukuman.",
+  "case.c1.stmt.0.who": "Juruwang",
   "case.c1.stmt.0.quote":
-    "Kami bayar. Tiada apa sampai. Laman web hilang.",
-  "case.c1.stmt.1.who": "Defendan (En. Tan)",
+    "Saya nampak dia selitkan roti di bawah jaket. Tidak cuba bayar pun.",
+  "case.c1.stmt.1.who": "Suspek",
   "case.c1.stmt.1.quote":
-    "Pembekal saya larikan duit. Saya juga mangsa.",
-  "case.c1.stmt.2.who": "Bank",
+    "Saya tak makan dua hari. Saya kehilangan kerja minggu lepas. Saya tahu ia salah.",
+  "case.c1.stmt.2.who": "Pegawai",
   "case.c1.stmt.2.quote":
-    "Dana dikeluarkan ke akaun peribadi dalam 48 jam.",
-  "case.c1.ev.bank.label": "Rekod bank",
-  "case.c1.ev.bank.short": "Dana → akaun peribadi",
-  "case.c1.ev.bank.detail":
-    "Bayaran pelanggan dimasukkan ke akaun peribadi En. Tan, kemudian dikeluarkan tunai.",
-  "case.c1.ev.supplier.label": "Kontrak pembekal",
-  "case.c1.ev.supplier.short": "Kontrak tidak disahkan",
-  "case.c1.ev.supplier.detail":
-    "Dokumen kontrak diberi En. Tan, tetapi syarikat pembekal tiada dalam pendaftaran.",
-  "case.c1.ev.site.label": "Forensik laman web",
-  "case.c1.ev.site.short": "Laman ditutup pemilik",
-  "case.c1.ev.site.detail":
-    "Log pelayan menunjukkan laman ditutup oleh En. Tan, bukan digodam.",
-  "case.c1.ev.social.label": "Kemarahan media sosial",
-  "case.c1.ev.social.short": "Ratusan pos marah",
-  "case.c1.ev.social.detail":
-    "Banyak pos emosi tetapi kebanyakannya pendapat, bukan bukti niat.",
-  "case.c1.ev.history.label": "Perniagaan terdahulu",
-  "case.c1.ev.history.short": "Dua kedai serupa ditutup",
-  "case.c1.ev.history.detail":
-    "En. Tan mengendalikan dua kedai dalam talian terdahulu yang ditutup atas aduan serupa.",
-  "case.c1.legal.fraud": "Penipuan",
-  "case.c1.legal.fraud.r":
-    "Corak niat: ke akaun peribadi + sejarah + pembekal palsu.",
-  "case.c1.legal.negligence": "Kecuaian",
-  "case.c1.legal.negligence.r": "Memandang rendah corak sengaja.",
+    "Kami dah semak: tiada rekod, tiada senjata, nilai barang rendah.",
+
+  "case.c1.ev.cctv.label": "Rakaman CCTV ⭐",
+  "case.c1.ev.cctv.short": "Barang diambil tanpa bayar",
+  "case.c1.ev.cctv.detail":
+    "Rakaman jelas dengan cap masa menunjukkan suspek meletakkan barang dalam jaketnya dan berjalan melepasi juruwang. Tiada kekaburan.",
+  "case.c1.ev.no_pay.label": "Tiada bayaran direkodkan ⭐",
+  "case.c1.ev.no_pay.short": "Mesin tunai tiada entri",
+  "case.c1.ev.no_pay.detail":
+    "Mesin tunai dan log resit digital tiada transaksi semasa minit relevan. Barang tidak dibeli.",
+  "case.c1.ev.distress.label": "Suspek kelihatan tertekan",
+  "case.c1.ev.distress.short": "Kelihatan menggigil, lapar",
+  "case.c1.ev.distress.detail":
+    "Suspek pucat, menggigil, dan tertekan. Keadaan emosi bukan pembelaan, tetapi boleh berkaitan motif.",
+  "case.c1.ev.wallet.label": "Dompet kosong",
+  "case.c1.ev.wallet.short": "Tiada wang, tiada kad",
+  "case.c1.ev.wallet.detail":
+    "Dompet suspek kosong. Bersama keadaan tertekan, ini menunjukkan kesusahan kewangan tulen — relevan dengan hukuman, bukan kesalahan.",
+  "case.c1.ev.staff.label": "Keterangan kakitangan",
+  "case.c1.ev.staff.short": "Akaun langsung juruwang",
+  "case.c1.ev.staff.detail":
+    "Keterangan saksi mata langsung dari juruwang. Konsisten dengan CCTV.",
+
+  "case.c1.legal.theft_light": "Kecurian — dengan peringanan",
+  "case.c1.legal.theft_light.r":
+    "Jenayah jelas terbukti. Lapar, tiada rekod, nilai rendah → hukuman ringan dan restoratif.",
+  "case.c1.legal.theft_full": "Kecurian — hukuman penuh",
+  "case.c1.legal.theft_full.r":
+    "Perbuatan jelas, tetapi mengabaikan konteks menghasilkan hukuman terlalu berat.",
   "case.c1.legal.insufficient": "Bukti Tidak Mencukupi",
-  "case.c1.legal.insufficient.r": "Jejak bank + sejarah amat kuat.",
-  "case.c1.pun.fine": "Denda + Gantirugi",
-  "case.c1.pun.fine_jail": "Gantirugi + Penjara",
-  "case.c1.pun.max": "Hukuman Maksimum",
+  "case.c1.legal.insufficient.r":
+    "CCTV dan log mesin tunai membuktikan perbuatan secara langsung. Pilihan ini mengabaikan bukti yang jelas.",
+
+  "case.c1.pun.warning": "Amaran + Kaunseling",
+  "case.c1.pun.community": "Khidmat Komuniti + Bayar Balik",
+  "case.c1.pun.jail": "Hukuman Penjara",
   "case.c1.realWorld":
-    "Kes sebenar (cth., CDSA Singapura) selalunya mengarahkan gantirugi serta penjara apabila niat dan corak terbukti.",
-  "case.c1.standard": "Jenayah: 'tanpa keraguan munasabah'.",
+    "Kebanyakan bidang kuasa membenarkan majistret mempertimbangkan kesusahan dalam kecurian kecil — undang-undang menghukum perbuatan, belas kasihan membentuk hukuman.",
+  "case.c1.standard":
+    "Jenayah: 'tanpa keraguan munasabah' — mudah dipenuhi di sini. Penghakiman menimbang konteks.",
 
-  "case.c2.title": "Pertikaian Awam",
+  // C2
+  "case.c2.title": "Kemalangan di Persimpangan",
   "case.c2.brief":
-    "Dua jiran bertelagah hebat tentang pengubahsuaian bising. Seorang dakwa diganggu, seorang lagi dakwa difitnah di media sosial.",
-  "case.c2.stmt.0.who": "Jiran A",
+    "Dua kereta berlanggar di persimpangan. Saksi memberi keterangan bertentangan. Siapa yang bersalah — atau kedua-duanya?",
+  "case.c2.stmt.0.who": "Pemandu 1 (kereta merah)",
   "case.c2.stmt.0.quote":
-    "Mereka mengetuk dinding tengah malam selama berminggu. Saya terpaksa pos.",
-  "case.c2.stmt.1.who": "Jiran B",
+    "Lampu saya hijau. Kereta biru muncul tiba-tiba.",
+  "case.c2.stmt.1.who": "Pemandu 2 (kereta biru)",
   "case.c2.stmt.1.quote":
-    "Pos mereka panggil saya 'kontraktor jenayah'. Bisnes saya terjejas.",
-  "case.c2.stmt.2.who": "Pengurus Bangunan",
+    "Saya yang berhak. Kereta merah langgar lampu merah pada kelajuan penuh.",
+  "case.c2.stmt.2.who": "Saksi A",
   "case.c2.stmt.2.quote":
-    "Kami terima aduan bunyi tetapi tiada permit dilanggar.",
-  "case.c2.ev.decibel.label": "Log desibel",
-  "case.c2.ev.decibel.short": "Melebihi had pada waktu malam",
-  "case.c2.ev.decibel.detail":
-    "Sensor bangunan tunjuk bunyi malam melebihi had undang-undang pada 4 malam.",
-  "case.c2.ev.post.label": "Pos media sosial",
-  "case.c2.ev.post.short": "Tuduhan awam",
-  "case.c2.ev.post.detail":
-    "Pos panggil jiran 'kontraktor jenayah' — tiada bukti rekod jenayah.",
-  "case.c2.ev.screenshots.label": "Tangkap layar disunting",
-  "case.c2.ev.screenshots.short": "Mungkin diubah",
-  "case.c2.ev.screenshots.detail":
-    "Tangkap layar dari Jiran B nampak dipotong; metadata hilang.",
-  "case.c2.ev.permit.label": "Permit pengubahsuaian",
-  "case.c2.ev.permit.short": "Permit siang sah",
-  "case.c2.ev.permit.detail":
-    "Permit sah tetapi waktu siang sahaja. Kerja malam tidak dibenarkan.",
-  "case.c2.legal.both": "Liabiliti Bersama",
-  "case.c2.legal.both.r":
-    "Kedua pihak melanggar norma: satu langgar bunyi, satu memfitnah tanpa bukti.",
-  "case.c2.legal.defamation": "Fitnah Sahaja",
-  "case.c2.legal.defamation.r":
-    "Mengabaikan pelanggaran bunyi yang direkodkan.",
-  "case.c2.legal.insufficient": "Bukti Tidak Mencukupi",
-  "case.c2.legal.insufficient.r": "Log desibel + pos adalah konkrit.",
-  "case.c2.pun.mediation": "Pengantaraan + Permohonan Maaf",
-  "case.c2.pun.fines": "Denda Kedua Pihak",
-  "case.c2.pun.court": "Ganti Rugi Mahkamah Sivil",
-  "case.c2.realWorld":
-    "Kebanyakan pertikaian jiran diselesaikan melalui pusat pengantaraan komuniti sebelum ke mahkamah sivil.",
-  "case.c2.standard":
-    "Sivil: 'imbangan kebarangkalian' — kedua pihak dinilai berasingan.",
+    "Saya pasti Pemandu 1 langgar lampu merah. Saya berada di sana.",
+  "case.c2.stmt.3.who": "Saksi B",
+  "case.c2.stmt.3.quote":
+    "Tidak, kereta biru memandu jauh melebihi had laju. Saya nampak dengan jelas.",
 
-  "case.c3.title": "Dilema Kecuaian",
+  "case.c2.ev.cars.label": "Dua kereta rosak",
+  "case.c2.ev.cars.short": "Kerosakan depan & sisi",
+  "case.c2.ev.cars.detail":
+    "Kedua kenderaan menunjukkan kerosakan teruk konsisten dengan hentaman laju di tengah persimpangan. Corak kerosakan simetri.",
+  "case.c2.ev.light.label": "Lampu isyarat (tidak jelas)",
+  "case.c2.ev.light.short": "Glic / kabur",
+  "case.c2.ev.light.detail":
+    "Isyarat dilaporkan rosak awal hari itu. Tiada video mengesahkan pihak mana hijau pada saat hentaman.",
+  "case.c2.ev.witnessA.label": "Keterangan Saksi A",
+  "case.c2.ev.witnessA.short": "Salahkan Pemandu 1",
+  "case.c2.ev.witnessA.detail":
+    "Saksi A yakin — tetapi berdiri pada sudut yang tidak melihat isyarat dengan jelas. Mungkin berat sebelah.",
+  "case.c2.ev.witnessB.label": "Keterangan Saksi B",
+  "case.c2.ev.witnessB.short": "Salahkan Pemandu 2",
+  "case.c2.ev.witnessB.detail":
+    "Saksi B juga yakin — tetapi anggaran kelajuannya tidak rasmi, tiada bacaan radar. Bercanggah dengan Saksi A.",
+  "case.c2.ev.skid.label": "Kesan brek di jalan ⭐",
+  "case.c2.ev.skid.short": "Kesan panjang dari kereta biru",
+  "case.c2.ev.skid.detail":
+    "Kesan brek panjang dan gelap mengikuti kereta biru — bukti fizikal brek lewat & kuat, menunjukkan kelajuan berlebihan. Kereta merah menunjukkan kesan lebih pendek konsisten dengan tindak balas lewat. Kedua-dua menyumbang.",
+
+  "case.c2.legal.shared": "Tanggungjawab Bersama",
+  "case.c2.legal.shared.r":
+    "Kesan brek + kerosakan simetri + saksi bercanggah → kedua pemandu menyumbang. Keputusan paling adil.",
+  "case.c2.legal.insufficient": "Tidak Cukup Jelas",
+  "case.c2.legal.insufficient.r":
+    "Boleh diterima: keterangan bercanggah dan keadaan lampu tidak diketahui. Rujuk untuk siasatan lanjut.",
+  "case.c2.legal.driver1": "Pemandu 1 sepenuhnya bersalah",
+  "case.c2.legal.driver1.r":
+    "Menyalahkan satu pihak mengabaikan kesan brek dan saksi bercanggah.",
+
+  "case.c2.pun.mediation": "Pengantaraan antara pemandu",
+  "case.c2.pun.shared_fine": "Denda dikongsi + latihan semula",
+  "case.c2.pun.license": "Penggantungan lesen (satu pihak)",
+  "case.c2.realWorld":
+    "Tuntutan insurans selalunya membahagi kesalahan secara peratus apabila bukti bercanggah — jarang 100/0.",
+  "case.c2.standard": "Sivil: 'imbangan kebarangkalian,' menilai setiap pihak berasingan.",
+
+  // C3
+  "case.c3.title": "Penipuan Pekerjaan Dalam Talian",
   "case.c3.brief":
-    "Seorang pekerja binaan jatuh dari perancah dan cedera parah. Penyelia tapak dituduh cuai, tetapi dakwa pekerja abaikan protokol keselamatan.",
-  "case.c3.stmt.0.who": "Pekerja Tercedera",
+    "Mangsa dijanjikan kerja bergaji tinggi dan diminta memindahkan wang sebagai 'yuran latihan.' Tertuduh dakwa ia salah faham.",
+  "case.c3.stmt.0.who": "Mangsa",
   "case.c3.stmt.0.quote":
-    "Klip abah-abah rosak. Saya beritahu mereka minggu lepas.",
-  "case.c3.stmt.1.who": "Penyelia",
+    "Mereka janji saya kerja sebenar. Saya hantar wang — kemudian mereka hilang.",
+  "case.c3.stmt.1.who": "Tertuduh",
   "case.c3.stmt.1.quote":
-    "Pekerja dilatih untuk periksa peralatan sendiri. Dia tidak buat semakan.",
-  "case.c3.stmt.2.who": "Rakan Sekerja",
+    "Salah faham sahaja. Mereka hantar wang sendiri. Saya tidak pernah memaksa.",
+  "case.c3.stmt.2.who": "Penyiasat",
   "case.c3.stmt.2.quote":
-    "Semua tahu abah-abah itu rosak. Tiada siapa nak guna.",
-  "case.c3.ev.harness.label": "Abah-abah diperiksa",
-  "case.c3.ev.harness.short": "Sahkan klip rosak",
-  "case.c3.ev.harness.detail":
-    "Pemeriksaan forensik mengesahkan klip haus dan akan gagal di bawah beban.",
-  "case.c3.ev.log.label": "Log penyelenggaraan",
-  "case.c3.ev.log.short": "Tiada semakan 60 hari",
-  "case.c3.ev.log.detail":
-    "Log pemeriksaan mingguan tiada catatan 60 hari. Tandatangan penyelia hilang.",
-  "case.c3.ev.training.label": "Rekod latihan pekerja",
-  "case.c3.ev.training.short": "Pekerja telah disahkan",
-  "case.c3.ev.training.detail":
-    "Pekerja lulus latihan keselamatan 4 bulan lalu — tetapi latihan tidak menggantikan penyelenggaraan.",
-  "case.c3.ev.anon.label": "Maklumat tanpa nama",
-  "case.c3.ev.anon.short": "'Penyelia ambil jalan mudah'",
-  "case.c3.ev.anon.detail":
-    "Mesej tanpa tandatangan ke talian keselamatan, tiada butiran. Tidak boleh disahkan.",
-  "case.c3.legal.negligence": "Kecuaian Jenayah",
+    "Kami dapatkan sembang dan log bank. 'Syarikat' itu tiada di mana-mana dalam rekod.",
+
+  "case.c3.ev.chat.label": "Sembang menjanjikan kerja ⭐",
+  "case.c3.ev.chat.short": "Tawaran kerja eksplisit",
+  "case.c3.ev.chat.detail":
+    "Log sembang yang disimpan menunjukkan tertuduh menjanjikan kerja 'dijamin' dan menuntut yuran latihan boleh dikembalikan. Ungkapannya tepat dan disengajakan — bukan perbualan kasual.",
+  "case.c3.ev.transfer.label": "Mangsa pindah wang ⭐",
+  "case.c3.ev.transfer.short": "Pindahan bank disahkan",
+  "case.c3.ev.transfer.detail":
+    "Rekod bank mengesahkan mangsa memindahkan jumlah besar ke akaun yang dikawal tertuduh. Dana dikeluarkan tunai dalam beberapa jam.",
+  "case.c3.ev.contract.label": "Tiada kontrak rasmi",
+  "case.c3.ev.contract.short": "Tiada bertulis",
+  "case.c3.ev.contract.detail":
+    "Tiada kontrak pekerjaan yang ditandatangani, tiada surat tawaran, tiada dokumen rasmi — hanya sembang tidak rasmi. Majikan sebenar meninggalkan jejak kertas.",
+  "case.c3.ev.profile.label": "Profil syarikat palsu",
+  "case.c3.ev.profile.short": "Tidak berdaftar",
+  "case.c3.ev.profile.detail":
+    "Halaman 'syarikat' menggunakan logo yang dicuri. Perniagaan tidak berdaftar dalam mana-mana pendaftaran komersial. Tanda jelas pemalsuan.",
+  "case.c3.ev.claim.label": "Suspek dakwa salah faham",
+  "case.c3.ev.claim.short": "Kenyataan untuk diri sendiri",
+  "case.c3.ev.claim.detail":
+    "Tertuduh kini berkata mangsa 'salah faham' tawaran. Bercanggah dengan ungkapan jelas dalam sembang — kemungkinan cerita pembelaan.",
+
+  "case.c3.legal.fraud": "Penipuan",
+  "case.c3.legal.fraud.r":
+    "Janji palsu + pindahan teraruh + syarikat palsu + pengeluaran tunai segera = niat menipu yang jelas. Penipuan klasik.",
+  "case.c3.legal.negligence": "Kecuaian Sahaja",
   "case.c3.legal.negligence.r":
-    "Kewajipan jagaan penyelia dilanggar — pemeriksaan tiada + kerosakan diketahui.",
-  "case.c3.legal.shared": "Kesalahan Bersama",
-  "case.c3.legal.shared.r":
-    "Pekerja ikut latihan; tanggungjawab utama pada penyelia.",
+    "Kecuaian bermakna kelalaian. Syarikat palsu dan pengeluaran segera menunjukkan niat — lebih dari kecuaian.",
   "case.c3.legal.insufficient": "Bukti Tidak Mencukupi",
   "case.c3.legal.insufficient.r":
-    "Log penyelenggaraan + pemeriksaan forensik amat kuat.",
-  "case.c3.pun.warning": "Amaran + Latihan Semula",
-  "case.c3.pun.fine_ban": "Denda Berat + Gantung Lesen",
-  "case.c3.pun.jail": "Penjara",
-  "case.c3.realWorld":
-    "Akta keselamatan tempat kerja (cth., Akta WSH) selalunya mengenakan denda berat dan gantung lesen kepada penyelia cuai.",
-  "case.c3.standard":
-    "Kecuaian jenayah: 'tanpa keraguan munasabah' untuk niat; tuntutan sivil berasingan.",
+    "Sembang + pindahan + syarikat palsu + kenyataan membentuk rantaian yang kuat dan lengkap.",
 
+  "case.c3.pun.fine": "Denda + Gantirugi",
+  "case.c3.pun.fine_jail": "Gantirugi + Penjara",
+  "case.c3.pun.max": "Hukuman Maksimum",
+  "case.c3.realWorld":
+    "Kes penipuan kerja biasanya didakwa sebagai penipuan jenayah, dengan perintah gantirugi dan penjara.",
+  "case.c3.standard":
+    "Jenayah: 'tanpa keraguan munasabah' — mudah dipenuhi dengan sembang + rekod bank.",
+
+  // ============= UI =============
   "case.eval": "Penilaian Mahkamah",
   "case.sound": "⚖ Penghakiman Wajar",
   "case.reconsider": "⚠ Pertimbangkan Semula",
@@ -934,60 +1193,76 @@ const MS: Dict = {
   "case.notFound": "Kes tidak dijumpai",
   "case.back": "Kembali",
   "case.reliable.note":
-    "Sumber langsung & boleh disahkan. Selamat ditimbang berat dalam penghakiman.",
+    "Sumber langsung & boleh disahkan. Selamat ditimbang berat.",
   "case.unreliable.note":
-    "Khabar angin, bercanggah, atau tidak disahkan. Berhati-hati — jangan tanda sebagai dipercayai.",
-  // ===== Evidence — Source & Caveats (extended detail) =====
-  "case.s1.ev.cctv.detail.more":
-    "Sumber: Kamera koridor sekolah (CCTV-04). Cap masa disahkan oleh pentadbir IT. Rantaian penjagaan: rakaman dieksport pada 13:10 dan dimeterai. Peringatan: kamera tidak meliputi pintu belakang makmal.",
-  "case.s1.ev.locker.detail.more":
-    "Sumber: Pemeriksaan loker oleh pengetua dan saksi guru. Nombor siri sepadan dengan rekod pembelian sekolah. Peringatan: kod loker diketahui oleh 3 rakan sekelas — kemungkinan diletakkan oleh orang lain.",
-  "case.s1.ev.rumor.detail.more":
-    "Sumber: Dua pelajar di kantin (tidak hadir di tempat kejadian). Hanya cakap-cakap. Peringatan: dengar khabar tidak boleh diterima sebagai bukti utama; risiko berat sebelah.",
-  "case.s1.ev.alibi.detail.more":
-    "Sumber: Kenyataan defendan sahaja. Tiada saksi atau resit kantin. Peringatan: bercanggah dengan rakaman CCTV.",
+    "Khabar angin atau tidak disahkan. Berhati-hati.",
+
+  // ===== Sumber & Peringatan =====
+  "case.s1.ev.empty_desk.detail.more":
+    "Sumber: Pemerhatian kakitangan pertama tiba, difoto. Peringatan: garis habuk hanya membuktikan komputer riba pernah di sana — bukan siapa mengambilnya.",
+  "case.s1.ev.open_bag.detail.more":
+    "Sumber: Pemeriksaan oleh ketua tingkatan. Peringatan: beg terbuka bukan tempat sembunyi; komputer riba tiada di dalam.",
+  "case.s1.ev.cable.detail.more":
+    "Sumber: Pemeriksaan lantai. Kabel difoto di tempatnya. Peringatan: pencuri yang tergesa-gesa meninggalkan kabel — petanda bukan suspek yang duduk tenang.",
+  "case.s1.ev.student.detail.more":
+    "Sumber: Letakan saksi. Peringatan: kedekatan bukan tindakan. Tiada siapa nampak mereka menyentuh komputer.",
+  "case.s1.ev.window.detail.more":
+    "Sumber: Pengesahan penjaga bahawa tingkap dibuka sejak waktu makan. Peringatan: akses tingkat bawah membuka banyak suspek alternatif.",
+
   "case.s2.ev.answers.detail.more":
-    "Sumber: Diserahkan oleh pengawas peperiksaan. 7 daripada 10 jawapan akhir sepadan, termasuk satu kesilapan yang sama. Peringatan: pelajar boleh belajar daripada nota yang sama.",
-  "case.s2.ev.tutor.detail.more":
-    "Sumber: Tutor swasta yang bertauliah. Disahkan dengan resit pembayaran. Peringatan: tutor tidak hadir semasa peperiksaan.",
-  "case.s2.ev.gossip.detail.more":
-    "Sumber: Mesej kumpulan rakan sebaya tanpa nama. Peringatan: spekulasi sahaja, tiada bukti langsung.",
-  "case.s2.ev.history.detail.more":
-    "Sumber: Rekod akademik rasmi. Peringatan: kelakuan masa lalu tidak membuktikan perbuatan kali ini.",
-  "case.s3.ev.cctv.detail.more":
-    "Sumber: CCTV koridor (sudut terhad). Peringatan: tolakan berlaku di luar bingkai; hanya konfrontasi awal kelihatan.",
-  "case.s3.ev.bruise.detail.more":
-    "Sumber: Laporan jururawat sekolah dengan foto bertarikh. Peringatan: lebam mungkin disebabkan oleh sebab lain.",
-  "case.s3.ev.anon.detail.more":
-    "Sumber: Surat tanpa nama dimasukkan ke kotak aduan. Peringatan: tiada cara untuk mengesahkan pengarang atau motif.",
-  "case.s3.ev.history.detail.more":
-    "Sumber: Rekod disiplin rasmi. Peringatan: corak kelakuan, bukan bukti langsung untuk insiden ini.",
-  "case.c1.ev.bank.detail.more":
-    "Sumber: Penyata bank rasmi yang dikeluarkan oleh bank. Peringatan: pemilik akaun mungkin bukan penipu sebenar (akaun keldai).",
-  "case.c1.ev.site.detail.more":
-    "Sumber: Cache laman web yang diarkibkan + sijil SSL. Peringatan: laman boleh ditutup pada bila-bila masa.",
-  "case.c1.ev.history.detail.more":
-    "Sumber: Pangkalan data perlindungan pengguna. Peringatan: aduan terdahulu tidak membuktikan transaksi khusus ini.",
-  "case.c1.ev.social.detail.more":
-    "Sumber: Tangkapan skrin daripada pelapor. Peringatan: boleh diedit; minta versi asal.",
-  "case.c1.ev.supplier.detail.more":
-    "Sumber: Surat daripada pembekal yang didakwa. Peringatan: pembekal mungkin mempunyai konflik kepentingan.",
-  "case.c2.ev.decibel.detail.more":
-    "Sumber: Bacaan meter dB rasmi majlis perbandaran. Peringatan: bacaan dilakukan pada satu malam sahaja.",
-  "case.c2.ev.permit.detail.more":
-    "Sumber: Pejabat lesen majlis. Peringatan: permit mungkin dengan syarat had bunyi yang dilanggar.",
-  "case.c2.ev.post.detail.more":
-    "Sumber: Hantaran media sosial awam. Peringatan: penonton di video mungkin tidak mewakili semua malam.",
-  "case.c2.ev.screenshots.detail.more":
-    "Sumber: Tangkapan skrin daripada penduduk. Peringatan: pesanan tunggal — minta sokongan rakaman audio.",
-  "case.c3.ev.log.detail.more":
-    "Sumber: Log peralatan elektronik tapak. Peringatan: log boleh diubah jika sistem tidak terkunci.",
-  "case.c3.ev.harness.detail.more":
-    "Sumber: Pemeriksaan jurutera keselamatan bertauliah. Peringatan: bukti boleh diganggu selepas kemalangan.",
-  "case.c3.ev.training.detail.more":
-    "Sumber: Rekod latihan HR rasmi. Peringatan: kehadiran tidak menjamin pemahaman.",
-  "case.c3.ev.anon.detail.more":
-    "Sumber: Panggilan tanpa nama ke talian aduan. Peringatan: motif pemberi maklumat tidak diketahui.",
+    "Sumber: Kedua kertas dibandingkan oleh dua pemeriksa. Peringatan: jawapan betul yang sama ≠ meniru. Tiada jawapan salah yang sama.",
+  "case.s2.ev.seating.detail.more":
+    "Sumber: Carta tempat duduk rasmi. Peringatan: susunan biasa — bukan dipilih pelajar.",
+  "case.s2.ev.glance.detail.more":
+    "Sumber: Ingatan pengawas sahaja. Peringatan: sudut & jarak menjadikan 'nampak kertas' tidak mungkin.",
+  "case.s2.ev.invigilator.detail.more":
+    "Sumber: Log peperiksaan rasmi. Peringatan: tiada amaran semasa — tuduhan timbul selepas penandaan.",
+  "case.s2.ev.rough.detail.more":
+    "Sumber: Nota pelajaran tutor. Peringatan: persiapan bersama mudah hasilkan kerja serupa.",
+
+  "case.s3.ev.glass.detail.more":
+    "Sumber: Foto corak serpihan. Peringatan: serpihan tersebar ke dalam → hentaman dari luar.",
+  "case.s3.ev.ball.detail.more":
+    "Sumber: Item dilog di pejabat disiplin. Peringatan: tiada tanda, tiada pemilik dikenal pasti, tiada cap jari diambil.",
+  "case.s3.ev.group.detail.more":
+    "Sumber: Pemerhatian kakitangan ketika tiba. Peringatan: penonton, bukan pelaku. Tiada siapa dilihat menendang.",
+  "case.s3.ev.nervous.detail.more":
+    "Sumber: Tanggapan subjektif. Peringatan: gementar di bawah tuduhan adalah normal — bukan bukti.",
+  "case.s3.ev.witness.detail.more":
+    "Sumber: Tinjauan koridor & CCTV. Peringatan: tiada saksi, tiada sudut kamera meliputi perbuatan.",
+
+  "case.c1.ev.cctv.detail.more":
+    "Sumber: CCTV kedai dengan cap masa. Peringatan: rakaman jelas dan berterusan — rantaian penjagaan terpelihara.",
+  "case.c1.ev.no_pay.detail.more":
+    "Sumber: Log transaksi titik jualan. Peringatan: sepadan dengan CCTV minit demi minit.",
+  "case.c1.ev.distress.detail.more":
+    "Sumber: Pemerhatian kamera badan pegawai. Peringatan: keadaan minda berkaitan motif, bukan sama ada perbuatan berlaku.",
+  "case.c1.ev.wallet.detail.more":
+    "Sumber: Inventori semasa pendaftaran. Peringatan: dompet kosong adalah konteks peringanan, bukan pembelaan.",
+  "case.c1.ev.staff.detail.more":
+    "Sumber: Kenyataan bersumpah juruwang. Peringatan: konsisten dengan CCTV — sokongan kuat.",
+
+  "case.c2.ev.cars.detail.more":
+    "Sumber: Foto tempat kejadian oleh pegawai. Peringatan: kerosakan simetri menunjukkan kedua kenderaan bergerak laju.",
+  "case.c2.ev.light.detail.more":
+    "Sumber: Log penyelenggaraan majlis menunjukkan laporan kerosakan awal hari itu. Peringatan: tiada video membuktikan warna semasa hentaman.",
+  "case.c2.ev.witnessA.detail.more":
+    "Sumber: Kenyataan tepi jalan. Peringatan: sudut tidak memberi pandangan jelas isyarat.",
+  "case.c2.ev.witnessB.detail.more":
+    "Sumber: Kenyataan tepi jalan. Peringatan: anggaran kelajuan tidak rasmi; tiada bacaan radar.",
+  "case.c2.ev.skid.detail.more":
+    "Sumber: Pengukuran forensik panjang kesan brek. Peringatan: bukti fizikal — jauh lebih kuat dari ingatan.",
+
+  "case.c3.ev.chat.detail.more":
+    "Sumber: Eksport telefon dengan hash dipelihara. Peringatan: ungkapan tepat — bukan salah faham kasual.",
+  "case.c3.ev.transfer.detail.more":
+    "Sumber: Penyata bank rasmi. Peringatan: pengeluaran tunai pantas adalah penunjuk klasik niat.",
+  "case.c3.ev.contract.detail.more":
+    "Sumber: Carian rekod & e-mel mangsa. Peringatan: majikan sebenar selalu menyediakan terma bertulis.",
+  "case.c3.ev.profile.detail.more":
+    "Sumber: Semakan pendaftaran komersial + carian imej terbalik. Peringatan: logo dicuri membuktikan pemalsuan.",
+  "case.c3.ev.claim.detail.more":
+    "Sumber: Kenyataan tertuduh kepada penyiasat. Peringatan: bercanggah dengan ungkapan eksplisit dalam sembang.",
 };
 
 export const CASE_DICT: Record<Lang, Dict> = { en: EN, zh: ZH, ms: MS };
