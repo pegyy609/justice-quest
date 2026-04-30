@@ -308,7 +308,9 @@ const BriefView = ({
   );
 };
 
-// ============== EVIDENCE ==============
+// ============== EVIDENCE (click-to-discover scene) ==============
+const MAX_ATTEMPTS = 10;
+
 const EvidenceView = ({
   data,
   selected,
@@ -327,123 +329,247 @@ const EvidenceView = ({
   onNext: () => void;
 }) => {
   const { t } = useSettings();
-  const pressTimers = useRef<Record<string, number>>({});
-  const longPressFired = useRef<Record<string, boolean>>({});
-
-  const startPress = (id: string) => {
-    longPressFired.current[id] = false;
-    pressTimers.current[id] = window.setTimeout(() => {
-      longPressFired.current[id] = true;
-      setOpenId(id);
-    }, 450);
-  };
-  const endPress = (id: string) => {
-    if (pressTimers.current[id]) {
-      clearTimeout(pressTimers.current[id]);
-      delete pressTimers.current[id];
-    }
-  };
-  const handleClick = (id: string) => {
-    // Suppress the toggle if a long-press just opened the modal
-    if (longPressFired.current[id]) {
-      longPressFired.current[id] = false;
-      return;
-    }
-    onToggle(id);
-  };
+  const sceneRef = useRef<HTMLDivElement | null>(null);
+  const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [attemptsLeft, setAttemptsLeft] = useState(MAX_ATTEMPTS);
+  const [edgeFlash, setEdgeFlash] = useState(false);
+  const flashTimer = useRef<number | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   if (!data) return null;
   const open = data.evidence.find((e) => e.id === openId);
+  const found = selected;
+  const totalEvidence = data.evidence.length;
+  const outOfAttempts = attemptsLeft <= 0;
+
+  const playWarn = () => {
+    try {
+      const AC =
+        (window as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }).AudioContext ||
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AC) return;
+      if (!audioCtxRef.current) audioCtxRef.current = new AC();
+      const ctx = audioCtxRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.value = 180;
+      gain.gain.value = 0.04;
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.09);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const playSuccess = () => {
+    try {
+      const AC =
+        (window as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }).AudioContext ||
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AC) return;
+      if (!audioCtxRef.current) audioCtxRef.current = new AC();
+      const ctx = audioCtxRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = 880;
+      gain.gain.value = 0.05;
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.12);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const triggerEdgeFlash = () => {
+    setEdgeFlash(true);
+    if (flashTimer.current) window.clearTimeout(flashTimer.current);
+    flashTimer.current = window.setTimeout(() => setEdgeFlash(false), 350);
+  };
+
+  const handleSceneClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = sceneRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const px = ((e.clientX - rect.left) / rect.width) * 100;
+    const py = ((e.clientY - rect.top) / rect.height) * 100;
+    // Use the smaller dimension as reference for radius (matches definition)
+    const minDim = Math.min(rect.width, rect.height);
+
+    // Check hotspots
+    let hit: string | null = null;
+    for (const ev of data.evidence) {
+      if (!ev.hotspot) continue;
+      if (found.includes(ev.id)) continue;
+      const dxPx = ((ev.hotspot.x - px) / 100) * rect.width;
+      const dyPx = ((ev.hotspot.y - py) / 100) * rect.height;
+      const distPx = Math.hypot(dxPx, dyPx);
+      const radiusPx = (ev.hotspot.r / 100) * minDim;
+      if (distPx <= radiusPx) {
+        hit = ev.id;
+        break;
+      }
+    }
+
+    if (hit) {
+      onToggle(hit);
+      setOpenId(hit);
+      playSuccess();
+      return;
+    }
+
+    // Miss: ripple + attempt deduction (only if attempts remain)
+    const id = Date.now() + Math.random();
+    setRipples((r) => [...r, { id, x: px, y: py }]);
+    window.setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 600);
+
+    if (!outOfAttempts) {
+      setAttemptsLeft((a) => Math.max(0, a - 1));
+      triggerEdgeFlash();
+      playWarn();
+    }
+  };
+
+  // Intensity scales as attempts dwindle
+  const flashIntensity = Math.min(0.85, 0.35 + (1 - attemptsLeft / MAX_ATTEMPTS) * 0.55);
 
   return (
-    <div className="flex flex-col h-full gap-2 overflow-y-auto relative">
+    <div className="flex flex-col h-full gap-2 overflow-hidden relative">
       <SectionLabel>{t("case.evidence")}</SectionLabel>
-      <p className="font-retro text-parchment-dark text-[clamp(0.85rem,2.2vw,1rem)] leading-tight">
-        {t("case.evidenceHint")}
+      <p className="font-retro text-parchment-dark text-[clamp(0.8rem,2.1vw,0.95rem)] leading-tight">
+        {outOfAttempts ? t("case.outOfAttempts") : t("case.evidenceHint")}
       </p>
-      {revealReliability && (
-        <p className="font-retro text-gold-bright text-[clamp(0.8rem,2.1vw,0.95rem)] leading-tight">
-          {t("case.evidenceHint.lens")}
-        </p>
-      )}
 
-      <div className="flex flex-col gap-2 mt-1">
-        {data.evidence.map((e) => {
-          const picked = selected.includes(e.id);
-          return (
-            <button
-              key={e.id}
-              onClick={() => handleClick(e.id)}
-              onMouseDown={() => startPress(e.id)}
-              onMouseUp={() => endPress(e.id)}
-              onMouseLeave={() => endPress(e.id)}
-              onTouchStart={() => startPress(e.id)}
-              onTouchEnd={() => endPress(e.id)}
-              onTouchMove={() => endPress(e.id)}
-              onContextMenu={(ev) => ev.preventDefault()}
-              className={`pixel-panel text-left p-2 transition-colors select-none ${
-                picked ? "!bg-gold/20 !border-gold-bright" : ""
-              }`}
-            >
-              <div className="flex items-start gap-2">
-                <span
-                  className={`font-pixel text-base shrink-0 mt-0.5 ${
-                    picked ? "text-gold-bright" : "text-parchment-dark"
-                  }`}
-                >
-                  {picked ? "✓" : "□"}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-pixel text-gold text-[10px] truncate flex items-center gap-1">
-                    <span className="truncate">{t(e.label)}</span>
-                    {revealReliability && (
-                      <span
-                        className={`font-pixel text-[8px] px-1 border ${
-                          e.reliable
-                            ? "text-gold-bright border-gold-bright"
-                            : "text-parchment-dark border-parchment-dark"
-                        }`}
-                      >
-                        {e.reliable ? t("case.reliable") : t("case.unreliable")}
-                      </span>
-                    )}
-                  </div>
-                  <div className="font-retro text-parchment text-[clamp(0.85rem,2.2vw,1.05rem)] leading-tight">
-                    {t(e.short)}
-                  </div>
-                </div>
-              </div>
-            </button>
-          );
-        })}
+      {/* HUD */}
+      <div className="flex items-center justify-between gap-2 font-pixel text-[9px]">
+        <span className="pixel-panel px-2 py-1 text-gold-bright">
+          🔎 {t("case.found")}: <span className="text-gold-bright">{found.length}/{totalEvidence}</span>
+        </span>
+        <span
+          className={`pixel-panel px-2 py-1 ${
+            attemptsLeft <= 3 ? "text-destructive animate-pulse" : "text-gold"
+          }`}
+        >
+          ⚠ {t("case.attempts")}: {attemptsLeft}/{MAX_ATTEMPTS}
+        </span>
       </div>
 
-      <div className="mt-auto pt-3 flex justify-between items-center gap-2">
-        <span className="font-retro text-parchment-dark text-sm">
-          {selected.length} {t("case.markedReliable")}
+      {/* Scene */}
+      <div
+        ref={sceneRef}
+        onClick={handleSceneClick}
+        className="relative flex-1 min-h-[180px] border-4 border-gold/70 bg-navy-deep overflow-hidden cursor-crosshair select-none"
+        role="img"
+        aria-label="Investigation scene — tap to search for evidence"
+      >
+        {data.image && (
+          <img
+            src={data.image}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover [image-rendering:pixelated] pointer-events-none"
+          />
+        )}
+        {/* Subtle dim overlay for atmosphere */}
+        <div className="absolute inset-0 bg-navy-deep/25 pointer-events-none" />
+
+        {/* Found markers (red marker-style circles) */}
+        {data.evidence
+          .filter((e) => e.hotspot && found.includes(e.id))
+          .map((e) => (
+            <button
+              key={e.id}
+              onClick={(ev) => {
+                ev.stopPropagation();
+                setOpenId(e.id);
+              }}
+              style={{
+                left: `${e.hotspot!.x}%`,
+                top: `${e.hotspot!.y}%`,
+                width: `${e.hotspot!.r * 2.4}%`,
+                aspectRatio: "1 / 1",
+              }}
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-destructive bg-destructive/10 hover:bg-destructive/25 transition-colors animate-scale-in"
+              aria-label={t(e.label)}
+              title={t(e.label)}
+            >
+              <span className="absolute -top-1 -right-1 font-pixel text-[8px] bg-destructive text-destructive-foreground px-1 leading-tight">
+                ✓
+              </span>
+            </button>
+          ))}
+
+        {/* Miss ripples */}
+        {ripples.map((r) => (
+          <span
+            key={r.id}
+            style={{ left: `${r.x}%`, top: `${r.y}%` }}
+            className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-2 border-parchment/70 animate-ping"
+          />
+        ))}
+
+        {/* Empty hint when nothing found */}
+        {found.length === 0 && (
+          <div className="absolute bottom-2 left-2 right-2 text-center font-retro text-parchment text-[clamp(0.75rem,1.9vw,0.9rem)] bg-navy-deep/60 px-2 py-1 pointer-events-none">
+            {t("case.noneFound")}
+          </div>
+        )}
+
+        {/* Edge red flash on wrong click */}
+        {edgeFlash && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              boxShadow: `inset 0 0 60px hsl(var(--destructive) / ${flashIntensity}), inset 0 0 12px hsl(var(--destructive) / ${flashIntensity})`,
+              border: `4px solid hsl(var(--destructive) / ${flashIntensity})`,
+            }}
+          />
+        )}
+      </div>
+
+      {/* Found list (compact) */}
+      {found.length > 0 && (
+        <div className="flex flex-wrap gap-1">
+          {found.map((id) => {
+            const ev = data.evidence.find((x) => x.id === id);
+            if (!ev) return null;
+            return (
+              <button
+                key={id}
+                onClick={() => setOpenId(id)}
+                className="font-pixel text-[8px] bg-navy-light border-2 border-gold text-gold-bright px-1.5 py-0.5 hover:bg-gold/20 active:scale-95 transition"
+              >
+                {t(ev.label)}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="pt-2 flex justify-between items-center gap-2">
+        <span className="font-retro text-parchment-dark text-xs">
+          {found.length} {t("case.markedReliable")}
         </span>
-        <button
-          onClick={onNext}
-          disabled={selected.length === 0}
-          className="pixel-btn px-5 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {t("common.next")}
+        <button onClick={onNext} className="pixel-btn px-4 py-2 text-[10px]">
+          {t("case.proceed")}
         </button>
       </div>
 
-      {/* Detail modal */}
+      {/* Detail modal (shown on discovery and on marker click) */}
       {open && (
         <div
-          className="absolute inset-0 z-30 bg-navy-deep/80 flex items-center justify-center p-4"
+          className="absolute inset-0 z-30 bg-navy-deep/85 flex items-center justify-center p-4"
           onClick={() => setOpenId(null)}
         >
           <div
-            className="pixel-panel p-4 max-w-[92%] w-full max-h-[85%] overflow-y-auto"
+            className="pixel-panel p-4 max-w-[92%] w-full max-h-[85%] overflow-y-auto animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div className="font-pixel text-gold-bright text-xs">
-                {t(open.label)}
+                🔴 {t(open.label)}
               </div>
               {revealReliability && (
                 <span
@@ -472,7 +598,6 @@ const EvidenceView = ({
               {t(open.detail)}
             </p>
 
-            {/* Extended detail (source / context / caveats) — always available */}
             {(() => {
               const moreKey = `${open.detail}.more`;
               const moreText = t(moreKey);
@@ -506,7 +631,6 @@ const EvidenceView = ({
               <button
                 onClick={() => setOpenId(null)}
                 className="pixel-btn px-3 py-1.5 text-[10px]"
-              
               >
                 {t("common.close")}
               </button>

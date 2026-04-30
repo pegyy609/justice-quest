@@ -9,10 +9,12 @@ import imgC3 from "@/assets/case-c3.jpg";
 /**
  * NOTE on i18n:
  * All human-readable strings in CaseData are translation KEYS, not literal text.
- * Actual text lives in `CASE_DICT` per language and is merged into the
- * SettingsContext dictionary so that `t(key)` resolves them. This means
- * switching language instantly translates every quest title, brief,
- * dialogue line, evidence label, reasoning option and punishment.
+ *
+ * NOTE on hotspots:
+ * Each evidence has a hidden hotspot { x, y, r } in % of the scene area.
+ * Players must click/tap on the scene to discover evidence. Hotspots are
+ * intentionally small and scattered (some near edges, some partially hidden)
+ * to encourage careful observation rather than random clicking.
  */
 
 export const CASES: CaseData[] = [
@@ -29,10 +31,10 @@ export const CASES: CaseData[] = [
       { who: "case.s1.stmt.2.who", quote: "case.s1.stmt.2.quote" },
     ],
     evidence: [
-      { id: "cctv",   label: "case.s1.ev.cctv.label",   short: "case.s1.ev.cctv.short",   detail: "case.s1.ev.cctv.detail",   reliable: true },
-      { id: "locker", label: "case.s1.ev.locker.label", short: "case.s1.ev.locker.short", detail: "case.s1.ev.locker.detail", reliable: true },
-      { id: "rumor",  label: "case.s1.ev.rumor.label",  short: "case.s1.ev.rumor.short",  detail: "case.s1.ev.rumor.detail",  reliable: false },
-      { id: "alibi",  label: "case.s1.ev.alibi.label",  short: "case.s1.ev.alibi.short",  detail: "case.s1.ev.alibi.detail",  reliable: false },
+      { id: "cctv",   label: "case.s1.ev.cctv.label",   short: "case.s1.ev.cctv.short",   detail: "case.s1.ev.cctv.detail",   reliable: true,  hotspot: { x: 12, y: 14, r: 5 } },
+      { id: "locker", label: "case.s1.ev.locker.label", short: "case.s1.ev.locker.short", detail: "case.s1.ev.locker.detail", reliable: true,  hotspot: { x: 68, y: 58, r: 6 } },
+      { id: "rumor",  label: "case.s1.ev.rumor.label",  short: "case.s1.ev.rumor.short",  detail: "case.s1.ev.rumor.detail",  reliable: false, hotspot: { x: 32, y: 78, r: 5 } },
+      { id: "alibi",  label: "case.s1.ev.alibi.label",  short: "case.s1.ev.alibi.short",  detail: "case.s1.ev.alibi.detail",  reliable: false, hotspot: { x: 86, y: 22, r: 5 } },
     ],
     legalOptions: [
       { id: "theft",        label: "case.s1.legal.theft",        correct: true,  reasoning: "case.s1.legal.theft.r" },
@@ -61,10 +63,10 @@ export const CASES: CaseData[] = [
       { who: "case.s2.stmt.2.who", quote: "case.s2.stmt.2.quote" },
     ],
     evidence: [
-      { id: "answers", label: "case.s2.ev.answers.label", short: "case.s2.ev.answers.short", detail: "case.s2.ev.answers.detail", reliable: true },
-      { id: "history", label: "case.s2.ev.history.label", short: "case.s2.ev.history.short", detail: "case.s2.ev.history.detail", reliable: true },
-      { id: "gossip",  label: "case.s2.ev.gossip.label",  short: "case.s2.ev.gossip.short",  detail: "case.s2.ev.gossip.detail",  reliable: false },
-      { id: "tutor",   label: "case.s2.ev.tutor.label",   short: "case.s2.ev.tutor.short",   detail: "case.s2.ev.tutor.detail",   reliable: true },
+      { id: "answers", label: "case.s2.ev.answers.label", short: "case.s2.ev.answers.short", detail: "case.s2.ev.answers.detail", reliable: true,  hotspot: { x: 24, y: 62, r: 6 } },
+      { id: "history", label: "case.s2.ev.history.label", short: "case.s2.ev.history.short", detail: "case.s2.ev.history.detail", reliable: true,  hotspot: { x: 78, y: 30, r: 5 } },
+      { id: "gossip",  label: "case.s2.ev.gossip.label",  short: "case.s2.ev.gossip.short",  detail: "case.s2.ev.gossip.detail",  reliable: false, hotspot: { x: 50, y: 12, r: 5 } },
+      { id: "tutor",   label: "case.s2.ev.tutor.label",   short: "case.s2.ev.tutor.short",   detail: "case.s2.ev.tutor.detail",   reliable: true,  hotspot: { x: 88, y: 80, r: 5 } },
     ],
     legalOptions: [
       { id: "cheating",     label: "case.s2.legal.cheating",     correct: true,  reasoning: "case.s2.legal.cheating.r" },
@@ -94,10 +96,10 @@ export const CASES: CaseData[] = [
       { who: "case.s3.stmt.3.who", quote: "case.s3.stmt.3.quote" },
     ],
     evidence: [
-      { id: "bruise",  label: "case.s3.ev.bruise.label",  short: "case.s3.ev.bruise.short",  detail: "case.s3.ev.bruise.detail",  reliable: true },
-      { id: "history", label: "case.s3.ev.history.label", short: "case.s3.ev.history.short", detail: "case.s3.ev.history.detail", reliable: true },
-      { id: "anon",    label: "case.s3.ev.anon.label",    short: "case.s3.ev.anon.short",    detail: "case.s3.ev.anon.detail",    reliable: false },
-      { id: "cctv",    label: "case.s3.ev.cctv.label",    short: "case.s3.ev.cctv.short",    detail: "case.s3.ev.cctv.detail",    reliable: true },
+      { id: "bruise",  label: "case.s3.ev.bruise.label",  short: "case.s3.ev.bruise.short",  detail: "case.s3.ev.bruise.detail",  reliable: true,  hotspot: { x: 38, y: 54, r: 5 } },
+      { id: "history", label: "case.s3.ev.history.label", short: "case.s3.ev.history.short", detail: "case.s3.ev.history.detail", reliable: true,  hotspot: { x: 14, y: 36, r: 5 } },
+      { id: "anon",    label: "case.s3.ev.anon.label",    short: "case.s3.ev.anon.short",    detail: "case.s3.ev.anon.detail",    reliable: false, hotspot: { x: 72, y: 18, r: 5 } },
+      { id: "cctv",    label: "case.s3.ev.cctv.label",    short: "case.s3.ev.cctv.short",    detail: "case.s3.ev.cctv.detail",    reliable: true,  hotspot: { x: 84, y: 70, r: 5 } },
     ],
     legalOptions: [
       { id: "bullying",     label: "case.s3.legal.bullying",     correct: false, reasoning: "case.s3.legal.bullying.r" },
@@ -128,11 +130,11 @@ export const CASES: CaseData[] = [
       { who: "case.c1.stmt.2.who", quote: "case.c1.stmt.2.quote" },
     ],
     evidence: [
-      { id: "bank",     label: "case.c1.ev.bank.label",     short: "case.c1.ev.bank.short",     detail: "case.c1.ev.bank.detail",     reliable: true },
-      { id: "supplier", label: "case.c1.ev.supplier.label", short: "case.c1.ev.supplier.short", detail: "case.c1.ev.supplier.detail", reliable: false },
-      { id: "site",     label: "case.c1.ev.site.label",     short: "case.c1.ev.site.short",     detail: "case.c1.ev.site.detail",     reliable: true },
-      { id: "social",   label: "case.c1.ev.social.label",   short: "case.c1.ev.social.short",   detail: "case.c1.ev.social.detail",   reliable: false },
-      { id: "history",  label: "case.c1.ev.history.label",  short: "case.c1.ev.history.short",  detail: "case.c1.ev.history.detail",  reliable: true },
+      { id: "bank",     label: "case.c1.ev.bank.label",     short: "case.c1.ev.bank.short",     detail: "case.c1.ev.bank.detail",     reliable: true,  hotspot: { x: 18, y: 28, r: 5 } },
+      { id: "supplier", label: "case.c1.ev.supplier.label", short: "case.c1.ev.supplier.short", detail: "case.c1.ev.supplier.detail", reliable: false, hotspot: { x: 60, y: 80, r: 5 } },
+      { id: "site",     label: "case.c1.ev.site.label",     short: "case.c1.ev.site.short",     detail: "case.c1.ev.site.detail",     reliable: true,  hotspot: { x: 82, y: 44, r: 5 } },
+      { id: "social",   label: "case.c1.ev.social.label",   short: "case.c1.ev.social.short",   detail: "case.c1.ev.social.detail",   reliable: false, hotspot: { x: 44, y: 16, r: 5 } },
+      { id: "history",  label: "case.c1.ev.history.label",  short: "case.c1.ev.history.short",  detail: "case.c1.ev.history.detail",  reliable: true,  hotspot: { x: 30, y: 66, r: 5 } },
     ],
     legalOptions: [
       { id: "fraud",        label: "case.c1.legal.fraud",        correct: true,  reasoning: "case.c1.legal.fraud.r" },
@@ -161,10 +163,10 @@ export const CASES: CaseData[] = [
       { who: "case.c2.stmt.2.who", quote: "case.c2.stmt.2.quote" },
     ],
     evidence: [
-      { id: "decibel",     label: "case.c2.ev.decibel.label",     short: "case.c2.ev.decibel.short",     detail: "case.c2.ev.decibel.detail",     reliable: true },
-      { id: "post",        label: "case.c2.ev.post.label",        short: "case.c2.ev.post.short",        detail: "case.c2.ev.post.detail",        reliable: true },
-      { id: "screenshots", label: "case.c2.ev.screenshots.label", short: "case.c2.ev.screenshots.short", detail: "case.c2.ev.screenshots.detail", reliable: false },
-      { id: "permit",      label: "case.c2.ev.permit.label",      short: "case.c2.ev.permit.short",      detail: "case.c2.ev.permit.detail",      reliable: true },
+      { id: "decibel",     label: "case.c2.ev.decibel.label",     short: "case.c2.ev.decibel.short",     detail: "case.c2.ev.decibel.detail",     reliable: true,  hotspot: { x: 22, y: 40, r: 6 } },
+      { id: "post",        label: "case.c2.ev.post.label",        short: "case.c2.ev.post.short",        detail: "case.c2.ev.post.detail",        reliable: true,  hotspot: { x: 70, y: 24, r: 5 } },
+      { id: "screenshots", label: "case.c2.ev.screenshots.label", short: "case.c2.ev.screenshots.short", detail: "case.c2.ev.screenshots.detail", reliable: false, hotspot: { x: 48, y: 70, r: 5 } },
+      { id: "permit",      label: "case.c2.ev.permit.label",      short: "case.c2.ev.permit.short",      detail: "case.c2.ev.permit.detail",      reliable: true,  hotspot: { x: 86, y: 82, r: 5 } },
     ],
     legalOptions: [
       { id: "both",         label: "case.c2.legal.both",         correct: true,  reasoning: "case.c2.legal.both.r" },
@@ -193,10 +195,10 @@ export const CASES: CaseData[] = [
       { who: "case.c3.stmt.2.who", quote: "case.c3.stmt.2.quote" },
     ],
     evidence: [
-      { id: "harness",  label: "case.c3.ev.harness.label",  short: "case.c3.ev.harness.short",  detail: "case.c3.ev.harness.detail",  reliable: true },
-      { id: "log",      label: "case.c3.ev.log.label",      short: "case.c3.ev.log.short",      detail: "case.c3.ev.log.detail",      reliable: true },
-      { id: "training", label: "case.c3.ev.training.label", short: "case.c3.ev.training.short", detail: "case.c3.ev.training.detail", reliable: true },
-      { id: "anon",     label: "case.c3.ev.anon.label",     short: "case.c3.ev.anon.short",     detail: "case.c3.ev.anon.detail",     reliable: false },
+      { id: "harness",  label: "case.c3.ev.harness.label",  short: "case.c3.ev.harness.short",  detail: "case.c3.ev.harness.detail",  reliable: true,  hotspot: { x: 36, y: 58, r: 5 } },
+      { id: "log",      label: "case.c3.ev.log.label",      short: "case.c3.ev.log.short",      detail: "case.c3.ev.log.detail",      reliable: true,  hotspot: { x: 78, y: 38, r: 5 } },
+      { id: "training", label: "case.c3.ev.training.label", short: "case.c3.ev.training.short", detail: "case.c3.ev.training.detail", reliable: true,  hotspot: { x: 16, y: 22, r: 5 } },
+      { id: "anon",     label: "case.c3.ev.anon.label",     short: "case.c3.ev.anon.short",     detail: "case.c3.ev.anon.detail",     reliable: false, hotspot: { x: 64, y: 82, r: 5 } },
     ],
     legalOptions: [
       { id: "negligence",   label: "case.c3.legal.negligence",   correct: true,  reasoning: "case.c3.legal.negligence.r" },
