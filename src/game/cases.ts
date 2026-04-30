@@ -13,12 +13,19 @@ import imgC3 from "@/assets/case-c3.jpg";
  * NOTE on hotspots:
  * Each evidence has a hidden hotspot { x, y, r } in % of the scene area.
  * Players must click/tap on the scene to discover evidence. Hotspots are
- * intentionally small and scattered (some near edges, some partially hidden)
- * to encourage careful observation rather than random clicking.
+ * intentionally small and scattered to encourage careful observation.
+ *
+ * NOTE on verdicts:
+ * The schema allows only "guilty" | "not_guilty" for correctVerdict. For cases
+ * where the truly correct outcome is "insufficient evidence" or "shared
+ * responsibility", we set correctVerdict to "not_guilty" and rely on the
+ * `legalOptions[].correct` flag to identify the right legal reasoning.
  */
 
 export const CASES: CaseData[] = [
   // ============ SCHOOL CHAPTER ============
+
+  // S1 — The Missing Laptop (Presence ≠ Guilt)
   {
     id: "s1",
     chapter: "school",
@@ -31,26 +38,29 @@ export const CASES: CaseData[] = [
       { who: "case.s1.stmt.2.who", quote: "case.s1.stmt.2.quote" },
     ],
     evidence: [
-      { id: "cctv",   label: "case.s1.ev.cctv.label",   short: "case.s1.ev.cctv.short",   detail: "case.s1.ev.cctv.detail",   reliable: true,  hotspot: { x: 12, y: 14, r: 5 } },
-      { id: "locker", label: "case.s1.ev.locker.label", short: "case.s1.ev.locker.short", detail: "case.s1.ev.locker.detail", reliable: true,  hotspot: { x: 68, y: 58, r: 6 } },
-      { id: "rumor",  label: "case.s1.ev.rumor.label",  short: "case.s1.ev.rumor.short",  detail: "case.s1.ev.rumor.detail",  reliable: false, hotspot: { x: 32, y: 78, r: 5 } },
-      { id: "alibi",  label: "case.s1.ev.alibi.label",  short: "case.s1.ev.alibi.short",  detail: "case.s1.ev.alibi.detail",  reliable: false, hotspot: { x: 86, y: 22, r: 5 } },
+      { id: "empty_desk", label: "case.s1.ev.empty_desk.label", short: "case.s1.ev.empty_desk.short", detail: "case.s1.ev.empty_desk.detail", reliable: true,  hotspot: { x: 50, y: 38, r: 5 } },
+      { id: "open_bag",   label: "case.s1.ev.open_bag.label",   short: "case.s1.ev.open_bag.short",   detail: "case.s1.ev.open_bag.detail",   reliable: true,  hotspot: { x: 36, y: 78, r: 5 } },
+      { id: "cable",      label: "case.s1.ev.cable.label",      short: "case.s1.ev.cable.short",      detail: "case.s1.ev.cable.detail",      reliable: true,  hotspot: { x: 56, y: 85, r: 5 } }, // ⭐
+      { id: "student",    label: "case.s1.ev.student.label",    short: "case.s1.ev.student.short",    detail: "case.s1.ev.student.detail",    reliable: false, hotspot: { x: 82, y: 46, r: 5 } },
+      { id: "window",     label: "case.s1.ev.window.label",     short: "case.s1.ev.window.short",     detail: "case.s1.ev.window.detail",     reliable: true,  hotspot: { x: 48, y: 12, r: 6 } },
     ],
     legalOptions: [
-      { id: "theft",        label: "case.s1.legal.theft",        correct: true,  reasoning: "case.s1.legal.theft.r" },
+      { id: "insufficient", label: "case.s1.legal.insufficient", correct: true,  reasoning: "case.s1.legal.insufficient.r" },
+      { id: "theft",        label: "case.s1.legal.theft",        correct: false, reasoning: "case.s1.legal.theft.r" },
       { id: "misconduct",   label: "case.s1.legal.misconduct",   correct: false, reasoning: "case.s1.legal.misconduct.r" },
-      { id: "insufficient", label: "case.s1.legal.insufficient", correct: false, reasoning: "case.s1.legal.insufficient.r" },
     ],
-    correctVerdict: "guilty",
-    recommendedPunishmentId: "suspension",
+    correctVerdict: "not_guilty",
+    recommendedPunishmentId: "none",
     punishments: [
-      { id: "warning",    label: "case.s1.pun.warning",    severity: 1 },
-      { id: "detention",  label: "case.s1.pun.detention",  severity: 2 },
-      { id: "suspension", label: "case.s1.pun.suspension", severity: 3 },
+      { id: "none",     label: "case.s1.pun.none",     severity: 0 },
+      { id: "warning",  label: "case.s1.pun.warning",  severity: 1 },
+      { id: "detention", label: "case.s1.pun.detention", severity: 2 },
     ],
     realWorldNote: "case.s1.realWorld",
     standardOfProof: "case.s1.standard",
   },
+
+  // S2 — Exam Cheating (Similarity ≠ Confirmed Cheating)
   {
     id: "s2",
     chapter: "school",
@@ -63,26 +73,29 @@ export const CASES: CaseData[] = [
       { who: "case.s2.stmt.2.who", quote: "case.s2.stmt.2.quote" },
     ],
     evidence: [
-      { id: "answers", label: "case.s2.ev.answers.label", short: "case.s2.ev.answers.short", detail: "case.s2.ev.answers.detail", reliable: true,  hotspot: { x: 24, y: 62, r: 6 } },
-      { id: "history", label: "case.s2.ev.history.label", short: "case.s2.ev.history.short", detail: "case.s2.ev.history.detail", reliable: true,  hotspot: { x: 78, y: 30, r: 5 } },
-      { id: "gossip",  label: "case.s2.ev.gossip.label",  short: "case.s2.ev.gossip.short",  detail: "case.s2.ev.gossip.detail",  reliable: false, hotspot: { x: 50, y: 12, r: 5 } },
-      { id: "tutor",   label: "case.s2.ev.tutor.label",   short: "case.s2.ev.tutor.short",   detail: "case.s2.ev.tutor.detail",   reliable: true,  hotspot: { x: 88, y: 80, r: 5 } },
+      { id: "answers",     label: "case.s2.ev.answers.label",     short: "case.s2.ev.answers.short",     detail: "case.s2.ev.answers.detail",     reliable: true,  hotspot: { x: 38, y: 56, r: 5 } }, // ⭐
+      { id: "seating",     label: "case.s2.ev.seating.label",     short: "case.s2.ev.seating.short",     detail: "case.s2.ev.seating.detail",     reliable: true,  hotspot: { x: 60, y: 70, r: 5 } },
+      { id: "glance",      label: "case.s2.ev.glance.label",      short: "case.s2.ev.glance.short",      detail: "case.s2.ev.glance.detail",      reliable: false, hotspot: { x: 70, y: 42, r: 5 } },
+      { id: "invigilator", label: "case.s2.ev.invigilator.label", short: "case.s2.ev.invigilator.short", detail: "case.s2.ev.invigilator.detail", reliable: true,  hotspot: { x: 50, y: 18, r: 5 } },
+      { id: "rough",       label: "case.s2.ev.rough.label",       short: "case.s2.ev.rough.short",       detail: "case.s2.ev.rough.detail",       reliable: true,  hotspot: { x: 50, y: 50, r: 5 } },
     ],
     legalOptions: [
-      { id: "cheating",     label: "case.s2.legal.cheating",     correct: true,  reasoning: "case.s2.legal.cheating.r" },
-      { id: "misconduct",   label: "case.s2.legal.misconduct",   correct: false, reasoning: "case.s2.legal.misconduct.r" },
-      { id: "insufficient", label: "case.s2.legal.insufficient", correct: false, reasoning: "case.s2.legal.insufficient.r" },
+      { id: "misconduct",   label: "case.s2.legal.misconduct",   correct: true,  reasoning: "case.s2.legal.misconduct.r" },
+      { id: "insufficient", label: "case.s2.legal.insufficient", correct: true,  reasoning: "case.s2.legal.insufficient.r" },
+      { id: "cheating",     label: "case.s2.legal.cheating",     correct: false, reasoning: "case.s2.legal.cheating.r" },
     ],
-    correctVerdict: "guilty",
-    recommendedPunishmentId: "retake",
+    correctVerdict: "not_guilty",
+    recommendedPunishmentId: "warning",
     punishments: [
-      { id: "warning",    label: "case.s2.pun.warning",    severity: 1 },
-      { id: "retake",     label: "case.s2.pun.retake",     severity: 2 },
+      { id: "warning",  label: "case.s2.pun.warning",  severity: 1 },
+      { id: "retake",   label: "case.s2.pun.retake",   severity: 2 },
       { id: "suspension", label: "case.s2.pun.suspension", severity: 3 },
     ],
     realWorldNote: "case.s2.realWorld",
     standardOfProof: "case.s2.standard",
   },
+
+  // S3 — Broken Window (Group presence, no clear responsibility)
   {
     id: "s3",
     chapter: "school",
@@ -93,31 +106,33 @@ export const CASES: CaseData[] = [
       { who: "case.s3.stmt.0.who", quote: "case.s3.stmt.0.quote" },
       { who: "case.s3.stmt.1.who", quote: "case.s3.stmt.1.quote" },
       { who: "case.s3.stmt.2.who", quote: "case.s3.stmt.2.quote" },
-      { who: "case.s3.stmt.3.who", quote: "case.s3.stmt.3.quote" },
     ],
     evidence: [
-      { id: "bruise",  label: "case.s3.ev.bruise.label",  short: "case.s3.ev.bruise.short",  detail: "case.s3.ev.bruise.detail",  reliable: true,  hotspot: { x: 38, y: 54, r: 5 } },
-      { id: "history", label: "case.s3.ev.history.label", short: "case.s3.ev.history.short", detail: "case.s3.ev.history.detail", reliable: true,  hotspot: { x: 14, y: 36, r: 5 } },
-      { id: "anon",    label: "case.s3.ev.anon.label",    short: "case.s3.ev.anon.short",    detail: "case.s3.ev.anon.detail",    reliable: false, hotspot: { x: 72, y: 18, r: 5 } },
-      { id: "cctv",    label: "case.s3.ev.cctv.label",    short: "case.s3.ev.cctv.short",    detail: "case.s3.ev.cctv.detail",    reliable: true,  hotspot: { x: 84, y: 70, r: 5 } },
+      { id: "glass",   label: "case.s3.ev.glass.label",   short: "case.s3.ev.glass.short",   detail: "case.s3.ev.glass.detail",   reliable: true,  hotspot: { x: 32, y: 78, r: 6 } },
+      { id: "ball",    label: "case.s3.ev.ball.label",    short: "case.s3.ev.ball.short",    detail: "case.s3.ev.ball.detail",    reliable: true,  hotspot: { x: 50, y: 70, r: 5 } }, // ⭐
+      { id: "group",   label: "case.s3.ev.group.label",   short: "case.s3.ev.group.short",   detail: "case.s3.ev.group.detail",   reliable: true,  hotspot: { x: 70, y: 46, r: 5 } },
+      { id: "nervous", label: "case.s3.ev.nervous.label", short: "case.s3.ev.nervous.short", detail: "case.s3.ev.nervous.detail", reliable: false, hotspot: { x: 76, y: 50, r: 4 } },
+      { id: "witness", label: "case.s3.ev.witness.label", short: "case.s3.ev.witness.short", detail: "case.s3.ev.witness.detail", reliable: false, hotspot: { x: 14, y: 30, r: 5 } },
     ],
     legalOptions: [
-      { id: "bullying",     label: "case.s3.legal.bullying",     correct: false, reasoning: "case.s3.legal.bullying.r" },
-      { id: "misconduct",   label: "case.s3.legal.misconduct",   correct: true,  reasoning: "case.s3.legal.misconduct.r" },
-      { id: "insufficient", label: "case.s3.legal.insufficient", correct: false, reasoning: "case.s3.legal.insufficient.r" },
+      { id: "insufficient", label: "case.s3.legal.insufficient", correct: true,  reasoning: "case.s3.legal.insufficient.r" },
+      { id: "shared",       label: "case.s3.legal.shared",       correct: false, reasoning: "case.s3.legal.shared.r" }, // partial credit story-wise; not the best
+      { id: "misconduct",   label: "case.s3.legal.misconduct",   correct: false, reasoning: "case.s3.legal.misconduct.r" },
     ],
-    correctVerdict: "guilty",
-    recommendedPunishmentId: "mediation",
+    correctVerdict: "not_guilty",
+    recommendedPunishmentId: "none",
     punishments: [
-      { id: "warning",    label: "case.s3.pun.warning",    severity: 1 },
-      { id: "mediation",  label: "case.s3.pun.mediation",  severity: 2 },
-      { id: "suspension", label: "case.s3.pun.suspension", severity: 3 },
+      { id: "none",      label: "case.s3.pun.none",      severity: 0 },
+      { id: "warning",   label: "case.s3.pun.warning",   severity: 1 },
+      { id: "mediation", label: "case.s3.pun.mediation", severity: 2 },
     ],
     realWorldNote: "case.s3.realWorld",
     standardOfProof: "case.s3.standard",
   },
 
   // ============ SOCIETY CHAPTER ============
+
+  // C1 — Shoplifting (Crime is clear, but motive matters)
   {
     id: "c1",
     chapter: "society",
@@ -130,27 +145,29 @@ export const CASES: CaseData[] = [
       { who: "case.c1.stmt.2.who", quote: "case.c1.stmt.2.quote" },
     ],
     evidence: [
-      { id: "bank",     label: "case.c1.ev.bank.label",     short: "case.c1.ev.bank.short",     detail: "case.c1.ev.bank.detail",     reliable: true,  hotspot: { x: 18, y: 28, r: 5 } },
-      { id: "supplier", label: "case.c1.ev.supplier.label", short: "case.c1.ev.supplier.short", detail: "case.c1.ev.supplier.detail", reliable: false, hotspot: { x: 60, y: 80, r: 5 } },
-      { id: "site",     label: "case.c1.ev.site.label",     short: "case.c1.ev.site.short",     detail: "case.c1.ev.site.detail",     reliable: true,  hotspot: { x: 82, y: 44, r: 5 } },
-      { id: "social",   label: "case.c1.ev.social.label",   short: "case.c1.ev.social.short",   detail: "case.c1.ev.social.detail",   reliable: false, hotspot: { x: 44, y: 16, r: 5 } },
-      { id: "history",  label: "case.c1.ev.history.label",  short: "case.c1.ev.history.short",  detail: "case.c1.ev.history.detail",  reliable: true,  hotspot: { x: 30, y: 66, r: 5 } },
+      { id: "cctv",     label: "case.c1.ev.cctv.label",     short: "case.c1.ev.cctv.short",     detail: "case.c1.ev.cctv.detail",     reliable: true,  hotspot: { x: 12, y: 14, r: 5 } }, // ⭐
+      { id: "no_pay",   label: "case.c1.ev.no_pay.label",   short: "case.c1.ev.no_pay.short",   detail: "case.c1.ev.no_pay.detail",   reliable: true,  hotspot: { x: 70, y: 44, r: 5 } }, // ⭐
+      { id: "distress", label: "case.c1.ev.distress.label", short: "case.c1.ev.distress.short", detail: "case.c1.ev.distress.detail", reliable: false, hotspot: { x: 22, y: 52, r: 5 } },
+      { id: "wallet",   label: "case.c1.ev.wallet.label",   short: "case.c1.ev.wallet.short",   detail: "case.c1.ev.wallet.detail",   reliable: true,  hotspot: { x: 86, y: 60, r: 5 } },
+      { id: "staff",    label: "case.c1.ev.staff.label",    short: "case.c1.ev.staff.short",    detail: "case.c1.ev.staff.detail",    reliable: true,  hotspot: { x: 64, y: 36, r: 5 } },
     ],
     legalOptions: [
-      { id: "fraud",        label: "case.c1.legal.fraud",        correct: true,  reasoning: "case.c1.legal.fraud.r" },
-      { id: "negligence",   label: "case.c1.legal.negligence",   correct: false, reasoning: "case.c1.legal.negligence.r" },
+      { id: "theft_light", label: "case.c1.legal.theft_light", correct: true,  reasoning: "case.c1.legal.theft_light.r" },
+      { id: "theft_full",  label: "case.c1.legal.theft_full",  correct: false, reasoning: "case.c1.legal.theft_full.r" },
       { id: "insufficient", label: "case.c1.legal.insufficient", correct: false, reasoning: "case.c1.legal.insufficient.r" },
     ],
     correctVerdict: "guilty",
-    recommendedPunishmentId: "fine_jail",
+    recommendedPunishmentId: "community",
     punishments: [
-      { id: "fine",      label: "case.c1.pun.fine",      severity: 1 },
-      { id: "fine_jail", label: "case.c1.pun.fine_jail", severity: 2 },
-      { id: "max",       label: "case.c1.pun.max",       severity: 3 },
+      { id: "warning",   label: "case.c1.pun.warning",   severity: 1 },
+      { id: "community", label: "case.c1.pun.community", severity: 2 },
+      { id: "jail",      label: "case.c1.pun.jail",      severity: 3 },
     ],
     realWorldNote: "case.c1.realWorld",
     standardOfProof: "case.c1.standard",
   },
+
+  // C2 — Traffic Accident (Conflicting evidence — shared responsibility)
   {
     id: "c2",
     chapter: "society",
@@ -161,28 +178,32 @@ export const CASES: CaseData[] = [
       { who: "case.c2.stmt.0.who", quote: "case.c2.stmt.0.quote" },
       { who: "case.c2.stmt.1.who", quote: "case.c2.stmt.1.quote" },
       { who: "case.c2.stmt.2.who", quote: "case.c2.stmt.2.quote" },
+      { who: "case.c2.stmt.3.who", quote: "case.c2.stmt.3.quote" },
     ],
     evidence: [
-      { id: "decibel",     label: "case.c2.ev.decibel.label",     short: "case.c2.ev.decibel.short",     detail: "case.c2.ev.decibel.detail",     reliable: true,  hotspot: { x: 22, y: 40, r: 6 } },
-      { id: "post",        label: "case.c2.ev.post.label",        short: "case.c2.ev.post.short",        detail: "case.c2.ev.post.detail",        reliable: true,  hotspot: { x: 70, y: 24, r: 5 } },
-      { id: "screenshots", label: "case.c2.ev.screenshots.label", short: "case.c2.ev.screenshots.short", detail: "case.c2.ev.screenshots.detail", reliable: false, hotspot: { x: 48, y: 70, r: 5 } },
-      { id: "permit",      label: "case.c2.ev.permit.label",      short: "case.c2.ev.permit.short",      detail: "case.c2.ev.permit.detail",      reliable: true,  hotspot: { x: 86, y: 82, r: 5 } },
+      { id: "cars",     label: "case.c2.ev.cars.label",     short: "case.c2.ev.cars.short",     detail: "case.c2.ev.cars.detail",     reliable: true,  hotspot: { x: 28, y: 50, r: 6 } },
+      { id: "light",    label: "case.c2.ev.light.label",    short: "case.c2.ev.light.short",    detail: "case.c2.ev.light.detail",    reliable: false, hotspot: { x: 50, y: 14, r: 5 } },
+      { id: "witnessA", label: "case.c2.ev.witnessA.label", short: "case.c2.ev.witnessA.short", detail: "case.c2.ev.witnessA.detail", reliable: false, hotspot: { x: 12, y: 28, r: 5 } },
+      { id: "witnessB", label: "case.c2.ev.witnessB.label", short: "case.c2.ev.witnessB.short", detail: "case.c2.ev.witnessB.detail", reliable: false, hotspot: { x: 86, y: 28, r: 5 } },
+      { id: "skid",     label: "case.c2.ev.skid.label",     short: "case.c2.ev.skid.short",     detail: "case.c2.ev.skid.detail",     reliable: true,  hotspot: { x: 44, y: 78, r: 6 } }, // ⭐
     ],
     legalOptions: [
-      { id: "both",         label: "case.c2.legal.both",         correct: true,  reasoning: "case.c2.legal.both.r" },
-      { id: "defamation",   label: "case.c2.legal.defamation",   correct: false, reasoning: "case.c2.legal.defamation.r" },
-      { id: "insufficient", label: "case.c2.legal.insufficient", correct: false, reasoning: "case.c2.legal.insufficient.r" },
+      { id: "shared",       label: "case.c2.legal.shared",       correct: true,  reasoning: "case.c2.legal.shared.r" },
+      { id: "insufficient", label: "case.c2.legal.insufficient", correct: true,  reasoning: "case.c2.legal.insufficient.r" },
+      { id: "driver1",      label: "case.c2.legal.driver1",      correct: false, reasoning: "case.c2.legal.driver1.r" },
     ],
-    correctVerdict: "guilty",
-    recommendedPunishmentId: "mediation",
+    correctVerdict: "not_guilty",
+    recommendedPunishmentId: "shared_fine",
     punishments: [
-      { id: "mediation", label: "case.c2.pun.mediation", severity: 1 },
-      { id: "fines",     label: "case.c2.pun.fines",     severity: 2 },
-      { id: "court",     label: "case.c2.pun.court",     severity: 3 },
+      { id: "mediation",   label: "case.c2.pun.mediation",   severity: 1 },
+      { id: "shared_fine", label: "case.c2.pun.shared_fine", severity: 2 },
+      { id: "license",     label: "case.c2.pun.license",     severity: 3 },
     ],
     realWorldNote: "case.c2.realWorld",
     standardOfProof: "case.c2.standard",
   },
+
+  // C3 — Online Scam (Intent vs misunderstanding — fraud)
   {
     id: "c3",
     chapter: "society",
@@ -195,22 +216,23 @@ export const CASES: CaseData[] = [
       { who: "case.c3.stmt.2.who", quote: "case.c3.stmt.2.quote" },
     ],
     evidence: [
-      { id: "harness",  label: "case.c3.ev.harness.label",  short: "case.c3.ev.harness.short",  detail: "case.c3.ev.harness.detail",  reliable: true,  hotspot: { x: 36, y: 58, r: 5 } },
-      { id: "log",      label: "case.c3.ev.log.label",      short: "case.c3.ev.log.short",      detail: "case.c3.ev.log.detail",      reliable: true,  hotspot: { x: 78, y: 38, r: 5 } },
-      { id: "training", label: "case.c3.ev.training.label", short: "case.c3.ev.training.short", detail: "case.c3.ev.training.detail", reliable: true,  hotspot: { x: 16, y: 22, r: 5 } },
-      { id: "anon",     label: "case.c3.ev.anon.label",     short: "case.c3.ev.anon.short",     detail: "case.c3.ev.anon.detail",     reliable: false, hotspot: { x: 64, y: 82, r: 5 } },
+      { id: "chat",     label: "case.c3.ev.chat.label",     short: "case.c3.ev.chat.short",     detail: "case.c3.ev.chat.detail",     reliable: true,  hotspot: { x: 50, y: 32, r: 6 } }, // ⭐
+      { id: "transfer", label: "case.c3.ev.transfer.label", short: "case.c3.ev.transfer.short", detail: "case.c3.ev.transfer.detail", reliable: true,  hotspot: { x: 50, y: 60, r: 6 } }, // ⭐
+      { id: "contract", label: "case.c3.ev.contract.label", short: "case.c3.ev.contract.short", detail: "case.c3.ev.contract.detail", reliable: true,  hotspot: { x: 18, y: 46, r: 5 } },
+      { id: "profile",  label: "case.c3.ev.profile.label",  short: "case.c3.ev.profile.short",  detail: "case.c3.ev.profile.detail",  reliable: true,  hotspot: { x: 60, y: 18, r: 5 } },
+      { id: "claim",    label: "case.c3.ev.claim.label",    short: "case.c3.ev.claim.short",    detail: "case.c3.ev.claim.detail",    reliable: false, hotspot: { x: 80, y: 78, r: 5 } },
     ],
     legalOptions: [
-      { id: "negligence",   label: "case.c3.legal.negligence",   correct: true,  reasoning: "case.c3.legal.negligence.r" },
-      { id: "shared",       label: "case.c3.legal.shared",       correct: false, reasoning: "case.c3.legal.shared.r" },
+      { id: "fraud",        label: "case.c3.legal.fraud",        correct: true,  reasoning: "case.c3.legal.fraud.r" },
+      { id: "negligence",   label: "case.c3.legal.negligence",   correct: false, reasoning: "case.c3.legal.negligence.r" },
       { id: "insufficient", label: "case.c3.legal.insufficient", correct: false, reasoning: "case.c3.legal.insufficient.r" },
     ],
     correctVerdict: "guilty",
-    recommendedPunishmentId: "fine_ban",
+    recommendedPunishmentId: "fine_jail",
     punishments: [
-      { id: "warning",  label: "case.c3.pun.warning",  severity: 1 },
-      { id: "fine_ban", label: "case.c3.pun.fine_ban", severity: 2 },
-      { id: "jail",     label: "case.c3.pun.jail",     severity: 3 },
+      { id: "fine",      label: "case.c3.pun.fine",      severity: 1 },
+      { id: "fine_jail", label: "case.c3.pun.fine_jail", severity: 2 },
+      { id: "max",       label: "case.c3.pun.max",       severity: 3 },
     ],
     realWorldNote: "case.c3.realWorld",
     standardOfProof: "case.c3.standard",
