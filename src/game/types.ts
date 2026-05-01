@@ -6,7 +6,15 @@ export type Screen =
   | "triumph"
   | "case";
 
-export type Chapter = "school" | "society";
+export type Chapter =
+  | "ch1_silent_classroom"
+  | "ch2_exam_papers"
+  | "ch3_manipulated_truth"
+  | "ch4_shadow_network"
+  | "ch5_web_abyss";
+
+/** Legacy aliases — many existing components/strings still use these. */
+export type LegacyChapter = "school" | "society";
 
 export interface EvidenceHotspot {
   /** Center X as % of scene width (0-100) */
