@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Screen, JudgementResult } from "@/game/types";
 import { getCaseById } from "@/game/cases";
+import { isSchoolChapter } from "@/game/cases";
 import courthouseBg from "@/assets/courthouse-bg.jpg";
 import schoolBg from "@/assets/school-bg.jpg";
 import societyBg from "@/assets/society-bg.jpg";
@@ -39,7 +40,7 @@ const CaseScreen = ({ caseId, onNavigate }: Props) => {
 
   const bg = useMemo(() => {
     if (!data) return courthouseBg;
-    return data.chapter === "school" ? schoolBg : societyBg;
+    return isSchoolChapter(data.chapter) ? schoolBg : societyBg;
   }, [data]);
 
   if (!data) {
